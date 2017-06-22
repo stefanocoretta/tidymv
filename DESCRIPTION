@@ -1,0 +1,11 @@
+Package: tidymv
+Type: Package
+Title: Tidy Model Visualisation
+Version: 0.0.0.9000
+Authors@R: person("Stefano", "Coretta", email = "stefano.coretta@gmail.com",
+                  role = c("aut", "cre"))
+Description: This package provides functions for model visualisation using tidy
+    tools from the tidyverse.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
