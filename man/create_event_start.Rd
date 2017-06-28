@@ -2,7 +2,7 @@
 % Please edit documentation in R/functions.R
 \name{create_event_start}
 \alias{create_event_start}
-\title{Create a start event column}
+\title{Create a start event column.}
 \usage{
 create_event_start(tibble, event.col)
 }

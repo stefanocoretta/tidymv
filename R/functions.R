@@ -89,13 +89,13 @@ plot_gamsd <- function(model, view, comparison) {
         ) +
         ggplot2::theme(
             axis.title.x=ggplot2::element_blank(),
-            axis.text.x=element_blank(),
-            axis.ticks.x=element_blank(),
+            axis.text.x=ggplot2::element_blank(),
+            axis.ticks.x=ggplot2::element_blank(),
             legend.position = "top"
         ) +
         ggplot2::xlim(min(diff.df[[view]]), max(diff.df[[view]])) +
-        scale_colour_discrete(name = names(comparison)) +
-        scale_fill_discrete(name = names(comparison))
+        ggplot2::scale_colour_discrete(name = names(comparison)) +
+        ggplot2::scale_fill_discrete(name = names(comparison))
 
     ymin.di <- diff.df$est - diff.df$CI
     ymax.di <- diff.df$est + diff.df$CI
