@@ -10,4 +10,8 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1
-Imports: dplyr
+Imports: cowplot,
+    dplyr,
+    itsadug,
+    ggplot2,
+    magrittr
