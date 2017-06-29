@@ -87,6 +87,7 @@ plot_gamsd <- function(model, view, comparison) {
         ggplot2::geom_line(
             ggplot2::aes(colour = smooth.df[[comp.column]])
         ) +
+        ggplot2::theme_bw() +
         ggplot2::theme(
             axis.title.x = ggplot2::element_blank(),
             axis.text.x = ggplot2::element_blank(),
@@ -120,7 +121,8 @@ plot_gamsd <- function(model, view, comparison) {
             alpha = 0.2
         ) +
         ggplot2::geom_line() +
-        ggplot2::xlim(min(diff.df[[view]]), max(diff.df[[view]]))
+        ggplot2::xlim(min(diff.df[[view]]), max(diff.df[[view]])) +
+        ggplot2::theme_bw()
 
     cowplot::plot_grid(smooth.plot, diff.plot, align = "v", nrow = 2, rel_heights = c(2/3, 1/3))
 }
