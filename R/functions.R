@@ -46,7 +46,8 @@ plot_gamsd <- function(model, view, comparison) {
         model,
         view = view,
         comp = comparison,
-        plot = FALSE)
+        plot = FALSE,
+        print.summary = FALSE)
 
     condition <- list(
         seq(min(diff.df[[view]]), max(diff.df[[view]]), length = 100)
