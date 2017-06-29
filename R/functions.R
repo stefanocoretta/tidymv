@@ -88,9 +88,9 @@ plot_gamsd <- function(model, view, comparison) {
             ggplot2::aes(colour = smooth.df[[comp.column]])
         ) +
         ggplot2::theme(
-            axis.title.x=ggplot2::element_blank(),
-            axis.text.x=ggplot2::element_blank(),
-            axis.ticks.x=ggplot2::element_blank(),
+            axis.title.x = ggplot2::element_blank(),
+            axis.text.x = ggplot2::element_blank(),
+            axis.ticks.x = ggplot2::element_blank(),
             legend.position = "top"
         ) +
         ggplot2::xlim(min(diff.df[[view]]), max(diff.df[[view]])) +
