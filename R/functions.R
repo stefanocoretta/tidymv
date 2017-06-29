@@ -37,22 +37,26 @@ create_event_start <- function(tibble, event.col) {
 #'
 #' @param model A \code{gam} or \code{bam} model object.
 #' @param view The predictor determining the time series.
-#' @param comparison The levels for the comparison as a list.
+#' @param comparison The levels for the comparison as a named list.
+#' @param conditions The values to use for other predictors as a named list.
 #'
 #' @importFrom magrittr "%>%"
 #' @export
-plot_gamsd <- function(model, view, comparison) {
+plot_gamsd <- function(model, view, comparison, conditions = NULL) {
     diff.df <- itsadug::plot_diff(
         model,
         view = view,
         comp = comparison,
+        cond = conditions,
         plot = FALSE,
         print.summary = FALSE)
 
-    condition <- list(
+    main.condition <- list(
         seq(min(diff.df[[view]]), max(diff.df[[view]]), length = 100)
     )
-    names(condition) <- view
+    names(main.condition) <- view
+
+    condition = c(main.condition, conditions)
 
     smooth.df <- itsadug::get_predictions(
         model,

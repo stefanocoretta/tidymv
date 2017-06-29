@@ -4,14 +4,16 @@
 \alias{plot_gamsd}
 \title{Plot GLM estimate smooths and difference curve.}
 \usage{
-plot_gamsd(model, view, comparison)
+plot_gamsd(model, view, comparison, conditions = NULL)
 }
 \arguments{
 \item{model}{A \code{gam} or \code{bam} model object.}
 
 \item{view}{The predictor determining the time series.}
 
-\item{comparison}{The levels for the comparison as a list.}
+\item{comparison}{The levels for the comparison as a named list.}
+
+\item{conditions}{The values to use for other predictors as a named list.}
 }
 \description{
 It plots comparison smooths from the estimates of a \link[mgcv]{gam} or \link[mgcv]{bam}
