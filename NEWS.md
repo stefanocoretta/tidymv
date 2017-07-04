@@ -1,6 +1,9 @@
 # Change Log
 
 ## Unreleased
+### Added
+- documentation of package
+
 ### Fixed
 - error when handling non-significant areas in `plot_gamsd()`
 
