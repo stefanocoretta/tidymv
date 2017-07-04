@@ -73,15 +73,19 @@ plot_gamsd <- function(model, view, comparison, conditions = NULL) {
     fit <- "fit"
     comp.column <- names(comparison)
 
+    annotate <- ggplot2::annotate(
+        "rect",
+        xmin=sig.diff$start, xmax=sig.diff$end,
+        ymin=-Inf, ymax=Inf, alpha=0.1, fill="red"
+    )
+
+    is.sig <- length(sig.diff$start) > 0
+
     smooth.plot <- smooth.df %>%
         ggplot2::ggplot(
             ggplot2::aes_string(view, fit)
         ) +
-        ggplot2::annotate(
-            "rect",
-            xmin=sig.diff$start, xmax=sig.diff$end,
-            ymin=-Inf, ymax=Inf, alpha=0.1, fill="red"
-        ) +
+        {if (is.sig) {annotate}} +
         ggplot2::geom_ribbon(
             ggplot2::aes(ymin = ymin.sm,
                          ymax = ymax.sm,
@@ -113,11 +117,7 @@ plot_gamsd <- function(model, view, comparison, conditions = NULL) {
             ggplot2::aes_string(view, est)
         ) +
         ggplot2::geom_hline(yintercept = 0, size = 0.3) +
-        ggplot2::annotate(
-            "rect",
-            xmin=sig.diff$start, xmax=sig.diff$end,
-            ymin=-Inf, ymax=Inf, alpha=0.1, fill="red"
-        ) +
+        {if (is.sig) {annotate}} +
         ggplot2::geom_ribbon(
             ggplot2::aes(
                 ymin = ymin.di,
