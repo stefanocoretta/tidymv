@@ -4,6 +4,9 @@
 ### Added
 - documentation of package
 
+### Changed
+- use `lag()` for `create_event_start()`
+
 ### Fixed
 - error when handling non-significant areas in `plot_gamsd()`
 

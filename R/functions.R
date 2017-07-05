@@ -9,24 +9,14 @@
 #'
 #' @export
 create_event_start <- function(tibble, event.col) {
-    event <- as.character(tibble[[event.col]])
-    previous <- ""
-    event.start <- NULL
-
-    for (i in 1:length(event)) {
-        current <- event[i]
-        if (current == previous) {
-            event.start.current <- FALSE
-        } else {
-            event.start.current <- TRUE
-        }
-
-        previous <- current
-
-        event.start <- c(event.start, event.start.current)
-    }
-
-    dplyr::mutate(tibble, start.event = event.start)
+    dplyr::mutate(
+        tibble,
+        start.event = ifelse(
+            tibble[[event.col]] == lag(tibble[[event.col]], default = FALSE),
+            FALSE,
+            TRUE
+            )
+    )
 }
 
 
