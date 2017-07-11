@@ -12,7 +12,7 @@ create_event_start <- function(tibble, event.col) {
     dplyr::mutate(
         tibble,
         start.event = ifelse(
-            tibble[[event.col]] == lag(tibble[[event.col]], default = FALSE),
+            as.character(tibble[[event.col]]) == lag(as.character(tibble[[event.col]]), default = FALSE),
             FALSE,
             TRUE
             )
