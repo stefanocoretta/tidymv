@@ -1,11 +1,14 @@
 # Change Log
 
-## Unreleased
+## [1.0.0] - 2017-10-21
 ### Added
 - documentation of package
 
 ### Changed
 - use `lag()` for `create_event_start()`
+
+### Fixed
+- error in `plot_gamsd` about missing xmin and xmax in annotate if there is no difference
 
 ### Fixed
 - error when handling non-significant areas in `plot_gamsd()`
@@ -14,3 +17,5 @@
 ### Added
 - `create_start_event` function
 - `plot_gamsd` function
+
+[1.0.0]: https://github.com/stefanocoretta/tidymv/compare/v0.1.0...v1.0.0

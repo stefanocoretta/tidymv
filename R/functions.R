@@ -69,7 +69,7 @@ plot_gamsd <- function(model, view, comparison, conditions = NULL) {
         ymin=-Inf, ymax=Inf, alpha=0.1, fill="red"
     )
 
-    is.sig <- length(sig.diff$start) > 0
+    is.sig <- is.null(sig.diff) == FALSE
 
     smooth.plot <- smooth.df %>%
         ggplot2::ggplot(

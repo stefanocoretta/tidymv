@@ -1,8 +1,8 @@
 Package: tidymv
 Type: Package
 Title: Tidy Model Visualisation
-Version: 0.1.0.9000
-Authors@R: person("Stefano", "Coretta", email = "stefano.coretta@gmail.com",
+Version: 1.0.0
+Authors@R: person("Stefano", "Coretta", email = paste0("stefano.coretta", "@", "gmail.com"),
                   role = c("aut", "cre"))
 Description: This package provides functions for model visualisation using tidy
     tools from the tidyverse.
