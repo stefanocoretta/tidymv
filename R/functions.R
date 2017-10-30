@@ -29,10 +29,11 @@ create_event_start <- function(tibble, event.col) {
 #' @param view The predictor determining the time series.
 #' @param comparison The levels for the comparison as a named list.
 #' @param conditions The values to use for other predictors as a named list.
+#' @param bw Whether to plot in black and white (the default is \code{FALSE}).
 #'
 #' @importFrom magrittr "%>%"
 #' @export
-plot_gamsd <- function(model, view, comparison, conditions = NULL) {
+plot_gamsd <- function(model, view, comparison, conditions = NULL, bw = FALSE) {
     diff.df <- itsadug::plot_diff(
         model,
         view = view,
@@ -65,8 +66,9 @@ plot_gamsd <- function(model, view, comparison, conditions = NULL) {
 
     annotate <- ggplot2::annotate(
         "rect",
-        xmin=sig.diff$start, xmax=sig.diff$end,
-        ymin=-Inf, ymax=Inf, alpha=0.1, fill="red"
+        xmin = sig.diff$start, xmax = sig.diff$end,
+        ymin = -Inf, ymax = Inf, alpha = 0.1,
+        fill = ifelse(bw == FALSE, "red", "black")
     )
 
     is.sig <- is.null(sig.diff) == FALSE
@@ -79,13 +81,25 @@ plot_gamsd <- function(model, view, comparison, conditions = NULL) {
         ggplot2::geom_ribbon(
             ggplot2::aes(ymin = ymin.sm,
                          ymax = ymax.sm,
-                         fill = smooth.df[[comp.column]]),
+                         group = smooth.df[[comp.column]]
+                        ),
             alpha = 0.2,
             colour = "NA"
         ) +
-        ggplot2::geom_line(
-            ggplot2::aes(colour = smooth.df[[comp.column]])
-        ) +
+        {if (bw == FALSE) {
+            ggplot2::aes(fill = smooth.df[[comp.column]])}
+        } +
+        {if (bw == FALSE) {
+            ggplot2::geom_line(
+                ggplot2::aes(colour = smooth.df[[comp.column]])
+            )
+            }
+            else {
+                ggplot2::geom_line(
+                ggplot2::aes(linetype = smooth.df[[comp.column]])
+                )
+            }
+        } +
         ggplot2::theme_bw() +
         ggplot2::theme(
             axis.title.x = ggplot2::element_blank(),
@@ -94,8 +108,14 @@ plot_gamsd <- function(model, view, comparison, conditions = NULL) {
             legend.position = "top"
         ) +
         ggplot2::xlim(min(diff.df[[view]]), max(diff.df[[view]])) +
-        ggplot2::scale_colour_discrete(name = names(comparison)) +
-        ggplot2::scale_fill_discrete(name = names(comparison))
+        {if (bw == FALSE) {
+            ggplot2::scale_colour_discrete(name = names(comparison))
+            }
+            else {
+                ggplot2::scale_linetype_discrete(name = names(comparison))
+                }
+        } +
+        {if (bw == FALSE) {ggplot2::scale_fill_discrete(name = names(comparison))}}
 
     ymin.di <- diff.df$est - diff.df$CI
     ymax.di <- diff.df$est + diff.df$CI

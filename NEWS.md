@@ -1,5 +1,9 @@
 # Change Log
 
+## Unreleased
+### Added
+- black and white option for `plot_gamsd()`
+
 ## [1.0.0] - 2017-10-21
 ### Added
 - documentation of package
