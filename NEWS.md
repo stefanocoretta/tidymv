@@ -1,6 +1,6 @@
 # Change Log
 
-## Unreleased
+## [1.1.0] - 2017-10-31
 ### Added
 - black and white option for `plot_gamsd()`
 
@@ -23,4 +23,5 @@
 - `create_start_event` function
 - `plot_gamsd` function
 
+[1.1.0]: https://github.com/stefanocoretta/tidymv/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/stefanocoretta/tidymv/compare/v0.1.0...v1.0.0

@@ -4,4 +4,4 @@ This is the repository of the `R` package `tidymv`. This package provides functi
 
 ## Installation
 
-To install the package, use devtools::install_github("stefanocoretta/tidymv@v1.0.1", build_vignettes = TRUE). To learn how to use the package, do vignette("plot-gamms", package = "tidymv") after the installation.
+To install the package, use devtools::install_github("stefanocoretta/tidymv@v1.1.0", build_vignettes = TRUE). To learn how to use the package, do vignette("plot-gamms", package = "tidymv") after the installation.
