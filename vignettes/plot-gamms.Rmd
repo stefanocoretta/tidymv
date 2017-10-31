@@ -17,17 +17,26 @@ library(itsadug)
 library(tidymv)
 ```
 
+Reference and difference smooths of factor predictos from a `gam` model can be plotted with `plot_gamsd()`.
+To illustrate how to use `plot_gamsd()`, let's first prepare some dummy data with a factor variable and run `gam()` on this data. The `gam` model includes a reference smooth `s(x2)`, a by-factor difference smooth `s(x2, by = fac)`, and a smooth `s(x0)`.
+
 ```{r gam}
 set.seed(10)
 data <- gamSim(4)
 model <- gam(
     y ~
         fac +
+        s(x2) +
         s(x2, by = fac) +
         s(x0),
     data = data
 )
 ```
+
+We can now plot the estimated smooths for the two levels of `fac`, and the difference smooth.
+It is only possible to compare two levels at once, so here we plot `1` and `2`.
+Portions of the estimated smooths that are significantly different are indicated by a shaded red area both in the estimated smooths panel (top) and the difference smooth panel (bottom).
+Significance is based on the difference smooth: at any point, if the confidence interval of the difference smooth does not include 0, the difference between the estimated smooths is significant.
 
 ```{r plot-1-2}
 plot_gamsd(
@@ -36,6 +45,8 @@ plot_gamsd(
     comparison = list(fac = c("1", "2"))
 )
 ```
+
+Here we compare `1` with `3`, and we plot in black and white (gray scale).
 
 ```{r plot-1-3}
 plot_gamsd(

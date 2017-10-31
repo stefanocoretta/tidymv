@@ -4,6 +4,10 @@
 ### Added
 - black and white option for `plot_gamsd()`
 
+### Changed
+- `gam` model in the vignette now has a reference smooth `s(x2)`
+- updated vignette
+
 ## [1.0.0] - 2017-10-21
 ### Added
 - documentation of package
