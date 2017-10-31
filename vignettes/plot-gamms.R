@@ -11,6 +11,7 @@ data <- gamSim(4)
 model <- gam(
     y ~
         fac +
+        s(x2) +
         s(x2, by = fac) +
         s(x0),
     data = data
