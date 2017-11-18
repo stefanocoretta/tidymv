@@ -29,16 +29,18 @@ create_event_start <- function(tibble, event.col) {
 #' @param view The predictor determining the time series.
 #' @param comparison The levels for the comparison as a named list.
 #' @param conditions The values to use for other predictors as a named list.
+#' @param rm_re Whether to remove random effects (the default is \code{FALSE}).
 #' @param bw Whether to plot in black and white (the default is \code{FALSE}).
 #'
 #' @importFrom magrittr "%>%"
 #' @export
-plot_gamsd <- function(model, view, comparison, conditions = NULL, bw = FALSE) {
+plot_gamsd <- function(model, view, comparison, conditions = NULL, rm_re = FALSE, bw = FALSE) {
     diff.df <- itsadug::plot_diff(
         model,
         view = view,
         comp = comparison,
         cond = conditions,
+        rm.ranef = rm_re,
         plot = FALSE,
         print.summary = FALSE)
 
@@ -51,7 +53,8 @@ plot_gamsd <- function(model, view, comparison, conditions = NULL, bw = FALSE) {
 
     smooth.df <- itsadug::get_predictions(
         model,
-        cond = c(comparison, condition)
+        cond = c(comparison, condition),
+        rm.ranef = rm_re
     )
 
     sig.diff <- itsadug::find_difference(

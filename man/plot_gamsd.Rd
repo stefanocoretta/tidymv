@@ -4,7 +4,8 @@
 \alias{plot_gamsd}
 \title{Plot GLM estimate smooths and difference curve.}
 \usage{
-plot_gamsd(model, view, comparison, conditions = NULL, bw = FALSE)
+plot_gamsd(model, view, comparison, conditions = NULL, rm_re = FALSE,
+  bw = FALSE)
 }
 \arguments{
 \item{model}{A \code{gam} or \code{bam} model object.}
@@ -14,6 +15,8 @@ plot_gamsd(model, view, comparison, conditions = NULL, bw = FALSE)
 \item{comparison}{The levels for the comparison as a named list.}
 
 \item{conditions}{The values to use for other predictors as a named list.}
+
+\item{rm_re}{Whether to remove random effects (the default is \code{FALSE}).}
 
 \item{bw}{Whether to plot in black and white (the default is \code{FALSE}).}
 }

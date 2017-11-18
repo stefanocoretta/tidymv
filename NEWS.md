@@ -1,5 +1,9 @@
 # Change Log
 
+## [Unreleased]
+### Added
+- `rm_re` parameter for removing random effects in `plot_gamsd`
+
 ## [1.1.0] - 2017-10-31
 ### Added
 - black and white option for `plot_gamsd()`
