@@ -1,6 +1,6 @@
 # Change Log
 
-## [Unreleased]
+## 1.2.0 - 2017-12-07
 ### Added
 - `rm_re` parameter for removing random effects in `plot_gamsd`
 - depends on `itsadug`
