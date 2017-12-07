@@ -3,6 +3,7 @@
 ## [Unreleased]
 ### Added
 - `rm_re` parameter for removing random effects in `plot_gamsd`
+- depends on `itsadug`
 
 ### Changed
 - argument `event.col` to `event_col` in `create_start_event()` for style consistency
