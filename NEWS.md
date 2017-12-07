@@ -4,6 +4,9 @@
 ### Added
 - `rm_re` parameter for removing random effects in `plot_gamsd`
 
+### Changed
+- argument `event.col` to `event_col` in `create_start_event()` for style consistency
+
 ## [1.1.0] - 2017-10-31
 ### Added
 - black and white option for `plot_gamsd()`

@@ -8,11 +8,11 @@
 #' @param event.col A string with the name of the column that defines the time series.
 #'
 #' @export
-create_event_start <- function(tibble, event.col) {
+create_event_start <- function(tibble, event_col) {
     dplyr::mutate(
         tibble,
         start.event = ifelse(
-            as.character(tibble[[event.col]]) == lag(as.character(tibble[[event.col]]), default = FALSE),
+            as.character(tibble[[event_col]]) == lag(as.character(tibble[[event_col]]), default = FALSE),
             FALSE,
             TRUE
             )

@@ -4,7 +4,7 @@
 \alias{create_event_start}
 \title{Create a start event column.}
 \usage{
-create_event_start(tibble, event.col)
+create_event_start(tibble, event_col)
 }
 \arguments{
 \item{tibble}{A tibble arranged according to the time series.}
