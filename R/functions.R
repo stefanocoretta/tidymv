@@ -5,7 +5,7 @@
 #' with tibbles.
 #'
 #' @param tibble A tibble arranged according to the time series.
-#' @param event.col A string with the name of the column that defines the time series.
+#' @param event_col A string with the name of the column that defines the time series.
 #'
 #' @export
 create_event_start <- function(tibble, event_col) {

@@ -9,7 +9,7 @@ create_event_start(tibble, event_col)
 \arguments{
 \item{tibble}{A tibble arranged according to the time series.}
 
-\item{event.col}{A string with the name of the column that defines the time series.}
+\item{event_col}{A string with the name of the column that defines the time series.}
 }
 \description{
 Create a new column which marks the beginning of each time series in a tibble.
