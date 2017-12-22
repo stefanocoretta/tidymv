@@ -20,7 +20,7 @@ create_event_start <- function(tibble, event_col) {
 }
 
 
-#' Plot GLM estimate smooths and difference curve.
+#' Plot GAM estimate smooths and difference curve.
 #'
 #' It plots comparison smooths from the estimates of a \link[mgcv]{gam} or \link[mgcv]{bam}
 #' and the difference curve. Significant differences are marked with red areas.
