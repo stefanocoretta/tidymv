@@ -1,6 +1,9 @@
 # Change Log
 
 ## Unreleased
+### Added
+- `plot_gami()` for plotting interactions of generalised additive models
+
 ### Fixed
 - typo in documentation of `create_event_start()`
 - double call of `itsadug` in DESCRIPTION
