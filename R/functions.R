@@ -154,11 +154,10 @@ plot_gamsd <- function(model, view, comparison, conditions = NULL, rm_re = FALSE
 #' @param interaction The levels of the interaction terms as a named list.
 #' @param conditions The values to use for other predictors as a named list.
 #' @param rm_re Whether to remove random effects (the default is \code{FALSE}).
-#' @param bw Whether to plot in black and white (the default is \code{FALSE}).
 #'
 #' @importFrom magrittr "%>%"
 #' @export
-plot_gami <- function(model, view, interaction, conditions = NULL, rm_re = FALSE, bw = FALSE) {
+plot_gami <- function(model, view, interaction, conditions = NULL, rm_re = FALSE) {
     view_series <- list(
         seq(min(model[["model"]][[view]]), max(model[["model"]][[view]]), length = 100)
     )
@@ -177,7 +176,7 @@ plot_gami <- function(model, view, interaction, conditions = NULL, rm_re = FALSE
     fit <- "fit"
 
     hues <- seq(15, 375, length = length(interaction[[1]]) + 1)
-    colours <- hcl(h = hues, l = 65, c = 100)
+    colours <- grDevices::hcl(h = hues, l = 65, c = 100)
 
     for (i in 1:length(interaction[[1]])) {
         filtered_data <- smooth_df
@@ -190,7 +189,20 @@ plot_gami <- function(model, view, interaction, conditions = NULL, rm_re = FALSE
             )
         }
 
+        ymin_ci <- filtered_data$fit - filtered_data$CI
+        ymax_ci <- filtered_data$fit + filtered_data$CI
+
         gami_plot <- gami_plot +
+            ggplot2::geom_ribbon(
+                data = filtered_data,
+                ggplot2::aes_string(
+                    view,
+                    ymin = ymin_ci,
+                    ymax = ymax_ci
+                ),
+                alpha = 0.2,
+                fill = colours[i]
+            ) +
             ggplot2::geom_line(
                 data = filtered_data,
                 ggplot2::aes_string(view, fit),

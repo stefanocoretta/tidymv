@@ -13,6 +13,7 @@ RoxygenNote: 6.0.1
 Imports: cowplot,
     dplyr,
     ggplot2,
+    grDevices,
     itsadug,
     magrittr,
     tidyverse
