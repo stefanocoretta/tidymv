@@ -144,3 +144,59 @@ plot_gamsd <- function(model, view, comparison, conditions = NULL, rm_re = FALSE
 
     cowplot::plot_grid(smooth.plot, diff.plot, align = "v", nrow = 2, rel_heights = c(2/3, 1/3))
 }
+
+#' Plot GAM estimate smooths of an interaction.
+#'
+#' It plots estimate smooths of the interaction terms from a \link[mgcv]{gam} or \link[mgcv]{bam}.
+#'
+#' @param model A \code{gam} or \code{bam} model object.
+#' @param view The predictor determining the time series.
+#' @param interaction The levels of the interaction terms as a named list.
+#' @param conditions The values to use for other predictors as a named list.
+#' @param rm_re Whether to remove random effects (the default is \code{FALSE}).
+#' @param bw Whether to plot in black and white (the default is \code{FALSE}).
+#'
+#' @importFrom magrittr "%>%"
+#' @export
+plot_gami <- function(model, view, interaction, conditions = NULL, rm_re = FALSE, bw = FALSE) {
+    view_series <- list(
+        seq(min(model[["model"]][[view]]), max(model[["model"]][[view]]), length = 100)
+    )
+    names(view_series) <- view
+
+    condition = c(view_series, conditions)
+
+    smooth_df <- itsadug::get_predictions(
+        model,
+        cond = c(interaction, condition),
+        rm.ranef = rm_re
+    )
+
+    gami_plot <- ggplot2::ggplot()
+
+    fit <- "fit"
+
+    hues <- seq(15, 375, length = length(interaction[[1]]) + 1)
+    colours <- hcl(h = hues, l = 65, c = 100)
+
+    for (i in 1:length(interaction[[1]])) {
+        filtered_data <- smooth_df
+
+        for (j in 1:length(interaction)) {
+            names_interaction <- names(interaction)[[j]]
+            filtered_data <- dplyr::filter(
+                filtered_data,
+                filtered_data[[names_interaction]] == interaction[[j]][i]
+            )
+        }
+
+        gami_plot <- gami_plot +
+            ggplot2::geom_line(
+                data = filtered_data,
+                ggplot2::aes_string(view, fit),
+                colour = colours[i]
+            )
+    }
+
+    gami_plot
+}
