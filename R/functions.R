@@ -214,7 +214,7 @@ plot_gami <- function(model, view, interaction, conditions = NULL, rm_re = FALSE
     gami_plot
 }
 
-#' Plot all levels of an interaction of a GAM
+#' Plot all levels of an interaction of a GAM.
 #'
 #' It plots the smooths from all the levels of an interaction from a \link[mgcv]{bam} or \link[mgcv]{gam}.
 #'

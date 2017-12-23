@@ -2,7 +2,7 @@
 % Please edit documentation in R/functions.R
 \name{plot_gami_all}
 \alias{plot_gami_all}
-\title{Plot all levels of an interaction of a GAM}
+\title{Plot all levels of an interaction of a GAM.}
 \usage{
 plot_gami_all(model, view, main, comparison, interaction, conditions = NULL,
   rm_re = FALSE, print_summaries = FALSE)
