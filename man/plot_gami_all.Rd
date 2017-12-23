@@ -14,13 +14,15 @@ plot_gami_all(model, view, main, comparison, interaction, conditions = NULL,
 
 \item{main}{The predictor for which individual plots need to be produced as a string.}
 
+\item{comparison}{The comparison predictor as a string.}
+
 \item{interaction}{The predictor which defines the interaction as a string.}
 
 \item{conditions}{The values to use for other predictors as a named list.}
 
 \item{rm_re}{Whether to remove random effects (the default is \code{FALSE}).}
 
-\item{print_summary}{Wether to print a summary of the values selected for each predictor (the default is \code{TRUE}).}
+\item{print_summaries}{Wether to print a summary of the values selected for each predictor (the default is \code{TRUE}).}
 }
 \description{
 It plots the smooths from all the levels of an interaction from a \link[mgcv]{bam} or \link[mgcv]{gam}

@@ -221,10 +221,11 @@ plot_gami <- function(model, view, interaction, conditions = NULL, rm_re = FALSE
 #' @param model A \code{gam} or \code{bam} model object.
 #' @param view The predictor determining the time series as a string.
 #' @param main The predictor for which individual plots need to be produced as a string.
+#' @param comparison The comparison predictor as a string.
 #' @param interaction The predictor which defines the interaction as a string.
 #' @param conditions The values to use for other predictors as a named list.
 #' @param rm_re Whether to remove random effects (the default is \code{FALSE}).
-#' @param print_summary Wether to print a summary of the values selected for each predictor (the default is \code{TRUE}).
+#' @param print_summaries Wether to print a summary of the values selected for each predictor (the default is \code{TRUE}).
 #'
 #' @export
 plot_gami_all <- function(model, view, main, comparison, interaction, conditions = NULL, rm_re = FALSE, print_summaries = FALSE) {
@@ -257,7 +258,7 @@ plot_gami_all <- function(model, view, main, comparison, interaction, conditions
             rm_re = rm_re,
             print_summary = print_summaries
         ) +
-            labs(title = main_levels[i])
+            ggplot2::labs(title = main_levels[i])
 
         plot_list <- c(plot_list, list(this_plot))
 
@@ -266,11 +267,11 @@ plot_gami_all <- function(model, view, main, comparison, interaction, conditions
     y_ranges <- NULL
 
     for (i in 1:length(main_levels)) {
-        y_ranges <- c(y_ranges, ggplot_build(plot_list[[i]])$layout$panel_ranges[[1]]$y.range)
+        y_ranges <- c(y_ranges, ggplot2::ggplot_build(plot_list[[i]])$layout$panel_ranges[[1]]$y.range)
     }
 
     for (i in 1:length(main_levels)) {
-        plot_list[[i]] <- plot_list[[i]] + list(ylim(min(y_ranges), max(y_ranges)))
+        plot_list[[i]] <- plot_list[[i]] + list(ggplot2::ylim(min(y_ranges), max(y_ranges)))
     }
 
     cowplot::plot_grid(plotlist = plot_list)
