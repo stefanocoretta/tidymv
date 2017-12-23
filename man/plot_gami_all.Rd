@@ -25,5 +25,5 @@ plot_gami_all(model, view, main, comparison, interaction, conditions = NULL,
 \item{print_summaries}{Wether to print a summary of the values selected for each predictor (the default is \code{TRUE}).}
 }
 \description{
-It plots the smooths from all the levels of an interaction from a \link[mgcv]{bam} or \link[mgcv]{gam}
+It plots the smooths from all the levels of an interaction from a \link[mgcv]{bam} or \link[mgcv]{gam}.
 }
