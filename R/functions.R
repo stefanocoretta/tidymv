@@ -239,7 +239,7 @@ plot_gami_all <- function(model, view, main, comparison, interaction, conditions
             c(comparison_levels),
             c(
                 paste(main_levels[i], comparison_levels[1], sep = "."),
-                paste(main_levels[i], comparison_levels[1], sep = ".")
+                paste(main_levels[i], comparison_levels[2], sep = ".")
             )
         )
         names(interaction_list) <- c(comparison, interaction)
