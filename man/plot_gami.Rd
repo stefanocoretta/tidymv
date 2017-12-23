@@ -4,7 +4,8 @@
 \alias{plot_gami}
 \title{Plot GAM estimate smooths of an interaction.}
 \usage{
-plot_gami(model, view, interaction, conditions = NULL, rm_re = FALSE)
+plot_gami(model, view, interaction, conditions = NULL, rm_re = FALSE,
+  print_summary = TRUE)
 }
 \arguments{
 \item{model}{A \code{gam} or \code{bam} model object.}
@@ -16,6 +17,8 @@ plot_gami(model, view, interaction, conditions = NULL, rm_re = FALSE)
 \item{conditions}{The values to use for other predictors as a named list.}
 
 \item{rm_re}{Whether to remove random effects (the default is \code{FALSE}).}
+
+\item{print_summary}{Wether to print a summary of the values selected for each predictor (the default is \code{TRUE}).}
 }
 \description{
 It plots estimate smooths of the interaction terms from a \link[mgcv]{gam} or \link[mgcv]{bam}.

@@ -154,10 +154,10 @@ plot_gamsd <- function(model, view, comparison, conditions = NULL, rm_re = FALSE
 #' @param interaction The levels of the interaction terms as a named list.
 #' @param conditions The values to use for other predictors as a named list.
 #' @param rm_re Whether to remove random effects (the default is \code{FALSE}).
+#' @param print_summary Wether to print a summary of the values selected for each predictor (the default is \code{TRUE}).
 #'
-#' @importFrom magrittr "%>%"
 #' @export
-plot_gami <- function(model, view, interaction, conditions = NULL, rm_re = FALSE) {
+plot_gami <- function(model, view, interaction, conditions = NULL, rm_re = FALSE, print_summary = TRUE) {
     view_series <- list(
         seq(min(model[["model"]][[view]]), max(model[["model"]][[view]]), length = 100)
     )
@@ -168,7 +168,8 @@ plot_gami <- function(model, view, interaction, conditions = NULL, rm_re = FALSE
     smooth_df <- itsadug::get_predictions(
         model,
         cond = c(interaction, condition),
-        rm.ranef = rm_re
+        rm.ranef = rm_re,
+        print.summary = print_summary
     )
 
     gami_plot <- ggplot2::ggplot()
@@ -211,4 +212,66 @@ plot_gami <- function(model, view, interaction, conditions = NULL, rm_re = FALSE
     }
 
     gami_plot
+}
+
+#' Plot all levels of an interaction of a GAM
+#'
+#' It plots the smooths from all the levels of an interaction from a \link[mgcv]{bam} or \link[mgcv]{gam}
+#'
+#' @param model A \code{gam} or \code{bam} model object.
+#' @param view The predictor determining the time series as a string.
+#' @param main The predictor for which individual plots need to be produced as a string.
+#' @param interaction The predictor which defines the interaction as a string.
+#' @param conditions The values to use for other predictors as a named list.
+#' @param rm_re Whether to remove random effects (the default is \code{FALSE}).
+#' @param print_summary Wether to print a summary of the values selected for each predictor (the default is \code{TRUE}).
+#'
+#' @export
+plot_gami_all <- function(model, view, main, comparison, interaction, conditions = NULL, rm_re = FALSE, print_summaries = FALSE) {
+    main_levels <- levels(model[["model"]][[main]])
+    comparison_levels <- levels(model[["model"]][[comparison]])
+
+    plot_list <- list()
+
+    for (i in 1:length(main_levels)) {
+        interaction_list = list(
+            c(comparison_levels),
+            c(
+                paste(main_levels[i], comparison_levels[1], sep = "."),
+                paste(main_levels[i], comparison_levels[1], sep = ".")
+            )
+        )
+        names(interaction_list) <- c(comparison, interaction)
+
+        main_list <- list(main_levels[i])
+        names(main_list) <- main
+
+        this_plot <- tidymv::plot_gami(
+            model = model,
+            view = view,
+            interaction = interaction_list,
+            conditions = c(
+                conditions,
+                main_list
+            ),
+            rm_re = rm_re,
+            print_summary = print_summaries
+        ) +
+            labs(title = main_levels[i])
+
+        plot_list <- c(plot_list, list(this_plot))
+
+    }
+
+    y_ranges <- NULL
+
+    for (i in 1:length(main_levels)) {
+        y_ranges <- c(y_ranges, ggplot_build(plot_list[[i]])$layout$panel_ranges[[1]]$y.range)
+    }
+
+    for (i in 1:length(main_levels)) {
+        plot_list[[i]] <- plot_list[[i]] + list(ylim(min(y_ranges), max(y_ranges)))
+    }
+
+    cowplot::plot_grid(plotlist = plot_list)
 }

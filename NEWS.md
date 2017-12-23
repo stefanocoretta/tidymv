@@ -3,6 +3,7 @@
 ## Unreleased
 ### Added
 - `plot_gami()` for plotting interactions of generalised additive models
+- `plot_gami_all()` for plotting all the levels of an interaction of generalised additive models
 
 ### Fixed
 - typo in documentation of `create_event_start()`

@@ -2,5 +2,6 @@
 
 export(create_event_start)
 export(plot_gami)
+export(plot_gami_all)
 export(plot_gamsd)
 importFrom(magrittr,"%>%")
