@@ -216,7 +216,7 @@ plot_gami <- function(model, view, interaction, conditions = NULL, rm_re = FALSE
 
 #' Plot all levels of an interaction of a GAM
 #'
-#' It plots the smooths from all the levels of an interaction from a \link[mgcv]{bam} or \link[mgcv]{gam}
+#' It plots the smooths from all the levels of an interaction from a \link[mgcv]{bam} or \link[mgcv]{gam}.
 #'
 #' @param model A \code{gam} or \code{bam} model object.
 #' @param view The predictor determining the time series as a string.
