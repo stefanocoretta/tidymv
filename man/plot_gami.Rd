@@ -4,17 +4,17 @@
 \alias{plot_gami}
 \title{Plot GAM estimate smooths of an interaction.}
 \usage{
-plot_gami(model, view, interaction, conditions = NULL, rm_re = FALSE,
+plot_gami(model, view, interactions, conditions = NULL, rm_re = FALSE,
   print_summary = TRUE)
 }
 \arguments{
 \item{model}{A \code{gam} or \code{bam} model object.}
 
-\item{view}{The predictor determining the time series.}
+\item{view}{A string with the predictor determining the time series.}
 
-\item{interaction}{The levels of the interaction terms as a named list.}
+\item{interactions}{A named list the levels to be plotted from the main comparison predictor and the interactions.}
 
-\item{conditions}{The values to use for other predictors as a named list.}
+\item{conditions}{A named list with rhe values to use for other predictors.}
 
 \item{rm_re}{Whether to remove random effects (the default is \code{FALSE}).}
 

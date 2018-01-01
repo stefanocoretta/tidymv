@@ -150,14 +150,14 @@ plot_gamsd <- function(model, view, comparison, conditions = NULL, rm_re = FALSE
 #' It plots estimate smooths of the interaction terms from a \link[mgcv]{gam} or \link[mgcv]{bam}.
 #'
 #' @param model A \code{gam} or \code{bam} model object.
-#' @param view The predictor determining the time series.
-#' @param interaction The levels of the interaction terms as a named list.
-#' @param conditions The values to use for other predictors as a named list.
+#' @param view A string with the predictor determining the time series.
+#' @param interactions A named list the levels to be plotted from the main comparison predictor and the interactions.
+#' @param conditions A named list with rhe values to use for other predictors.
 #' @param rm_re Whether to remove random effects (the default is \code{FALSE}).
 #' @param print_summary Wether to print a summary of the values selected for each predictor (the default is \code{TRUE}).
 #'
 #' @export
-plot_gami <- function(model, view, interaction, conditions = NULL, rm_re = FALSE, print_summary = TRUE) {
+plot_gami <- function(model, view, interactions, conditions = NULL, rm_re = FALSE, print_summary = TRUE) {
     view_series <- list(
         seq(min(model[["model"]][[view]]), max(model[["model"]][[view]]), length = 100)
     )
@@ -167,7 +167,7 @@ plot_gami <- function(model, view, interaction, conditions = NULL, rm_re = FALSE
 
     smooth_df <- itsadug::get_predictions(
         model,
-        cond = c(interaction, condition),
+        cond = c(interactions, condition),
         rm.ranef = rm_re,
         print.summary = print_summary
     )
@@ -176,17 +176,17 @@ plot_gami <- function(model, view, interaction, conditions = NULL, rm_re = FALSE
 
     fit <- "fit"
 
-    hues <- seq(15, 375, length = length(interaction[[1]]) + 1)
+    hues <- seq(15, 375, length = length(interactions[[1]]) + 1)
     colours <- grDevices::hcl(h = hues, l = 65, c = 100)
 
-    for (i in 1:length(interaction[[1]])) {
+    for (i in 1:length(interactions[[1]])) {
         filtered_data <- smooth_df
 
-        for (j in 1:length(interaction)) {
-            names_interaction <- names(interaction)[[j]]
+        for (j in 1:length(interactions)) {
+            names_interaction <- names(interactions)[[j]]
             filtered_data <- dplyr::filter(
                 filtered_data,
-                filtered_data[[names_interaction]] == interaction[[j]][i]
+                filtered_data[[names_interaction]] == interactions[[j]][i]
             )
         }
 
