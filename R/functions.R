@@ -32,6 +32,7 @@ create_event_start <- function(tibble, event_col) {
 #'
 #' @importFrom magrittr "%>%"
 #' @importFrom rlang ":="
+#' @importFrom stats "predict"
 #' @export
 plot_smooths <- function(model, time_series, comparison, facet_terms = NULL, conditions = NULL, plot_random = FALSE) {
     if (plot_random) {
@@ -82,7 +83,7 @@ plot_smooths <- function(model, time_series, comparison, facet_terms = NULL, con
         ) %>%
         tidyr::unnest(!!time_series_q)
 
-    predicted <- predict(
+    predicted <- stats::predict(
         model,
         fitted_series,
         se.fit = TRUE,
@@ -94,12 +95,12 @@ plot_smooths <- function(model, time_series, comparison, facet_terms = NULL, con
             CI_upper = fit + 1.96 * se.fit,
             CI_lower = fit - 1.96 * se.fit
         ) %>%
-        select(-!!!rlang::syms(random_effects_terms)) %>%
+        dplyr::select(-!!!rlang::syms(random_effects_terms)) %>%
         unique()
 
     if (!is.null(conditions)) {
         predicted_tbl <- predicted_tbl %>%
-            filter(!!!conditions)
+            dplyr::filter(!!!conditions)
     }
 
     smooths_plot <- predicted_tbl %>%
@@ -117,7 +118,7 @@ plot_smooths <- function(model, time_series, comparison, facet_terms = NULL, con
             alpha = 0.2
         ) +
         ggplot2::geom_path(
-            aes_string(colour = dplyr::quo_name(comparison_q))
+            ggplot2::aes_string(colour = dplyr::quo_name(comparison_q))
         ) +
         {if (!is.null(facet_terms_q)) {
             ggplot2::facet_wrap(facet_terms_q)
