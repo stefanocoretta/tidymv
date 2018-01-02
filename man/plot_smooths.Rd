@@ -16,7 +16,7 @@ plot_smooths(model, time_series, comparison, facet_terms = NULL,
 
 \item{facet_terms}{An unquoted formula with the terms used for faceting.}
 
-\item{conditions}{A list of quosures with \link[rlang]{quos} with the conditions for plotting if \code{facet_terms} is \code{NULL}.}
+\item{conditions}{A list of quosures with \link[rlang]{quos} specifying the levels to plot from the model terms not among \code{time_series}, \code{comparison}, or \code{facet_terms}.}
 
 \item{plot_random}{Whether to plot random smooths (the default is \code{FALSE}).}
 }
