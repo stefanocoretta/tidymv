@@ -27,11 +27,12 @@ create_event_start <- function(tibble, event_col) {
 #' @param time_series An unquoted expression indicating the model term that defines the time series.
 #' @param comparison An unquoted expression indicating the model term for which the comparison will be plotted.
 #' @param facet_terms An unquoted formula with the terms used for faceting.
+#' @param conditions A list of quosures with \link[rlang]{quos} with the conditions for plotting if \code{facet_terms} is \code{NULL}.
 #' @param plot_random Whether to plot random smooths (the default is \code{FALSE}).
 #'
 #' @importFrom magrittr "%>%"
 #' @export
-plot_smooths <- function(model, time_series, comparison, facet_terms = NULL, plot_random = FALSE) {
+plot_smooths <- function(model, time_series, comparison, facet_terms, conditions = NULL, plot_random = FALSE) {
     if (plot_random) {
         stop("Plotting of random smooths not supported yet.")
     }
@@ -89,6 +90,11 @@ plot_smooths <- function(model, time_series, comparison, facet_terms = NULL, plo
         ) %>%
         select(-!!!rlang::syms(random_effects_terms)) %>%
         unique()
+
+    if (!is.null(conditions)) {
+        predicted_tbl <- predicted_tbl %>%
+            filter(!!!conditions)
+    }
 
     smooths_plot <- predicted_tbl %>%
         ggplot2::ggplot(

@@ -4,7 +4,7 @@
 \alias{plot_smooths}
 \title{Plot GAM smooths.}
 \usage{
-plot_smooths(model, time_series, comparison, facet_terms = NULL,
+plot_smooths(model, time_series, comparison, facet_terms, conditions = NULL,
   plot_random = FALSE)
 }
 \arguments{
@@ -15,6 +15,8 @@ plot_smooths(model, time_series, comparison, facet_terms = NULL,
 \item{comparison}{An unquoted expression indicating the model term for which the comparison will be plotted.}
 
 \item{facet_terms}{An unquoted formula with the terms used for faceting.}
+
+\item{conditions}{A list of quosures with \link[rlang]{quos} with the conditions for plotting if \code{facet_terms} is \code{NULL}.}
 
 \item{plot_random}{Whether to plot random smooths (the default is \code{FALSE}).}
 }
