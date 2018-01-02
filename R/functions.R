@@ -19,6 +19,100 @@ create_event_start <- function(tibble, event_col) {
     )
 }
 
+#' Plot GAM smooths.
+#'
+#' It plots the smooths from the estimates of a \link[mgcv]{gam} or \link[mgcv]{bam} object.
+#'
+#' @param model A \code{gam} or \code{bam} model object.
+#' @param time_series An unquoted expression indicating the model term that defines the time series.
+#' @param comparison An unquoted expression indicating the model term for which the comparison will be plotted.
+#' @param facet_terms An unquoted formula with the terms used for faceting.
+#'
+#' @importFrom magrittr "%>%"
+#' @export
+plot_smooths <- function(model, time_series, comparison, facet_terms = NULL, plot_random = FALSE) {
+    if (plot_random) {
+        stop("Plotting of random smooths not supported yet.")
+    }
+
+    time_series_q <- dplyr::enquo(time_series)
+    comparison_q <- dplyr::enquo(comparison)
+    facet_terms_q <- dplyr::enquo(facet_terms)
+    outcome_q <- model$formula[[2]]
+
+    fitted <- model$model
+
+    for (i in 1:length(model[["smooth"]])) {
+        random_effects <- list()
+        random_effects_terms <- NULL
+        smooth_class <- attr(model$smooth[[i]],"class")[1]
+        if (smooth_class %in% c("random.effect", "fs.interaction")) {
+            random_effects <- c(
+                random_effects,
+                list(model$smooth[[i]]$label)
+            )
+            random_effects_terms <- c(
+                random_effects_terms,
+                model$smooth[[i]]$fterm
+            )
+        }
+    }
+
+    time_series_min <- dplyr::select(fitted, !!time_series_q) %>% min()
+    time_series_max <- dplyr::select(fitted, !!time_series_q) %>% max()
+
+    fitted <- fitted %>%
+        dplyr::select(-!!time_series_q, -!!outcome_q)
+
+    fitted_series <- fitted %>%
+        unique() %>%
+        dplyr::mutate(
+            !!dplyr::quo_name(time_series_q) := rep(
+                list(seq(time_series_min, time_series_max, length.out = 25)),
+                nrow(.)
+            )
+        ) %>%
+        tidyr::unnest(Timeinterval)
+
+    predicted <- predict(
+        model,
+        fitted_series,
+        se.fit = TRUE,
+        exclude = ifelse(plot_random, NULL, random_effects)
+    )
+
+    predicted_tbl <- cbind(fitted_series, predicted) %>%
+        dplyr::mutate(
+            CI_upper = fit + 1.96 * se.fit,
+            CI_lower = fit - 1.96 * se.fit
+        ) %>%
+        select(-!!!rlang::syms(random_effects_terms)) %>%
+        unique()
+
+    smooths_plot <- predicted_tbl %>%
+        ggplot2::ggplot(
+            ggplot2::aes_string(
+                dplyr::quo_name(time_series_q), "fit"
+            )
+        ) +
+        ggplot2::geom_ribbon(
+            ggplot2::aes_string(
+                ymin = "CI_lower",
+                ymax = "CI_upper",
+                fill = dplyr::quo_name(comparison_q)
+            ),
+            alpha = 0.2
+        ) +
+        ggplot2::geom_path(
+            aes_string(colour = dplyr::quo_name(comparison_q))
+        ) +
+        {if (!is.null(facet_terms)) {
+            ggplot2::facet_wrap(facet_terms_q)
+        }}
+
+    print(smooths_plot)
+}
+
 
 #' Plot GAM estimate smooths and difference curve.
 #'
