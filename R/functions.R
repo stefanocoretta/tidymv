@@ -107,7 +107,7 @@ plot_smooths <- function(model, time_series, comparison, facet_terms = NULL, plo
         ggplot2::geom_path(
             aes_string(colour = dplyr::quo_name(comparison_q))
         ) +
-        {if (!is.null(facet_terms_q)) {
+        {if (!rlang::quo_is_missing(facet_terms_q)) {
             ggplot2::facet_wrap(facet_terms_q)
         }}
 
