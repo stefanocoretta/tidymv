@@ -27,6 +27,7 @@ create_event_start <- function(tibble, event_col) {
 #' @param time_series An unquoted expression indicating the model term that defines the time series.
 #' @param comparison An unquoted expression indicating the model term for which the comparison will be plotted.
 #' @param facet_terms An unquoted formula with the terms used for faceting.
+#' @param plot_random Whether to plot random smooths (the default is \code{FALSE}).
 #'
 #' @importFrom magrittr "%>%"
 #' @export

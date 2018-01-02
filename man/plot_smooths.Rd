@@ -15,6 +15,8 @@ plot_smooths(model, time_series, comparison, facet_terms = NULL,
 \item{comparison}{An unquoted expression indicating the model term for which the comparison will be plotted.}
 
 \item{facet_terms}{An unquoted formula with the terms used for faceting.}
+
+\item{plot_random}{Whether to plot random smooths (the default is \code{FALSE}).}
 }
 \description{
 It plots the smooths from the estimates of a \link[mgcv]{gam} or \link[mgcv]{bam} object.
