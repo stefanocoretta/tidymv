@@ -17,6 +17,7 @@ Imports: cowplot,
     itsadug,
     magrittr,
     rlang,
+    tidyr,
     tidyverse
 Suggests: knitr,
     rmarkdown
