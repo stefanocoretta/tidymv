@@ -4,8 +4,8 @@
 \alias{plot_smooths}
 \title{Plot GAM smooths.}
 \usage{
-plot_smooths(model, time_series, comparison, facet_terms, conditions = NULL,
-  plot_random = FALSE)
+plot_smooths(model, time_series, comparison, facet_terms = NULL,
+  conditions = NULL, plot_random = FALSE)
 }
 \arguments{
 \item{model}{A \code{gam} or \code{bam} model object.}

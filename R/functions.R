@@ -32,7 +32,7 @@ create_event_start <- function(tibble, event_col) {
 #'
 #' @importFrom magrittr "%>%"
 #' @export
-plot_smooths <- function(model, time_series, comparison, facet_terms, conditions = NULL, plot_random = FALSE) {
+plot_smooths <- function(model, time_series, comparison, facet_terms = NULL, conditions = NULL, plot_random = FALSE) {
     if (plot_random) {
         stop("Plotting of random smooths not supported yet.")
     }
@@ -40,6 +40,9 @@ plot_smooths <- function(model, time_series, comparison, facet_terms, conditions
     time_series_q <- dplyr::enquo(time_series)
     comparison_q <- dplyr::enquo(comparison)
     facet_terms_q <- dplyr::enquo(facet_terms)
+    if (facet_terms_q == quo(NULL)) {
+        facet_terms_q <- NULL
+    }
     outcome_q <- model$formula[[2]]
 
     fitted <- model$model
@@ -113,7 +116,7 @@ plot_smooths <- function(model, time_series, comparison, facet_terms, conditions
         ggplot2::geom_path(
             aes_string(colour = dplyr::quo_name(comparison_q))
         ) +
-        {if (!rlang::quo_is_missing(facet_terms_q)) {
+        {if (!is.null(facet_terms_q)) {
             ggplot2::facet_wrap(facet_terms_q)
         }}
 
