@@ -31,6 +31,7 @@ create_event_start <- function(tibble, event_col) {
 #' @param plot_random Whether to plot random smooths (the default is \code{FALSE}).
 #'
 #' @importFrom magrittr "%>%"
+#' @importFrom rlang ":="
 #' @export
 plot_smooths <- function(model, time_series, comparison, facet_terms = NULL, conditions = NULL, plot_random = FALSE) {
     if (plot_random) {
@@ -40,7 +41,7 @@ plot_smooths <- function(model, time_series, comparison, facet_terms = NULL, con
     time_series_q <- dplyr::enquo(time_series)
     comparison_q <- dplyr::enquo(comparison)
     facet_terms_q <- dplyr::enquo(facet_terms)
-    if (facet_terms_q == quo(NULL)) {
+    if (facet_terms_q == dplyr::quo(NULL)) {
         facet_terms_q <- NULL
     }
     outcome_q <- model$formula[[2]]
@@ -70,14 +71,16 @@ plot_smooths <- function(model, time_series, comparison, facet_terms = NULL, con
         dplyr::select(-!!time_series_q, -!!outcome_q)
 
     fitted_series <- fitted %>%
-        unique() %>%
+        unique()
+
+    fitted_series <- fitted_series %>%
         dplyr::mutate(
             !!dplyr::quo_name(time_series_q) := rep(
                 list(seq(time_series_min, time_series_max, length.out = 25)),
-                nrow(.)
+                nrow(fitted_series)
             )
         ) %>%
-        tidyr::unnest(Timeinterval)
+        tidyr::unnest(!!time_series_q)
 
     predicted <- predict(
         model,
