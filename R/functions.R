@@ -120,6 +120,7 @@ plot_smooths <- function(model, time_series, comparison, facet_terms = NULL, con
         ggplot2::geom_path(
             ggplot2::aes_string(colour = dplyr::quo_name(comparison_q))
         ) +
+        ylab(dplyr::quo_name(outcome_q)) +
         {if (!is.null(facet_terms_q)) {
             ggplot2::facet_wrap(facet_terms_q)
         }}
