@@ -156,7 +156,7 @@ plot_smooths <- function(model, time_series, comparison, facet_terms = NULL, con
             ggplot2::facet_wrap(facet_terms_q)
         }}
 
-    print(smooths_plot)
+    return(smooths_plot)
 }
 
 
