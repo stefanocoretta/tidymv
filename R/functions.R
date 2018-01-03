@@ -128,66 +128,12 @@ plot_smooths <- function(model, time_series, comparison, facet_terms = NULL, con
     }
     outcome_q <- model$formula[[2]]
 
-    fitted <- model$model
-
-    for (i in 1:length(model[["smooth"]])) {
-        random_effects <- list()
-        random_effects_terms <- NULL
-        smooth_class <- attr(model$smooth[[i]],"class")[1]
-        if (smooth_class %in% c("random.effect", "fs.interaction")) {
-            random_effects <- c(
-                random_effects,
-                list(model$smooth[[i]]$label)
-            )
-            random_effects_terms <- c(
-                random_effects_terms,
-                model$smooth[[i]]$fterm
-            )
-        }
-    }
-
-    time_series_min <- dplyr::select(fitted, !!time_series_q) %>% min()
-    time_series_max <- dplyr::select(fitted, !!time_series_q) %>% max()
-
-    fitted <- fitted %>%
-        dplyr::select(-!!time_series_q, -!!outcome_q)
-
-    fitted_series <- fitted %>%
-        unique()
-
-    fitted_series <- fitted_series %>%
-        dplyr::mutate(
-            !!dplyr::quo_name(time_series_q) := rep(
-                list(seq(time_series_min, time_series_max, length.out = 25)),
-                nrow(fitted_series)
-            )
-        ) %>%
-        tidyr::unnest(!!time_series_q)
-
-    predicted <- stats::predict(
-        model,
-        fitted_series,
-        se.fit = TRUE,
-        exclude = ifelse(exclude_random, random_effects, NULL)
-    )
-
-    predicted_tbl <- cbind(fitted_series, predicted) %>%
-        dplyr::mutate(
-            CI_upper = fit + 1.96 * se.fit,
-            CI_lower = fit - 1.96 * se.fit
-        ) %>%
-        dplyr::select(-!!!rlang::syms(random_effects_terms)) %>%
-        unique()
-
-    if (!is.null(conditions)) {
-        predicted_tbl <- predicted_tbl %>%
-            dplyr::filter(!!!conditions)
-    }
+    predicted_tbl <- get_gam_predictions(model, !!time_series_q, conditions, exclude_random = exclude_random)
 
     smooths_plot <- predicted_tbl %>%
         ggplot2::ggplot(
             ggplot2::aes_string(
-                dplyr::quo_name(time_series_q), "fit"
+                dplyr::quo_name(time_series_q), dplyr::quo_name(outcome_q)
             )
         ) +
         ggplot2::geom_ribbon(
@@ -201,7 +147,6 @@ plot_smooths <- function(model, time_series, comparison, facet_terms = NULL, con
         ggplot2::geom_path(
             ggplot2::aes_string(colour = dplyr::quo_name(comparison_q))
         ) +
-        ylab(dplyr::quo_name(outcome_q)) +
         {if (!is.null(facet_terms_q)) {
             ggplot2::facet_wrap(facet_terms_q)
         }}
