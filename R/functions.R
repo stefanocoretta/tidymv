@@ -71,7 +71,11 @@ get_gam_predictions <- function(model, time_series, series_length = 25, conditio
         tidyr::unnest(!!time_series_q)
 
     if (exclude_random) {
-        exclude_these <- random_effects
+        if (rlang::is_empty(random_effects)) {
+            exclude_these <- as.null()
+        } else {
+            exclude_these <- random_effects
+        }
     } else {
         exclude_these <- as.null()
     }
@@ -93,7 +97,7 @@ get_gam_predictions <- function(model, time_series, series_length = 25, conditio
             SE = se.fit
         )
 
-    if (exclude_random) {
+    if (!is.null(exclude_these)) {
         predicted_tbl <- predicted_tbl %>%
             dplyr::select(-!!!rlang::syms(random_effects_terms)) %>%
             unique()
