@@ -4,13 +4,15 @@
 \alias{get_gam_predictions}
 \title{Get predictions from a GAM model.}
 \usage{
-get_gam_predictions(model, time_series, conditions = NULL,
-  exclude_random = TRUE)
+get_gam_predictions(model, time_series, series_length = 25,
+  conditions = NULL, exclude_random = TRUE)
 }
 \arguments{
 \item{model}{A \code{gam} or \code{bam} model object.}
 
 \item{time_series}{An unquoted expression indicating the model term that defines the time series.}
+
+\item{series_length}{An integer indicating how many values along the time series to use for predicting the outcome term.}
 
 \item{conditions}{A list of quosures with \link[rlang]{quos} specifying the levels to plot from the model terms.}
 
