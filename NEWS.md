@@ -11,6 +11,9 @@
 - note about `lag` on check
 - note about non-imported `itsadug`
 
+### Deprecated
+- `plot_gamsd()`: use `plot_smooths` instead. Plotting both smooths and difference smooth is not supported yet.
+
 ## 1.2.0 - 2017-12-07
 ### Added
 - `rm_re` parameter for removing random effects in `plot_gamsd`
