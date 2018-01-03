@@ -19,16 +19,97 @@ create_event_start <- function(tibble, event_col) {
     )
 }
 
+#' Get predictions from a GAM model.
+#'
+#' It returns a tibble with the predictions from a a \link[mgcv]{gam} or \link[mgcv]{bam} object.
+#'
+#' @param model A \code{gam} or \code{bam} model object.
+#' @param time_series An unquoted expression indicating the model term that defines the time series.
+#' @param conditions A list of quosures with \link[rlang]{quos} specifying the levels to plot from the model terms.
+#' @param exclude_random Whether to exclude random smooths (the default is \code{TRUE}).
+#'
+#' @export
+get_gam_predictions <- function(model, time_series, conditions = NULL, exclude_random = TRUE) {
+    time_series_q <- dplyr::enquo(time_series)
+    outcome_q <- model$formula[[2]]
+
+    fitted <- model$model
+
+    for (i in 1:length(model[["smooth"]])) {
+        random_effects <- list()
+        random_effects_terms <- NULL
+        smooth_class <- attr(model$smooth[[i]],"class")[1]
+        if (smooth_class %in% c("random.effect", "fs.interaction")) {
+            random_effects <- c(
+                random_effects,
+                list(model$smooth[[i]]$label)
+            )
+            random_effects_terms <- c(
+                random_effects_terms,
+                model$smooth[[i]]$fterm
+            )
+        }
+    }
+
+    time_series_min <- dplyr::select(fitted, !!time_series_q) %>% min()
+    time_series_max <- dplyr::select(fitted, !!time_series_q) %>% max()
+
+    fitted <- fitted %>%
+        dplyr::select(-!!time_series_q, -!!outcome_q)
+
+    fitted_series <- fitted %>%
+        unique()
+
+    fitted_series <- fitted_series %>%
+        dplyr::mutate(
+            !!dplyr::quo_name(time_series_q) := rep(
+                list(seq(time_series_min, time_series_max, length.out = 25)),
+                nrow(fitted_series)
+            )
+        ) %>%
+        tidyr::unnest(!!time_series_q)
+
+    if (exclude_random) {
+        exclude_these <- random_effects
+    } else {
+        exclude_these <- as.null()
+    }
+
+    predicted <- stats::predict(
+        model,
+        fitted_series,
+        se.fit = TRUE,
+        exclude = exclude_these
+    )
+
+    predicted_tbl <- cbind(fitted_series, predicted) %>%
+        dplyr::mutate(
+            CI_upper = fit + 1.96 * se.fit,
+            CI_lower = fit - 1.96 * se.fit
+        )
+
+    if (exclude_random) {
+        predicted_tbl <- predicted_tbl %>%
+            dplyr::select(-!!!rlang::syms(random_effects_terms)) %>%
+            unique()
+    }
+
+    if (!is.null(conditions)) {
+        predicted_tbl <- predicted_tbl %>%
+            dplyr::filter(!!!conditions)
+    }
+
+    return(predicted_tbl)
+}
+
 #' Plot GAM smooths.
 #'
 #' It plots the smooths from the estimates of a \link[mgcv]{gam} or \link[mgcv]{bam} object.
 #'
-#' @param model A \code{gam} or \code{bam} model object.
-#' @param time_series An unquoted expression indicating the model term that defines the time series.
+#' @inheritParams get_gam_predictions
 #' @param comparison An unquoted expression indicating the model term for which the comparison will be plotted.
 #' @param facet_terms An unquoted formula with the terms used for faceting.
 #' @param conditions A list of quosures with \link[rlang]{quos} specifying the levels to plot from the model terms not among \code{time_series}, \code{comparison}, or \code{facet_terms}.
-#' @param exclude_random Whether to exclude random smooths (the default is \code{TRUE}).
 #'
 #' @importFrom magrittr "%>%"
 #' @importFrom rlang ":="
