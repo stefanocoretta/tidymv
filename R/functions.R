@@ -36,9 +36,10 @@ get_gam_predictions <- function(model, time_series, series_length = 25, conditio
 
     fitted <- model$model
 
+    random_effects <- list()
+    random_effects_terms <- NULL
+
     for (i in 1:length(model[["smooth"]])) {
-        random_effects <- list()
-        random_effects_terms <- NULL
         smooth_class <- attr(model$smooth[[i]],"class")[1]
         if (smooth_class %in% c("random.effect", "fs.interaction")) {
             random_effects <- c(
