@@ -86,6 +86,10 @@ get_gam_predictions <- function(model, time_series, conditions = NULL, exclude_r
         dplyr::mutate(
             CI_upper = fit + 1.96 * se.fit,
             CI_lower = fit - 1.96 * se.fit
+        ) %>%
+        dplyr::rename(
+            !!outcome_q := fit,
+            SE = se.fit
         )
 
     if (exclude_random) {
