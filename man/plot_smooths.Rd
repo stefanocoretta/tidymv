@@ -5,7 +5,7 @@
 \title{Plot GAM smooths.}
 \usage{
 plot_smooths(model, time_series, comparison, facet_terms = NULL,
-  conditions = NULL, plot_random = FALSE)
+  conditions = NULL, exclude_random = TRUE)
 }
 \arguments{
 \item{model}{A \code{gam} or \code{bam} model object.}
@@ -18,7 +18,7 @@ plot_smooths(model, time_series, comparison, facet_terms = NULL,
 
 \item{conditions}{A list of quosures with \link[rlang]{quos} specifying the levels to plot from the model terms not among \code{time_series}, \code{comparison}, or \code{facet_terms}.}
 
-\item{plot_random}{Whether to plot random smooths (the default is \code{FALSE}).}
+\item{exclude_random}{Whether to exclude random smooths (the default is \code{TRUE}).}
 }
 \description{
 It plots the smooths from the estimates of a \link[mgcv]{gam} or \link[mgcv]{bam} object.

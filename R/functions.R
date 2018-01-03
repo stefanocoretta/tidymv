@@ -28,17 +28,13 @@ create_event_start <- function(tibble, event_col) {
 #' @param comparison An unquoted expression indicating the model term for which the comparison will be plotted.
 #' @param facet_terms An unquoted formula with the terms used for faceting.
 #' @param conditions A list of quosures with \link[rlang]{quos} specifying the levels to plot from the model terms not among \code{time_series}, \code{comparison}, or \code{facet_terms}.
-#' @param plot_random Whether to plot random smooths (the default is \code{FALSE}).
+#' @param exclude_random Whether to exclude random smooths (the default is \code{TRUE}).
 #'
 #' @importFrom magrittr "%>%"
 #' @importFrom rlang ":="
 #' @importFrom stats "predict"
 #' @export
-plot_smooths <- function(model, time_series, comparison, facet_terms = NULL, conditions = NULL, plot_random = FALSE) {
-    if (plot_random) {
-        stop("Plotting of random smooths not supported yet.")
-    }
-
+plot_smooths <- function(model, time_series, comparison, facet_terms = NULL, conditions = NULL, exclude_random = TRUE) {
     time_series_q <- dplyr::enquo(time_series)
     comparison_q <- dplyr::enquo(comparison)
     facet_terms_q <- dplyr::enquo(facet_terms)
@@ -87,7 +83,7 @@ plot_smooths <- function(model, time_series, comparison, facet_terms = NULL, con
         model,
         fitted_series,
         se.fit = TRUE,
-        exclude = ifelse(plot_random, NULL, random_effects)
+        exclude = ifelse(exclude_random, random_effects, NULL)
     )
 
     predicted_tbl <- cbind(fitted_series, predicted) %>%
