@@ -2,6 +2,7 @@
 
 ## Unreleased
 ### Added
+- `get_gam_predictions` for predicting with a `gam` object
 - `plot_smooths` for plotting smooths
 
 ### Fixed
