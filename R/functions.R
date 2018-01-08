@@ -39,17 +39,19 @@ get_gam_predictions <- function(model, time_series, series_length = 25, conditio
     random_effects <- list()
     random_effects_terms <- NULL
 
-    for (i in 1:length(model[["smooth"]])) {
-        smooth_class <- attr(model$smooth[[i]],"class")[1]
-        if (smooth_class %in% c("random.effect", "fs.interaction")) {
-            random_effects <- c(
-                random_effects,
-                list(model$smooth[[i]]$label)
-            )
-            random_effects_terms <- c(
-                random_effects_terms,
-                model$smooth[[i]]$fterm
-            )
+    if (exclude_random == TRUE) {
+        for (i in 1:length(model[["smooth"]])) {
+            smooth_class <- attr(model$smooth[[i]],"class")[1]
+            if (smooth_class %in% c("random.effect", "fs.interaction")) {
+                random_effects <- c(
+                    random_effects,
+                    list(model$smooth[[i]]$label)
+                )
+                random_effects_terms <- c(
+                    random_effects_terms,
+                    model$smooth[[i]]$fterm
+                )
+            }
         }
     }
 
