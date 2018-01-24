@@ -61,6 +61,10 @@ get_gam_predictions <- function(model, time_series, series_length = 25, conditio
     fitted <- fitted %>%
         dplyr::select(-!!time_series_q, -!!outcome_q)
 
+    if ("(AR.start)" %in% colnames(fitted)) {
+        fitted$`(AR.start)` <- NULL
+    }
+
     fitted_series <- fitted %>%
         unique()
 
