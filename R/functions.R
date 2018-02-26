@@ -106,7 +106,7 @@ get_gam_predictions <- function(model, time_series, series_length = 25, conditio
 
     if (!is.null(exclude_these)) {
         predicted_tbl <- predicted_tbl %>%
-            dplyr::select(-!!!rlang::syms(random_effects_terms)) %>%
+            dplyr::select(-(!!!rlang::syms(random_effects_terms))) %>%
             unique()
     }
 
