@@ -17,7 +17,10 @@ library(itsadug)
 library(tidymv)
 ```
 
-Reference and difference smooths of factor predictos from a `gam` model can be plotted with `plot_gamsd()`.
+The estimated smooths and the difference smooth of factor predictors from a `gam` model can be plotted with `plot_gamsd()`.
+This function has now been deprecated and will be removed in future versions.
+This vignette is kept for historical reasons.
+
 To illustrate how to use `plot_gamsd()`, let's first prepare some dummy data with a factor variable and run `gam()` on this data. The `gam` model includes a reference smooth `s(x2)`, a by-factor difference smooth `s(x2, by = fac)`, and a smooth `s(x0)`.
 
 ```{r gam}
