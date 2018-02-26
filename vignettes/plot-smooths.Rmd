@@ -1,0 +1,48 @@
+---
+title: "Plotting GAMs"
+author: "Stefano Coretta"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  out.width = "300px", fig.align = "center", dpi = 300
+)
+library(tidyverse)
+theme_set(theme_bw())
+library(itsadug)
+library(tidymv)
+```
+
+To illustrate how to use `plot_smooths()`, let's first prepare some dummy data with a factor variable and run `gam()` on this data. The `gam` model includes a reference smooth `s(x2)`, a by-factor difference smooth `s(x2, by = fac)`, and a smooth `s(x0)`.
+
+```{r gam}
+set.seed(10)
+data <- gamSim(4)
+model <- gam(
+    y ~
+        fac +
+        s(x2) +
+        s(x2, by = fac),
+    data = data
+)
+```
+
+We can now plot the estimated smooths for the two levels of `fac`.
+The function supports factors with more than 2 levels.
+
+```{r plot-1-2}
+plot_smooths(
+    model = model,
+    time_series = x2,
+    comparison = fac
+) +
+    theme(legend.position = "top")
+```
