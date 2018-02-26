@@ -32,6 +32,7 @@ create_event_start <- function(tibble, event_col) {
 #' @export
 get_gam_predictions <- function(model, time_series, series_length = 25, conditions = NULL, exclude_random = TRUE) {
     time_series_q <- dplyr::enquo(time_series)
+    time_series_name <- dplyr::quo_name(time_series_q)
     outcome_q <- model$formula[[2]]
 
     fitted <- model$model
@@ -87,11 +88,25 @@ get_gam_predictions <- function(model, time_series, series_length = 25, conditio
         exclude_these <- as.null()
     }
 
+    # Exclude smooth terms which are not the time series to be plotted
+    exclude_smooths <- as.null()
+    exclude_terms <- as.null()
+    for (smooth in 1:length(model[["smooth"]])) {
+        smooth_term <- model[["smooth"]][[smooth]][["term"]]
+        if (smooth_term != time_series_name) {
+            exclude_terms <- c(exclude_terms, smooth_term)
+            smooth_label <- model[["smooth"]][[smooth]][["label"]]
+            exclude_smooths <- c(exclude_smooths, smooth_label)
+        }
+    }
+
+    exclude <- c(exclude_these, exclude_smooths)
+
     predicted <- stats::predict(
         model,
         fitted_series,
         se.fit = TRUE,
-        exclude = exclude_these
+        exclude = exclude
     )
 
     predicted_tbl <- cbind(fitted_series, predicted) %>%
@@ -107,6 +122,12 @@ get_gam_predictions <- function(model, time_series, series_length = 25, conditio
     if (!is.null(exclude_these)) {
         predicted_tbl <- predicted_tbl %>%
             dplyr::select(-(!!!rlang::syms(random_effects_terms))) %>%
+            unique()
+    }
+
+    if (!is.null(exclude_smooths)) {
+        predicted_tbl <- predicted_tbl %>%
+            dplyr::select(-(!!!rlang::syms(exclude_terms))) %>%
             unique()
     }
 
