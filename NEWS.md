@@ -1,15 +1,18 @@
 # Change Log
 
-## Unreleased
+## [1.3.0] - 2018-02-26
 ### Added
-- `get_gam_predictions` for predicting with a `gam` object
-- `plot_smooths` for plotting smooths
+- `get_gam_predictions()` for predicting with a `gam` object
+- `plot_smooths()` for plotting smooths
+- `plot-smooths.Rmd` vignette
+- support for models with smooths with terms not in `time_series`
 
 ### Fixed
 - typo in documentation of `create_event_start()`
 - double call of `itsadug` in DESCRIPTION
 - note about `lag` on check
 - note about non-imported `itsadug`
+- incompatibility with `rlang@v0.2.0`
 
 ### Deprecated
 - `plot_gamsd()` will be deprecated: use `plot_smooths` instead. Plotting both smooths and difference smooth is not supported yet.
