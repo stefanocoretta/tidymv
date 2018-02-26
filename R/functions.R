@@ -80,12 +80,12 @@ get_gam_predictions <- function(model, time_series, series_length = 25, conditio
 
     if (exclude_random) {
         if (rlang::is_empty(random_effects)) {
-            exclude_these <- as.null()
+            exclude_random_effects <- as.null()
         } else {
-            exclude_these <- random_effects
+            exclude_random_effects <- random_effects
         }
     } else {
-        exclude_these <- as.null()
+        exclude_random_effects <- as.null()
     }
 
     # Exclude smooth terms which are not the time series to be plotted
@@ -100,13 +100,13 @@ get_gam_predictions <- function(model, time_series, series_length = 25, conditio
         }
     }
 
-    exclude <- c(exclude_these, exclude_smooths)
+    exclude_these <- c(exclude_random_effects, exclude_smooths)
 
     predicted <- stats::predict(
         model,
         fitted_series,
         se.fit = TRUE,
-        exclude = exclude
+        exclude = exclude_these
     )
 
     predicted_tbl <- cbind(fitted_series, predicted) %>%
@@ -119,7 +119,7 @@ get_gam_predictions <- function(model, time_series, series_length = 25, conditio
             SE = se.fit
         )
 
-    if (!is.null(exclude_these)) {
+    if (!is.null(exclude_random_effects)) {
         predicted_tbl <- predicted_tbl %>%
             dplyr::select(-(!!!rlang::syms(random_effects_terms))) %>%
             unique()
