@@ -11,7 +11,7 @@ vignette: >
 
 ```{r setup, echo=FALSE, include=FALSE}
 knitr::opts_chunk$set(out.width = "300px", fig.align = "center", dpi = 300)
-library(tidyverse)
+library(ggplot2)
 theme_set(theme_bw())
 library(itsadug)
 library(tidymv)
