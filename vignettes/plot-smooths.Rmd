@@ -17,8 +17,10 @@ knitr::opts_chunk$set(
 )
 library(ggplot2)
 theme_set(theme_bw())
+library(dplyr)
 library(itsadug)
 library(tidymv)
+data(simdat)
 ```
 
 To illustrate how to use `plot_smooths()`, let's first prepare some dummy data with a factor variable and run `gam()` on this data. The `gam` model includes a reference smooth `s(x2)`, a by-factor difference smooth `s(x2, by = fac)`, and a smooth `s(x0)`.
@@ -46,4 +48,60 @@ plot_smooths(
     comparison = fac
 ) +
     theme(legend.position = "top")
+```
+
+## Plotting interactions
+
+It is very likely that the model will contain interactions.
+It is possible to plot models with interactions by specifying faceting with the `facet_terms` argument.
+
+```{r interaction-data}
+simdata <- simdat %>%
+    filter(
+    Subject %in% c("a01", "a08", "a15", "c01", "c08", "c15")
+) %>%
+    mutate(
+    GroupCondition = interaction(Group, Condition)
+)
+
+model_inter <- bam(
+    Y ~
+        Group +
+        s(Time, by = Group) +
+        s(Time, by = Condition) +
+        s(Time, by = GroupCondition),
+    data = simdata
+)
+```
+
+```{r plot-interactions}
+plot_smooths(
+    model = model_inter,
+    time_series = Time,
+    comparison = Group,
+    facet_terms = Condition
+)
+```
+
+To plot just one or some of the facets, you should use the `conditions` argument.
+This argument takes a list of quosures qith `quos()`.
+
+```{r plot-interactions-2}
+plot_smooths(
+    model = model_inter,
+    time_series = Time,
+    comparison = Group,
+    facet_terms = Condition,
+    conditions = quos(Condition == -1)
+)
+```
+
+```{r plot-interactions-3}
+plot_smooths(
+    model = model_inter,
+    time_series = Time,
+    comparison = Group,
+    facet_terms = Condition,
+    conditions = quos(Condition %in% c(-1, 3))
+)
 ```

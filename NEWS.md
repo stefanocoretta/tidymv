@@ -1,5 +1,9 @@
 # Change Log
 
+## Unreleased
+### Added
+- how to plot interactions in vignette
+
 ## [1.3.1] - 2018-02-26
 ### Fixed
 - warning in `get_gam_predictions()`
