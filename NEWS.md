@@ -4,6 +4,9 @@
 ### Added
 - how to plot interactions in vignette
 
+### Fixed
+- message in `plot_gamsd()` which said "will be deprecated"
+
 ## [1.3.1] - 2018-02-26
 ### Fixed
 - warning in `get_gam_predictions()`

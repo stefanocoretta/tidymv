@@ -206,7 +206,7 @@ plot_smooths <- function(model, time_series, comparison, facet_terms = NULL, con
 #' @importFrom magrittr "%>%"
 #' @export
 plot_gamsd <- function(model, view, comparison, conditions = NULL, rm_re = FALSE, bw = FALSE) {
-    .Deprecated("plot_smooth", msg = "'plot_gamsd' will be deprecated, use 'plot_smooths'. (Plotting with the difference smooth is not supported yet.)\n")
+    .Deprecated("plot_smooth", msg = "'plot_gamsd' is deprecated and will be removed, use 'plot_smooths()'. (Plotting with the difference smooth is not supported yet.)\n")
 
     diff.df <- itsadug::plot_diff(
         model,
