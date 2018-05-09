@@ -91,13 +91,26 @@ get_gam_predictions <- function(model, time_series, series_length = 25, conditio
 
     # Exclude smooth terms which are not the time series to be plotted
     exclude_smooths <- as.null()
-    exclude_terms <- as.null()
+    excluded_terms <- as.null()
     for (smooth in 1:length(model[["smooth"]])) {
         smooth_term <- model[["smooth"]][[smooth]][["term"]][[1]]
         if (smooth_term != time_series_name) {
-            exclude_terms <- c(exclude_terms, smooth_term)
+            excluded_terms <- c(excluded_terms, smooth_term)
             smooth_label <- model[["smooth"]][[smooth]][["label"]]
             exclude_smooths <- c(exclude_smooths, smooth_label)
+        }
+    }
+
+    excluded <- as.null()
+    for (term in 1:length(exclude_terms)) {
+        for (label in 1:length(model[["smooth"]])) {
+            smooth_label <- model[["smooth"]][[smooth]][["label"]]
+            if (smooth_label == exclude_terms[term])
+                smooth_term <- model[["smooth"]][[label]][["term"]]
+            if (length(smooth_term) > 1) {
+                smooth_term_2 <- model[["smooth"]][[label]][["term"]][[2]]
+                excluded <- c(excluded, smooth_term_2)
+            }
         }
     }
 
@@ -128,7 +141,13 @@ get_gam_predictions <- function(model, time_series, series_length = 25, conditio
 
     if (!is.null(exclude_smooths)) {
         predicted_tbl <- predicted_tbl %>%
-            dplyr::select(-(!!!rlang::syms(exclude_terms))) %>%
+            dplyr::select(-(!!!rlang::syms(excluded_terms))) %>%
+            unique()
+    }
+
+    if (!is.null(excluded)) {
+        predicted_tbl <- predicted_tbl %>%
+            dplyr::select(-(!!!rlang::syms(excluded))) %>%
             unique()
     }
 
