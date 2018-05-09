@@ -138,19 +138,19 @@ get_gam_predictions <- function(model, time_series, series_length = 25, conditio
 
     if (!is.null(exclude_random_effects)) {
         predicted_tbl <- predicted_tbl %>%
-            dplyr::select(-(!!!rlang::syms(random_effects_terms))) %>%
+            dplyr::select(-one_of(random_effects_terms)) %>%
             unique()
     }
 
     if (!is.null(exclude_smooths)) {
         predicted_tbl <- predicted_tbl %>%
-            dplyr::select(-(!!!rlang::syms(excluded_terms))) %>%
+            dplyr::select(-one_of(excluded_terms)) %>%
             unique()
     }
 
     if (!is.null(excluded)) {
         predicted_tbl <- predicted_tbl %>%
-            dplyr::select(-(!!!rlang::syms(excluded))) %>%
+            dplyr::select(-one_of(excluded)) %>%
             unique()
     }
 
