@@ -45,7 +45,8 @@ Significance is based on the difference smooth: at any point, if the confidence 
 plot_gamsd(
     model = model,
     view = "x2",
-    comparison = list(fac = c("1", "2"))
+    comparison = list(fac = c("1", "2")),
+    ylim = c(-5, 5)
 )
 ```
 

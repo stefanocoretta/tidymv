@@ -5,7 +5,7 @@
 \title{Plot GAM estimate smooths and difference curve.}
 \usage{
 plot_gamsd(model, view, comparison, conditions = NULL, rm_re = FALSE,
-  bw = FALSE)
+  bw = FALSE, ylim = NULL)
 }
 \arguments{
 \item{model}{A \code{gam} or \code{bam} model object.}
@@ -19,6 +19,8 @@ plot_gamsd(model, view, comparison, conditions = NULL, rm_re = FALSE,
 \item{rm_re}{Whether to remove random effects (the default is \code{FALSE}).}
 
 \item{bw}{Whether to plot in black and white (the default is \code{FALSE}).}
+
+\item{ylim}{Limits of the y-axis of the smooths panel.}
 }
 \description{
 It plots comparison smooths from the estimates of a \link[mgcv]{gam} or \link[mgcv]{bam}

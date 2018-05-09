@@ -3,6 +3,7 @@
 ## Unreleased
 ### Added
 - how to plot interactions in vignette
+- experimental `ylim` argument to `plot_gamsd()`
 
 ### Fixed
 - message in `plot_gamsd()` which said "will be deprecated"

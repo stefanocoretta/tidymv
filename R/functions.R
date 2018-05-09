@@ -202,10 +202,11 @@ plot_smooths <- function(model, time_series, comparison, facet_terms = NULL, con
 #' @param conditions The values to use for other predictors as a named list.
 #' @param rm_re Whether to remove random effects (the default is \code{FALSE}).
 #' @param bw Whether to plot in black and white (the default is \code{FALSE}).
+#' @param ylim Limits of the y-axis of the smooths panel.
 #'
 #' @importFrom magrittr "%>%"
 #' @export
-plot_gamsd <- function(model, view, comparison, conditions = NULL, rm_re = FALSE, bw = FALSE) {
+plot_gamsd <- function(model, view, comparison, conditions = NULL, rm_re = FALSE, bw = FALSE, ylim = NULL) {
     .Deprecated("plot_smooth", msg = "'plot_gamsd' is deprecated and will be removed, use 'plot_smooths()'. (Plotting with the difference smooth is not supported yet.)\n")
 
     diff.df <- itsadug::plot_diff(
@@ -291,7 +292,8 @@ plot_gamsd <- function(model, view, comparison, conditions = NULL, rm_re = FALSE
                 ggplot2::scale_linetype_discrete(name = names(comparison))
                 }
         } +
-        {if (bw == FALSE) {ggplot2::scale_fill_discrete(name = names(comparison))}}
+        {if (bw == FALSE) {ggplot2::scale_fill_discrete(name = names(comparison))}} +
+        {if (!is.null(ylim)) {ggplot2::ylim(ylim[1], ylim[2])}}
 
     ymin.di <- diff.df$est - diff.df$CI
     ymax.di <- diff.df$est + diff.df$CI
