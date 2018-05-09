@@ -102,7 +102,7 @@ get_gam_predictions <- function(model, time_series, series_length = 25, conditio
     }
 
     excluded <- as.null()
-    if (length(exclude_terms) != 0) {
+    if (!is.null(exclude_terms)) {
         for (term in 1:length(exclude_terms)) {
             for (label in 1:length(model[["smooth"]])) {
                 smooth_label <- model[["smooth"]][[smooth]][["label"]]
@@ -115,6 +115,7 @@ get_gam_predictions <- function(model, time_series, series_length = 25, conditio
             }
         }
     }
+    print(excluded)
 
     exclude_these <- c(exclude_random_effects, exclude_smooths, exclude_terms)
 
