@@ -102,14 +102,16 @@ get_gam_predictions <- function(model, time_series, series_length = 25, conditio
     }
 
     excluded <- as.null()
-    for (term in 1:length(exclude_terms)) {
-        for (label in 1:length(model[["smooth"]])) {
-            smooth_label <- model[["smooth"]][[smooth]][["label"]]
-            if (smooth_label == exclude_terms[term])
-                smooth_term <- model[["smooth"]][[label]][["term"]]
-            if (length(smooth_term) > 1) {
-                smooth_term_2 <- model[["smooth"]][[label]][["term"]][[2]]
-                excluded <- c(excluded, smooth_term_2)
+    if (length(exclude_terms) != 0) {
+        for (term in 1:length(exclude_terms)) {
+            for (label in 1:length(model[["smooth"]])) {
+                smooth_label <- model[["smooth"]][[smooth]][["label"]]
+                if (smooth_label == exclude_terms[term])
+                    smooth_term <- model[["smooth"]][[label]][["term"]]
+                if (length(smooth_term) > 1) {
+                    smooth_term_2 <- model[["smooth"]][[label]][["term"]][[2]]
+                    excluded <- c(excluded, smooth_term_2)
+                }
             }
         }
     }
