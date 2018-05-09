@@ -5,7 +5,7 @@
 \title{Get predictions from a GAM model.}
 \usage{
 get_gam_predictions(model, time_series, series_length = 25,
-  conditions = NULL, exclude_random = TRUE)
+  conditions = NULL, exclude_random = TRUE, exclude_terms = NULL)
 }
 \arguments{
 \item{model}{A \code{gam} or \code{bam} model object.}
@@ -17,6 +17,8 @@ get_gam_predictions(model, time_series, series_length = 25,
 \item{conditions}{A list of quosures with \link[rlang]{quos} specifying the levels to plot from the model terms.}
 
 \item{exclude_random}{Whether to exclude random smooths (the default is \code{TRUE}).}
+
+\item{exclude_terms}{Terms to be excluded from the prediction. Term names should be given as they appear in the model summary (for example, \code{"s(x0,x1)"}).}
 }
 \description{
 It returns a tibble with the predictions from a a \link[mgcv]{gam} or \link[mgcv]{bam} object.

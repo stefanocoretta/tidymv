@@ -3,6 +3,7 @@
 ## Unreleased
 ### Added
 - how to plot interactions in vignette
+- `exclude_terms` argument to exclude terms when predicting
 - experimental `ylim` argument to `plot_gamsd()`
 
 ### Fixed

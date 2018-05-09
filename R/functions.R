@@ -28,9 +28,10 @@ create_event_start <- function(tibble, event_col) {
 #' @param series_length An integer indicating how many values along the time series to use for predicting the outcome term.
 #' @param conditions A list of quosures with \link[rlang]{quos} specifying the levels to plot from the model terms.
 #' @param exclude_random Whether to exclude random smooths (the default is \code{TRUE}).
+#' @param exclude_terms Terms to be excluded from the prediction. Term names should be given as they appear in the model summary (for example, \code{"s(x0,x1)"}).
 #'
 #' @export
-get_gam_predictions <- function(model, time_series, series_length = 25, conditions = NULL, exclude_random = TRUE) {
+get_gam_predictions <- function(model, time_series, series_length = 25, conditions = NULL, exclude_random = TRUE, exclude_terms = NULL) {
     time_series_q <- dplyr::enquo(time_series)
     time_series_name <- dplyr::quo_name(time_series_q)
     outcome_q <- model$formula[[2]]
@@ -100,7 +101,7 @@ get_gam_predictions <- function(model, time_series, series_length = 25, conditio
         }
     }
 
-    exclude_these <- c(exclude_random_effects, exclude_smooths)
+    exclude_these <- c(exclude_random_effects, exclude_smooths, exclude_terms)
 
     predicted <- stats::predict(
         model,
@@ -152,7 +153,7 @@ get_gam_predictions <- function(model, time_series, series_length = 25, conditio
 #' @importFrom rlang ":="
 #' @importFrom stats "predict"
 #' @export
-plot_smooths <- function(model, time_series, comparison, facet_terms = NULL, conditions = NULL, exclude_random = TRUE, series_length = 25) {
+plot_smooths <- function(model, time_series, comparison, facet_terms = NULL, conditions = NULL, exclude_random = TRUE, exclude_terms = NULL, series_length = 25) {
     time_series_q <- dplyr::enquo(time_series)
     comparison_q <- dplyr::enquo(comparison)
     facet_terms_q <- dplyr::enquo(facet_terms)
@@ -161,7 +162,7 @@ plot_smooths <- function(model, time_series, comparison, facet_terms = NULL, con
     }
     outcome_q <- model$formula[[2]]
 
-    predicted_tbl <- get_gam_predictions(model, !!time_series_q, conditions, exclude_random = exclude_random, series_length = series_length)
+    predicted_tbl <- get_gam_predictions(model, !!time_series_q, conditions, exclude_random = exclude_random, exclude_terms = exclude_terms, series_length = series_length)
 
     smooths_plot <- predicted_tbl %>%
         ggplot2::ggplot(

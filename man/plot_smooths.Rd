@@ -5,7 +5,8 @@
 \title{Plot GAM smooths.}
 \usage{
 plot_smooths(model, time_series, comparison, facet_terms = NULL,
-  conditions = NULL, exclude_random = TRUE, series_length = 25)
+  conditions = NULL, exclude_random = TRUE, exclude_terms = NULL,
+  series_length = 25)
 }
 \arguments{
 \item{model}{A \code{gam} or \code{bam} model object.}
@@ -19,6 +20,8 @@ plot_smooths(model, time_series, comparison, facet_terms = NULL,
 \item{conditions}{A list of quosures with \link[rlang]{quos} specifying the levels to plot from the model terms not among \code{time_series}, \code{comparison}, or \code{facet_terms}.}
 
 \item{exclude_random}{Whether to exclude random smooths (the default is \code{TRUE}).}
+
+\item{exclude_terms}{Terms to be excluded from the prediction. Term names should be given as they appear in the model summary (for example, \code{"s(x0,x1)"}).}
 
 \item{series_length}{An integer indicating how many values along the time series to use for predicting the outcome term.}
 }
