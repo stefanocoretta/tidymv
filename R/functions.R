@@ -89,12 +89,19 @@ get_gam_predictions <- function(model, time_series, series_length = 25, conditio
         exclude_random_effects <- as.null()
     }
 
-    # Exclude smooth terms which are not the time series to be plotted
+    # Exclude smooth terms which are not the time series to be plotted or tensor smooths
     exclude_smooths <- as.null()
     excluded_terms <- as.null()
     for (smooth in 1:length(model[["smooth"]])) {
         smooth_term <- model[["smooth"]][[smooth]][["term"]][[1]]
         if (smooth_term != time_series_name) {
+            excluded_terms <- c(excluded_terms, smooth_term)
+            smooth_label <- model[["smooth"]][[smooth]][["label"]]
+            exclude_smooths <- c(exclude_smooths, smooth_label)
+        }
+        smooth_class <- attr(model$smooth[[smooth]],"class")[1]
+        if (smooth_class == "tensor.smooth") {
+            smooth_term <- model[["smooth"]][[smooth]][["term"]][[2]]
             excluded_terms <- c(excluded_terms, smooth_term)
             smooth_label <- model[["smooth"]][[smooth]][["label"]]
             exclude_smooths <- c(exclude_smooths, smooth_label)

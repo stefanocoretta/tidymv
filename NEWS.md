@@ -4,6 +4,7 @@
 ### Added
 - how to plot interactions in vignette
 - `exclude_terms` argument to exclude terms when predicting
+- exclude `tensor.smooths` when plotting smooths
 - experimental `ylim` argument to `plot_gamsd()`
 
 ### Fixed
