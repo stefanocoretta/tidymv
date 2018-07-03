@@ -87,22 +87,24 @@ plot_smooths(
 To plot just one or some of the facets, you should use the `conditions` argument.
 This argument takes a list of quosures qith `quos()`.
 
-```{r plot-interactions-2, eval=FALSE}
+```{r plot-interactions-2}
 plot_smooths(
     model = model_inter,
     time_series = Time,
     comparison = Group,
     facet_terms = Condition,
-    conditions = quos(Condition == -1)
+    conditions = quos(Condition == -1),
+    split = list(GroupCondition = c("Group", "Condition"))
 )
 ```
 
-```{r plot-interactions-3, eval=FALSE}
+```{r plot-interactions-3}
 plot_smooths(
     model = model_inter,
     time_series = Time,
     comparison = Group,
     facet_terms = Condition,
-    conditions = quos(Condition %in% c(-1, 3))
+    conditions = quos(Condition %in% c(-1, 3)),
+    split = list(GroupCondition = c("Group", "Condition"))
 )
 ```

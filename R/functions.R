@@ -161,11 +161,6 @@ get_gam_predictions <- function(model, time_series, series_length = 25, conditio
             unique()
     }
 
-    if (!is.null(conditions)) {
-        predicted_tbl <- predicted_tbl %>%
-            dplyr::filter(!!!conditions)
-    }
-
     if (!is.null(split)) {
         for (i in 1:length(split)) {
             predicted_tbl <- tidyr::separate(
@@ -175,6 +170,11 @@ get_gam_predictions <- function(model, time_series, series_length = 25, conditio
                 sep = sep
             )
         }
+    }
+
+    if (!is.null(conditions)) {
+        predicted_tbl <- predicted_tbl %>%
+            dplyr::filter(!!!conditions)
     }
 
     return(predicted_tbl)
