@@ -2,6 +2,7 @@
 
 ## Unreleased
 ### Added
+- `split` argument for separating columns (useful for interactions)
 - how to plot interactions in vignette
 - `exclude_terms` argument to exclude terms when predicting
 - exclude `tensor.smooths` when plotting smooths

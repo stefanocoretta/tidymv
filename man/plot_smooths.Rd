@@ -24,6 +24,10 @@ plot_smooths(model, time_series, comparison, facet_terms = NULL,
 \item{exclude_terms}{Terms to be excluded from the prediction. Term names should be given as they appear in the model summary (for example, \code{"s(x0,x1)"}).}
 
 \item{series_length}{An integer indicating how many values along the time series to use for predicting the outcome term.}
+
+\item{split}{Columns to separate as a named list.}
+
+\item{sep}{Separator between columns (default is \code{"\\."}, which is the default with \code{}). If character, it is interpreted as a regular expression.}
 }
 \description{
 It plots the smooths from the estimates of a \link[mgcv]{gam} or \link[mgcv]{bam} object.

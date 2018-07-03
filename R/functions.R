@@ -29,6 +29,8 @@ create_event_start <- function(tibble, event_col) {
 #' @param conditions A list of quosures with \link[rlang]{quos} specifying the levels to plot from the model terms.
 #' @param exclude_random Whether to exclude random smooths (the default is \code{TRUE}).
 #' @param exclude_terms Terms to be excluded from the prediction. Term names should be given as they appear in the model summary (for example, \code{"s(x0,x1)"}).
+#' @param split Columns to separate as a named list.
+#' @param sep Separator between columns (default is \code{"\\."}, which is the default with \code{}). If character, it is interpreted as a regular expression.
 #'
 #' @export
 get_gam_predictions <- function(model, time_series, series_length = 25, conditions = NULL, exclude_random = TRUE, exclude_terms = NULL, split = NULL, sep = "\\.") {
