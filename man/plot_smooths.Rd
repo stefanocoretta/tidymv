@@ -6,7 +6,7 @@
 \usage{
 plot_smooths(model, time_series, comparison, facet_terms = NULL,
   conditions = NULL, exclude_random = TRUE, exclude_terms = NULL,
-  series_length = 25)
+  series_length = 25, split = NULL, sep = "[^[:alnum:]]+")
 }
 \arguments{
 \item{model}{A \code{gam} or \code{bam} model object.}

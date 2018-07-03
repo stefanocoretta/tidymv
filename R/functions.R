@@ -182,7 +182,7 @@ get_gam_predictions <- function(model, time_series, series_length = 25, conditio
 #' @importFrom rlang ":="
 #' @importFrom stats "predict"
 #' @export
-plot_smooths <- function(model, time_series, comparison, facet_terms = NULL, conditions = NULL, exclude_random = TRUE, exclude_terms = NULL, series_length = 25) {
+plot_smooths <- function(model, time_series, comparison, facet_terms = NULL, conditions = NULL, exclude_random = TRUE, exclude_terms = NULL, series_length = 25, split = NULL, sep = "[^[:alnum:]]+") {
     time_series_q <- dplyr::enquo(time_series)
     comparison_q <- dplyr::enquo(comparison)
     facet_terms_q <- dplyr::enquo(facet_terms)
@@ -192,6 +192,17 @@ plot_smooths <- function(model, time_series, comparison, facet_terms = NULL, con
     outcome_q <- model$formula[[2]]
 
     predicted_tbl <- get_gam_predictions(model, !!time_series_q, conditions, exclude_random = exclude_random, exclude_terms = exclude_terms, series_length = series_length)
+
+    if (!is.null(split)) {
+        for (i in 1:length(split)) {
+            predicted_tbl <- tidyr::separate(
+                data = predicted_tbl,
+                col = names(split)[i],
+                into = split[[i]],
+                sep = sep
+            )
+        }
+    }
 
     smooths_plot <- predicted_tbl %>%
         ggplot2::ggplot(
