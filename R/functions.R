@@ -31,7 +31,7 @@ create_event_start <- function(tibble, event_col) {
 #' @param exclude_terms Terms to be excluded from the prediction. Term names should be given as they appear in the model summary (for example, \code{"s(x0,x1)"}).
 #'
 #' @export
-get_gam_predictions <- function(model, time_series, series_length = 25, conditions = NULL, exclude_random = TRUE, exclude_terms = NULL) {
+get_gam_predictions <- function(model, time_series, series_length = 25, conditions = NULL, exclude_random = TRUE, exclude_terms = NULL, split = NULL, sep = "\\.") {
     time_series_q <- dplyr::enquo(time_series)
     time_series_name <- dplyr::quo_name(time_series_q)
     outcome_q <- model$formula[[2]]
@@ -166,6 +166,17 @@ get_gam_predictions <- function(model, time_series, series_length = 25, conditio
             dplyr::filter(!!!conditions)
     }
 
+    if (!is.null(split)) {
+        for (i in 1:length(split)) {
+            predicted_tbl <- tidyr::separate(
+                data = predicted_tbl,
+                col = names(split)[i],
+                into = split[[i]],
+                sep = sep
+            )
+        }
+    }
+
     return(predicted_tbl)
 }
 
@@ -182,7 +193,7 @@ get_gam_predictions <- function(model, time_series, series_length = 25, conditio
 #' @importFrom rlang ":="
 #' @importFrom stats "predict"
 #' @export
-plot_smooths <- function(model, time_series, comparison, facet_terms = NULL, conditions = NULL, exclude_random = TRUE, exclude_terms = NULL, series_length = 25, split = NULL, sep = "[^[:alnum:]]+") {
+plot_smooths <- function(model, time_series, comparison, facet_terms = NULL, conditions = NULL, exclude_random = TRUE, exclude_terms = NULL, series_length = 25, split = NULL, sep = "\\.") {
     time_series_q <- dplyr::enquo(time_series)
     comparison_q <- dplyr::enquo(comparison)
     facet_terms_q <- dplyr::enquo(facet_terms)
@@ -191,18 +202,7 @@ plot_smooths <- function(model, time_series, comparison, facet_terms = NULL, con
     }
     outcome_q <- model$formula[[2]]
 
-    predicted_tbl <- get_gam_predictions(model, !!time_series_q, conditions, exclude_random = exclude_random, exclude_terms = exclude_terms, series_length = series_length)
-
-    if (!is.null(split)) {
-        for (i in 1:length(split)) {
-            predicted_tbl <- tidyr::separate(
-                data = predicted_tbl,
-                col = names(split)[i],
-                into = split[[i]],
-                sep = sep
-            )
-        }
-    }
+    predicted_tbl <- get_gam_predictions(model, !!time_series_q, conditions, exclude_random = exclude_random, exclude_terms = exclude_terms, series_length = series_length, split = split, sep = sep)
 
     smooths_plot <- predicted_tbl %>%
         ggplot2::ggplot(

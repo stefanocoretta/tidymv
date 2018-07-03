@@ -80,8 +80,7 @@ plot_smooths(
     time_series = Time,
     comparison = Group,
     facet_terms = Condition,
-    split = list(GroupCondition = c("Group", "Condition")),
-    sep = "\\."
+    split = list(GroupCondition = c("Group", "Condition"))
 )
 ```
 
