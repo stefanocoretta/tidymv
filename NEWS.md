@@ -1,8 +1,11 @@
 # Change Log
 
 ## Unreleased
-## Added
+### Added
 - `plot_difference()` to plot difference smooths
+
+### Changed
+- deprecated message with `plot_gamsd()` now mentions `plot_difference()`
 
 ## [1.4.0] - 2018-07-03
 ### Added
