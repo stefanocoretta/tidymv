@@ -387,8 +387,8 @@ plot_difference <- function(model, time_series, difference, conditions = NULL, s
 
     diff <- itsadug::get_difference(model, difference, cond = conditions, print.summary = FALSE) %>%
         dplyr::mutate(
-            CI_upper = difference + 1.96 * CI,
-            CI_lower = difference - 1.96 * CI
+            CI_upper = difference + CI,
+            CI_lower = difference - CI
         )
 
     sig_diff <- itsadug::find_difference(
