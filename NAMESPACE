@@ -2,6 +2,7 @@
 
 export(create_event_start)
 export(get_gam_predictions)
+export(plot_difference)
 export(plot_gamsd)
 export(plot_smooths)
 importFrom(magrittr,"%>%")

@@ -362,3 +362,65 @@ plot_gamsd <- function(model, view, comparison, conditions = NULL, rm_re = FALSE
 
     cowplot::plot_grid(smooth.plot, diff.plot, align = "v", nrow = 2, rel_heights = c(2/3, 1/3))
 }
+
+#' Plot difference smooth from a GAM.
+#'
+#' It plots the difference smooth from a \link[mgcv]{gam} or \link[mgcv]{bam}.
+#' Significant differences are marked with red areas.
+#'
+#' @inheritParams get_gam_predictions
+#' @param time_series An unquoted expression indicating the model term that defines the time series.
+#' @param difference A named list with the levels to compute the difference of.
+#' @param conditions A named list specifying the levels to plot from the model terms not among \code{time_series} or \code{difference}. Notice the difference with \link[tidymv]{plot_smooths}, which uses \link[rlang]{quos}.
+#'
+#' @export
+plot_difference <- function(model, time_series, difference, conditions = NULL, series_length = 25) {
+    time_series_q <- dplyr::enquo(time_series)
+    time_series_chr <- quo_name(time_series_q)
+
+    fitted <- model$model
+
+    time_series_min <- dplyr::select(fitted, !!time_series_q) %>% min()
+    time_series_max <- dplyr::select(fitted, !!time_series_q) %>% max()
+
+    conditions <- c(conditions, rlang::ll(!!time_series_chr := seq(time_series_min, time_series_max, length.out = series_length)))
+
+    diff <- itsadug::get_difference(model, difference, cond = conditions, print.summary = FALSE) %>%
+        dplyr::mutate(
+            CI_upper = difference + 1.96 * CI,
+            CI_lower = difference - 1.96 * CI
+        )
+
+    sig_diff <- itsadug::find_difference(
+        diff$difference, diff$CI, diff[[time_series_chr]]
+    )
+
+    annotate <- ggplot2::annotate(
+        "rect",
+        xmin = sig_diff$start, xmax = sig_diff$end,
+        ymin = -Inf, ymax = Inf, alpha = 0.1,
+        fill = "red"
+    )
+
+    is_sig <- is.null(sig_diff) == FALSE
+
+    diff_plot <- diff %>%
+        ggplot2::ggplot(
+            ggplot2::aes_string(
+                dplyr::quo_name(time_series_q), "difference"
+            )
+        ) +
+        {if (is_sig) {annotate}} +
+        ggplot2::geom_ribbon(
+            ggplot2::aes_string(
+                ymin = "CI_lower",
+                ymax = "CI_upper"
+            ),
+            alpha = 0.2
+        ) +
+        ggplot2::geom_path(
+        ) +
+        geom_hline(yintercept = 0)
+
+    return(diff_plot)
+}
