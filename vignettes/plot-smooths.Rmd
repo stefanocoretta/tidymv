@@ -66,9 +66,7 @@ simdata <- simdat %>%
 
 model_inter <- bam(
     Y ~
-        Group +
-#        s(Time, by = Group) +
-#        s(Time, by = Condition) +
+        GroupCondition +
         s(Time, by = GroupCondition),
     data = simdata
 )
