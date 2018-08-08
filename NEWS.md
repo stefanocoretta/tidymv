@@ -8,6 +8,9 @@
 ### Changed
 - deprecated message with `plot_gamsd()` now mentions `plot_difference()`
 
+### Fixed
+- vignettes titles and plots
+
 ## [1.4.0] - 2018-07-03
 ### Added
 - `split` argument for separating columns (useful for interactions)
