@@ -3,6 +3,7 @@
 ## Unreleased
 ### Added
 - `plot_difference()` to plot difference smooths
+- support for plotting single smooth
 
 ### Changed
 - deprecated message with `plot_gamsd()` now mentions `plot_difference()`
