@@ -23,6 +23,8 @@ library(tidymv)
 data(simdat)
 ```
 
+## Plotting smooths
+
 To illustrate how to use `plot_smooths()`, let's first prepare some dummy data with a factor variable and run `gam()` on this data. The `gam` model includes a reference smooth `s(x2)`, a by-factor difference smooth `s(x2, by = fac)`, and a smooth `s(x0)`.
 
 ```{r gam}
@@ -48,6 +50,23 @@ plot_smooths(
     comparison = fac
 ) +
     theme(legend.position = "top")
+```
+
+## Plotting a single smooth
+
+It is also possible to plot a single smooth.
+
+```{r gam-2}
+model_2 <- gam(
+    y ~
+        s(x0),
+    data = data
+)
+
+plot_smooths(
+    model = model_2,
+    time_series = x0
+)
 ```
 
 ## Plotting interactions
