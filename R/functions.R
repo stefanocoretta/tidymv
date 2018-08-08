@@ -69,8 +69,12 @@ get_gam_predictions <- function(model, time_series, series_length = 25, conditio
         fitted$`(AR.start)` <- NULL
     }
 
-    fitted_series <- fitted %>%
-        unique()
+    if (ncol(fitted) > 0) {
+        fitted_series <- fitted %>%
+            unique()
+    } else {
+        fitted_series <- fitted
+    }
 
     fitted_series <- fitted_series %>%
         dplyr::mutate(
@@ -195,9 +199,11 @@ get_gam_predictions <- function(model, time_series, series_length = 25, conditio
 #' @importFrom rlang ":="
 #' @importFrom stats "predict"
 #' @export
-plot_smooths <- function(model, time_series, comparison, facet_terms = NULL, conditions = NULL, exclude_random = TRUE, exclude_terms = NULL, series_length = 25, split = NULL, sep = "\\.") {
+plot_smooths <- function(model, time_series, comparison = NULL, facet_terms = NULL, conditions = NULL, exclude_random = TRUE, exclude_terms = NULL, series_length = 25, split = NULL, sep = "\\.") {
     time_series_q <- dplyr::enquo(time_series)
-    comparison_q <- dplyr::enquo(comparison)
+    if (!is.null(comparison)) {
+        comparison_q <- dplyr::enquo(comparison)
+    }
     facet_terms_q <- dplyr::enquo(facet_terms)
     if (facet_terms_q == dplyr::quo(NULL)) {
         facet_terms_q <- NULL
