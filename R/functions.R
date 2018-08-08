@@ -85,6 +85,11 @@ get_gam_predictions <- function(model, time_series, series_length = 25, conditio
         ) %>%
         tidyr::unnest(!!time_series_q)
 
+    if (ncol(fitted_series) > 0) {
+        fitted_series <- fitted_series %>%
+            unique()
+    }
+
     if (exclude_random) {
         if (rlang::is_empty(random_effects)) {
             exclude_random_effects <- as.null()
