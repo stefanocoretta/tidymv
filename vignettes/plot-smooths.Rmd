@@ -4,7 +4,7 @@ author: "Stefano Coretta"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{Plotting GAMs}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -98,7 +98,8 @@ plot_smooths(
     comparison = Group,
     facet_terms = Condition,
     split = list(GroupCondition = c("Group", "Condition"))
-)
+) +
+    theme(legend.position = "top")
 ```
 
 To plot just one or some of the facets, you should use the `conditions` argument.
@@ -112,7 +113,8 @@ plot_smooths(
     facet_terms = Condition,
     conditions = quos(Condition == -1),
     split = list(GroupCondition = c("Group", "Condition"))
-)
+) +
+    theme(legend.position = "top")
 ```
 
 ```{r plot-interactions-3}
@@ -123,5 +125,6 @@ plot_smooths(
     facet_terms = Condition,
     conditions = quos(Condition %in% c(-1, 3)),
     split = list(GroupCondition = c("Group", "Condition"))
-)
+) +
+    theme(legend.position = "top")
 ```
