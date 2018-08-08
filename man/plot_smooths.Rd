@@ -4,7 +4,7 @@
 \alias{plot_smooths}
 \title{Plot GAM smooths.}
 \usage{
-plot_smooths(model, time_series, comparison, facet_terms = NULL,
+plot_smooths(model, time_series, comparison = NULL, facet_terms = NULL,
   conditions = NULL, exclude_random = TRUE, exclude_terms = NULL,
   series_length = 25, split = NULL, sep = "\\\\.")
 }

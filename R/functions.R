@@ -201,10 +201,11 @@ get_gam_predictions <- function(model, time_series, series_length = 25, conditio
 #' @export
 plot_smooths <- function(model, time_series, comparison = NULL, facet_terms = NULL, conditions = NULL, exclude_random = TRUE, exclude_terms = NULL, series_length = 25, split = NULL, sep = "\\.") {
     time_series_q <- dplyr::enquo(time_series)
-    if (!is.null(comparison)) {
-        comparison_q <- dplyr::enquo(comparison)
-    }
+    comparison_q <- dplyr::enquo(comparison)
     facet_terms_q <- dplyr::enquo(facet_terms)
+    if (comparison_q == dplyr::quo(NULL)) {
+        comparison_q <- NULL
+    }
     if (facet_terms_q == dplyr::quo(NULL)) {
         facet_terms_q <- NULL
     }
@@ -218,20 +219,38 @@ plot_smooths <- function(model, time_series, comparison = NULL, facet_terms = NU
                 dplyr::quo_name(time_series_q), dplyr::quo_name(outcome_q)
             )
         ) +
-        ggplot2::geom_ribbon(
-            ggplot2::aes_string(
-                ymin = "CI_lower",
-                ymax = "CI_upper",
-                fill = dplyr::quo_name(comparison_q)
-            ),
-            alpha = 0.2
-        ) +
-        ggplot2::geom_path(
-            ggplot2::aes_string(
-                colour = dplyr::quo_name(comparison_q),
-                linetype = dplyr::quo_name(comparison_q)
+        {if (!is.null(comparison_q)) {
+            ggplot2::geom_ribbon(
+                ggplot2::aes_string(
+                    ymin = "CI_lower",
+                    ymax = "CI_upper",
+                    fill = dplyr::quo_name(comparison_q)
+                ),
+                alpha = 0.2
             )
-        ) +
+        }} +
+        {if (is.null(comparison_q)) {
+            ggplot2::geom_ribbon(
+                ggplot2::aes_string(
+                    ymin = "CI_lower",
+                    ymax = "CI_upper"
+                ),
+                alpha = 0.2
+            )
+        }} +
+        {if (!is.null(comparison_q)) {
+            ggplot2::geom_path(
+                ggplot2::aes_string(
+                    colour = dplyr::quo_name(comparison_q),
+                    linetype = dplyr::quo_name(comparison_q)
+                )
+            )
+        }} +
+        {if (is.null(comparison_q)) {
+            ggplot2::geom_path(
+                ggplot2::aes_string()
+            )
+        }} +
         {if (!is.null(facet_terms_q)) {
             ggplot2::facet_wrap(facet_terms_q)
         }}
