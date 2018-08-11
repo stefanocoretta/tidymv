@@ -4,6 +4,6 @@ This is the repository of the `R` package `tidymv`. This package provides functi
 
 ## Installation
 
-To install the package, use `devtools::install_github("stefanocoretta/tidymv@v1.4.0", build_vignettes = TRUE)`. To learn how to use the package, do `vignette("plot-smooths", package = "tidymv")` after the installation.
+To install the package, use `devtools::install_github("stefanocoretta/tidymv@v1.5.0", build_vignettes = TRUE)`. To learn how to use the package, do `vignette("plot-smooths", package = "tidymv")` after the installation.
 
 If you wish to install the development version, use `devtools::install_github("stefanocoretta/tidymv", build_vignettes = TRUE)`.
