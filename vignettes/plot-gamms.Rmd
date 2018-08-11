@@ -1,10 +1,10 @@
 ---
-title: "Plot GAM(M)s reference and difference smooths"
+title: "Plot GAM(M)s reference and difference smooths (deprecated)"
 author: "Stefano Coretta"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Plot GAM(M)s}
+  %\VignetteIndexEntry{Plot GAM(M)s reference and difference smooths (deprecated)}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -20,6 +20,7 @@ library(tidymv)
 The estimated smooths and the difference smooth of factor predictors from a `gam` model can be plotted with `plot_gamsd()`.
 This function has now been deprecated and will be removed in future versions.
 This vignette is kept for historical reasons.
+Please check `vignette("plot-smooths", package = "tidymv")`.
 
 To illustrate how to use `plot_gamsd()`, let's first prepare some dummy data with a factor variable and run `gam()` on this data. The `gam` model includes a reference smooth `s(x2)`, a by-factor difference smooth `s(x2, by = fac)`, and a smooth `s(x0)`.
 
