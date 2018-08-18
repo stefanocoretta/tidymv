@@ -1,5 +1,12 @@
 # Change Log
 
+## [1.5.1] - 2018-08-18
+### Added
+- URL and BugReports in DESCRIPTION
+
+### Changed
+- `series_length` default to 100 in `plot_difference()`
+
 ## [1.5.0] - 2018-08-11
 ### Added
 - `plot_difference()` to plot difference smooths

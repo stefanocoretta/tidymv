@@ -7,6 +7,8 @@ Authors@R: person("Stefano", "Coretta", email = paste0("stefano.coretta", "@", "
                   role = c("aut", "cre"))
 Description: This package provides functions for model visualisation using tidy
     tools from the tidyverse.
+URL: https://github.com/stefanocoretta/tidymv
+BugReports: https://github.com/stefanocoretta/tidymv/issues
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

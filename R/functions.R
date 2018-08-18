@@ -404,7 +404,7 @@ plot_gamsd <- function(model, view, comparison, conditions = NULL, rm_re = FALSE
 #' @param conditions A named list specifying the levels to plot from the model terms not among \code{time_series} or \code{difference}. Notice the difference with \link[tidymv]{plot_smooths}, which uses \link[rlang]{quos}.
 #'
 #' @export
-plot_difference <- function(model, time_series, difference, conditions = NULL, series_length = 25) {
+plot_difference <- function(model, time_series, difference, conditions = NULL, series_length = 100) {
     time_series_q <- dplyr::enquo(time_series)
     time_series_chr <- quo_name(time_series_q)
 
