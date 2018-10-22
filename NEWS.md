@@ -1,5 +1,9 @@
 # Change Log
 
+## [1.5.2] - 2018-10-22
+### Fixed
+- error with updated `rlang` 
+
 ## [1.5.1] - 2018-08-18
 ### Added
 - URL and BugReports in DESCRIPTION
@@ -81,6 +85,8 @@
 - `create_start_event` function
 - `plot_gamsd` function
 
+[1.5.2]: https://github.com/stefanocoretta/tidymv/compare/v1.5.1...v1.5.2
+[1.5.1]: https://github.com/stefanocoretta/tidymv/compare/v1.5.0...v1.5.1
 [1.5.0]: https://github.com/stefanocoretta/tidymv/compare/v1.4.0...v1.5.0
 [1.4.0]: https://github.com/stefanocoretta/tidymv/compare/v1.3.1...v1.4.0
 [1.3.1]: https://github.com/stefanocoretta/tidymv/compare/v1.3.0...v1.3.1
