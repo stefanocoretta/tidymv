@@ -35,7 +35,7 @@ create_event_start <- function(tibble, event_col) {
 #' @export
 get_gam_predictions <- function(model, time_series, series_length = 25, conditions = NULL, exclude_random = TRUE, exclude_terms = NULL, split = NULL, sep = "\\.") {
     time_series_q <- dplyr::enquo(time_series)
-    time_series_name <- dplyr::quo_name(time_series_q)
+    time_series_name <- rlang::quo_name(time_series_q)
     outcome_q <- model$formula[[2]]
 
     fitted <- model$model
@@ -78,7 +78,7 @@ get_gam_predictions <- function(model, time_series, series_length = 25, conditio
 
     fitted_series <- fitted_series %>%
         dplyr::mutate(
-            !!dplyr::quo_name(time_series_q) := rep(
+            !!rlang::quo_name(time_series_q) := rep(
                 list(seq(time_series_min, time_series_max, length.out = series_length)),
                 nrow(fitted_series)
             )
@@ -202,16 +202,17 @@ get_gam_predictions <- function(model, time_series, series_length = 25, conditio
 #'
 #' @importFrom magrittr "%>%"
 #' @importFrom rlang ":="
+#' @importFrom rlang "quo_name"
 #' @importFrom stats "predict"
 #' @export
 plot_smooths <- function(model, time_series, comparison = NULL, facet_terms = NULL, conditions = NULL, exclude_random = TRUE, exclude_terms = NULL, series_length = 25, split = NULL, sep = "\\.") {
     time_series_q <- dplyr::enquo(time_series)
     comparison_q <- dplyr::enquo(comparison)
     facet_terms_q <- dplyr::enquo(facet_terms)
-    if (comparison_q == dplyr::quo(NULL)) {
+    if (rlang::quo_is_null(comparison_q)) {
         comparison_q <- NULL
     }
-    if (facet_terms_q == dplyr::quo(NULL)) {
+    if (rlang::quo_is_null(facet_terms_q)) {
         facet_terms_q <- NULL
     }
     outcome_q <- model$formula[[2]]
@@ -221,7 +222,7 @@ plot_smooths <- function(model, time_series, comparison = NULL, facet_terms = NU
     smooths_plot <- predicted_tbl %>%
         ggplot2::ggplot(
             ggplot2::aes_string(
-                dplyr::quo_name(time_series_q), dplyr::quo_name(outcome_q)
+                rlang::quo_name(time_series_q), rlang::quo_name(outcome_q)
             )
         ) +
         {if (!is.null(comparison_q)) {
@@ -229,7 +230,7 @@ plot_smooths <- function(model, time_series, comparison = NULL, facet_terms = NU
                 ggplot2::aes_string(
                     ymin = "CI_lower",
                     ymax = "CI_upper",
-                    fill = dplyr::quo_name(comparison_q)
+                    fill = rlang::quo_name(comparison_q)
                 ),
                 alpha = 0.2
             )
@@ -246,8 +247,8 @@ plot_smooths <- function(model, time_series, comparison = NULL, facet_terms = NU
         {if (!is.null(comparison_q)) {
             ggplot2::geom_path(
                 ggplot2::aes_string(
-                    colour = dplyr::quo_name(comparison_q),
-                    linetype = dplyr::quo_name(comparison_q)
+                    colour = rlang::quo_name(comparison_q),
+                    linetype = rlang::quo_name(comparison_q)
                 )
             )
         }} +
@@ -406,7 +407,7 @@ plot_gamsd <- function(model, view, comparison, conditions = NULL, rm_re = FALSE
 #' @export
 plot_difference <- function(model, time_series, difference, conditions = NULL, series_length = 100) {
     time_series_q <- dplyr::enquo(time_series)
-    time_series_chr <- quo_name(time_series_q)
+    time_series_chr <- rlang::quo_name(time_series_q)
 
     fitted <- model$model
 
@@ -437,7 +438,7 @@ plot_difference <- function(model, time_series, difference, conditions = NULL, s
     diff_plot <- diff %>%
         ggplot2::ggplot(
             ggplot2::aes_string(
-                dplyr::quo_name(time_series_q), "difference"
+                rlang::quo_name(time_series_q), "difference"
             )
         ) +
         {if (is_sig) {annotate}} +

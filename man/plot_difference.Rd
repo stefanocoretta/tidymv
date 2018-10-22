@@ -5,7 +5,7 @@
 \title{Plot difference smooth from a GAM.}
 \usage{
 plot_difference(model, time_series, difference, conditions = NULL,
-  series_length = 25)
+  series_length = 100)
 }
 \arguments{
 \item{model}{A \code{gam} or \code{bam} model object.}
