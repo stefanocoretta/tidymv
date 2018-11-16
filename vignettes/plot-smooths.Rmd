@@ -142,5 +142,20 @@ plot_difference(
 )
 ```
 
-It is not possible yet to plot a difference smooth if the model uses factor interactions.
+To plot a difference smooth from a model with factor interactions, it is possible to specify the two levels to compare from the factor interaction (the argument `split` is not supported in `plot_difference()`).
 
+```{r plot-diff-inter-1}
+plot_difference(
+  model_inter,
+  Time,
+  difference = list(GroupCondition = c("Children.1", "Adults.1"))
+)
+```
+
+```{r plot-diff-inter-3}
+plot_difference(
+  model_inter,
+  Time,
+  difference = list(GroupCondition = c("Children.3", "Adults.3"))
+)
+```
