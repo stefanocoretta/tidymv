@@ -1,8 +1,8 @@
 Package: tidymv
 Type: Package
 Title: Tidy Model Visualisation
-Version: 1.5.2
-Date: 2018-10-22
+Version: 1.5.3
+Date: 2018-11-16
 Authors@R: person("Stefano", "Coretta", email = paste0("stefano.coretta", "@", "gmail.com"),
                   role = c("aut", "cre"))
 Description: This package provides functions for model visualisation using tidy
@@ -12,7 +12,7 @@ BugReports: https://github.com/stefanocoretta/tidymv/issues
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
 Imports: cowplot,
     dplyr,
     ggplot2,

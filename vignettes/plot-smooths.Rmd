@@ -128,3 +128,19 @@ plot_smooths(
 ) +
     theme(legend.position = "top")
 ```
+
+## Plotting the difference smooth
+
+The difference smooth can be plotted with `plot_difference()`.
+Portions of the difference smooth that do not inlcude 0 are shaded in red.
+
+```{r plot-diff-model}
+plot_difference(
+  model,
+  time_series = x2,
+  difference = list(fac = c("1", "2"))
+)
+```
+
+It is not possible yet to plot a difference smooth if the model uses factor interactions.
+

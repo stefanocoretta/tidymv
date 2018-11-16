@@ -17,6 +17,8 @@ library(itsadug)
 library(tidymv)
 ```
 
+**This vignette willl be kept for some time and then removed. The function `plot_gamsd()` is deprecated and will be removed, Please, use `plot_smooths()` and `plot_difference()` instead.**
+
 The estimated smooths and the difference smooth of factor predictors from a `gam` model can be plotted with `plot_gamsd()`.
 This function has now been deprecated and will be removed in future versions.
 This vignette is kept for historical reasons.
