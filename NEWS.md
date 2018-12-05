@@ -1,5 +1,9 @@
 # Change Log
 
+## [1.5.4] - 2018-12-05
+### Changed
+- README now uses new `install_github` argument for building vignettes
+
 ## [1.5.3] - 2018-11-16
 ### Added
 - plot difference smooth in vignette

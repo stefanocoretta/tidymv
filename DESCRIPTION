@@ -1,8 +1,8 @@
 Package: tidymv
 Type: Package
 Title: Tidy Model Visualisation
-Version: 1.5.3
-Date: 2018-11-16
+Version: 1.5.4
+Date: 2018-12-05
 Authors@R: person("Stefano", "Coretta", email = paste0("stefano.coretta", "@", "gmail.com"),
                   role = c("aut", "cre"))
 Description: This package provides functions for model visualisation using tidy
