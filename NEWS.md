@@ -1,5 +1,9 @@
 # Change Log
 
+## [Unreleased]
+### Added
+- `predict_gam()` for return a dataframe with all predictors and fitted values with standard error
+
 ## [1.5.4] - 2018-12-05
 ### Changed
 - README now uses new `install_github` argument for building vignettes
