@@ -14,6 +14,8 @@ geom_smooth_ci(group = NULL, ci_z = 1.96, ci_alpha = 0.1,
 
 \item{ci_alpha}{Transparency value of CIs (the default is \code{0.1}).}
 
+\item{data}{The data to be displayed in this layer. If \code{NULL}, it is inherited.}
+
 \item{...}{Arguments passed to \code{geom_path()}.}
 }
 \description{

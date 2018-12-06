@@ -4,7 +4,8 @@
 \alias{predict_gam}
 \title{Get all predictions from a GAM model}
 \usage{
-predict_gam(model, exclude_terms = NULL, length_out = 50)
+predict_gam(model, exclude_terms = NULL, length_out = 50,
+  values = NULL)
 }
 \arguments{
 \item{model}{A \code{gam} or \code{bam} model object.}
@@ -12,6 +13,8 @@ predict_gam(model, exclude_terms = NULL, length_out = 50)
 \item{exclude_terms}{Terms to be excluded from the prediction. Term names should be given as they appear in the model summary (for example, \code{"s(x0,x1)"}).}
 
 \item{length_out}{An integer indicating how many values along the numeric predictors to use for predicting the outcome term (the default is \code{50}).}
+
+\item{values}{User supplied values for numeric terms as a named list.}
 }
 \description{
 It returns a tibble with the predictions from all the terms in a \link[mgcv]{gam} or \link[mgcv]{bam} model.
@@ -20,7 +23,7 @@ It returns a tibble with the predictions from all the terms in a \link[mgcv]{gam
 library(mgcv)
 set.seed(10)
 data <- gamSim(4)
-model <- gam(y ~ fac + s(x2) + s(x2, by = fac) +s(x0), data = data)
+model <- gam(y ~ fac + s(x2) + s(x2, by = fac) + s(x0), data = data)
 
 # get predictions
 p <- predict_gam(model)
