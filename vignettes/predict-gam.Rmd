@@ -51,7 +51,7 @@ We can extract the predicted values with `predict_gam()`.
 
 ```{r model-p}
 model_p <- predict_gam(model)
-model_p
+head(model_p)
 ```
 
 Now plotting can be easily done with `ggplot2`.
@@ -83,7 +83,7 @@ Let's get the prediction dataframe and produce a contour plot.
 
 ```{r}
 model_2_p <- predict_gam(model_2)
-model_2_p
+head(model_2_p)
 ```
 
 ```{r}
