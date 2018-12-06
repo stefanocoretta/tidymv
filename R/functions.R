@@ -80,6 +80,8 @@ predict_gam <- function(model, exclude_terms = NULL, length_out = 50, values = N
 
   predictions <- cbind(new_data, predicted)
 
+  predictions <- tibble::as_tibble(predictions)
+
   return(predictions)
 }
 
