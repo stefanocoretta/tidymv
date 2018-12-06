@@ -1,0 +1,95 @@
+---
+title: "Get model predictions and plot with `ggplot2`"
+author: "Stefano Coretta"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Get model predictions and plot}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+library(tidyverse)
+library(mgcv)
+library(tidymv)
+```
+
+# Problem
+
+While `plot_smooths()` offers a streamliened way of plotting predicted smooths from a GAM model, it is too constrained in other more complex cases.
+
+The most general solution is to get the predicted values of the outcome variable according to all the combinations of terms in the model and use this dataframe for plotting.
+This method grants the user maximum control over what can be plotted and how to transform the data (if necessary).
+
+I will illutrate how to use the function `predict_gam()` to create a prediction dataframe and how this dataframe can be used for plotting different cases.
+
+# Smooths
+
+First of all, we generate some simulated data and create a GAM model with a fator `by` variable.
+
+```{r model}
+library(mgcv)
+set.seed(10)
+data <- gamSim(4, 400*4)
+
+model <- gam(
+  y ~
+    fac +
+    s(x2, by = fac),
+  data = data
+)
+
+summary(model)
+```
+
+We can extract the predicted values with `predict_gam()`.
+
+```{r model-p}
+model_p <- predict_gam(model)
+model_p
+```
+
+Now plotting can be easily done with `ggplot2`.
+The function `geom_smooth_ci()` can be used to plot the predicted smooths with confidence intervals.
+
+```{r model-plot}
+model_p %>%
+  ggplot(aes(x2, fit)) +
+  geom_smooth_ci(fac)
+```
+
+# Surface smooths
+
+Now let's try plotting a model that has a tensor product interaction term (`ti()`).
+
+```{r}
+model_2 <- gam(
+  y ~
+    s(x2) +
+    s(f1) +
+    ti(x2, f1),
+  data = data
+)
+
+summary(model_2)
+```
+
+Let's get the prediction dataframe and produce a contour plot.
+
+```{r}
+model_2_p <- predict_gam(model_2)
+model_2_p
+```
+
+```{r}
+model_2_p %>%
+  ggplot(aes(x2, f1, z = fit)) +
+  geom_raster(aes(fill = fit)) +
+  geom_contour(colour = "white")
+```
+
