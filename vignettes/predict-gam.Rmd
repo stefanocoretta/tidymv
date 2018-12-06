@@ -12,25 +12,25 @@ vignette: >
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  out.width = "300px", fig.align = "center", dpi = 300
 )
 library(tidyverse)
+theme_set(theme_bw())
 library(mgcv)
 library(tidymv)
 ```
 
-# Problem
-
-While `plot_smooths()` offers a streamliened way of plotting predicted smooths from a GAM model, it is too constrained in other more complex cases.
+While `plot_smooths()` offers a streamlined way of plotting predicted smooths from a GAM model, it is too constrained in other more complex cases.
 
 The most general solution is to get the predicted values of the outcome variable according to all the combinations of terms in the model and use this dataframe for plotting.
 This method grants the user maximum control over what can be plotted and how to transform the data (if necessary).
 
-I will illutrate how to use the function `predict_gam()` to create a prediction dataframe and how this dataframe can be used for plotting different cases.
+I will illustrate how to use the function `predict_gam()` to create a prediction dataframe and how this dataframe can be used for plotting different cases.
 
-# Smooths
+## Smooths
 
-First of all, we generate some simulated data and create a GAM model with a fator `by` variable.
+First of all let's generate some simulated data and create a GAM model with a factor `by` variable.
 
 ```{r model}
 library(mgcv)
@@ -51,7 +51,7 @@ We can extract the predicted values with `predict_gam()`.
 
 ```{r model-p}
 model_p <- predict_gam(model)
-head(model_p)
+model_p
 ```
 
 Now plotting can be easily done with `ggplot2`.
@@ -63,11 +63,11 @@ model_p %>%
   geom_smooth_ci(fac)
 ```
 
-# Surface smooths
+## Surface smooths
 
 Now let's try plotting a model that has a tensor product interaction term (`ti()`).
 
-```{r}
+```{r model-2}
 model_2 <- gam(
   y ~
     s(x2) +
@@ -81,15 +81,24 @@ summary(model_2)
 
 Let's get the prediction dataframe and produce a contour plot.
 
-```{r}
+```{r model-2-p}
 model_2_p <- predict_gam(model_2)
-head(model_2_p)
+model_2_p
 ```
 
-```{r}
+```{r model-2-plot}
 model_2_p %>%
   ggplot(aes(x2, f1, z = fit)) +
   geom_raster(aes(fill = fit)) +
   geom_contour(colour = "white")
 ```
 
+## Smooths at specified values of a continuous predictor
+
+To plot the smooths across a few values of a continuous predictor, we can use the `values` argument in `predict_gam()`.
+
+```{r model-2-values}
+predict_gam(model_2, values = list(f1 = c(0.5, 1, 1.5))) %>%
+  ggplot(aes(x2, fit)) +
+  geom_smooth_ci(f1)
+```

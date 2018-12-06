@@ -547,9 +547,13 @@ geom_smooth_ci <- function(group = NULL, ci_z = 1.96, ci_alpha = 0.1, data = NUL
       data = data
     ),
     ggplot2::geom_path(
-      ggplot2::aes(colour = !!group_q, linetype = !!group_q),
+      ggplot2::aes(
+        colour = as.factor(!!group_q), linetype = as.factor(!!group_q)
+      ),
       data = data,
       ...
-    )
+    ),
+    scale_colour_discrete(name = quo_name(group_q)),
+    scale_linetype_discrete(name = quo_name(group_q))
   )
 }
