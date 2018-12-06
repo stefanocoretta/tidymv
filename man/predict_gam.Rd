@@ -2,7 +2,7 @@
 % Please edit documentation in R/functions.R
 \name{predict_gam}
 \alias{predict_gam}
-\title{Get all predictions from a GAM model}
+\title{Get all predictions from a GAM model.}
 \usage{
 predict_gam(model, exclude_terms = NULL, length_out = 50,
   values = NULL)

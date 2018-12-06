@@ -19,7 +19,7 @@ create_event_start <- function(tibble, event_col) {
     )
 }
 
-#' Get all predictions from a GAM model
+#' Get all predictions from a GAM model.
 #'
 #' It returns a tibble with the predictions from all the terms in a \link[mgcv]{gam} or \link[mgcv]{bam} model.
 #'
@@ -522,7 +522,7 @@ plot_difference <- function(model, time_series, difference, conditions = NULL, s
     return(diff_plot)
 }
 
-#' Smooths and confidence intervals
+#' Smooths and confidence intervals.
 #'
 #' It provides a `geom` for plotting GAM smooths with confidence intervals.
 #'
