@@ -19,6 +19,64 @@ create_event_start <- function(tibble, event_col) {
     )
 }
 
+#' Get all predictions from a GAM model
+#'
+#' It returns a tibble with the predictions from all the terms in a \link[mgcv]{gam} or \link[mgcv]{bam} model.
+#'
+#' @param model A \code{gam} or \code{bam} model object.
+#' @param exclude_terms Terms to be excluded from the prediction. Term names should be given as they appear in the model summary (for example, \code{"s(x0,x1)"}).
+#' @param length_out An integer indicating how many values along the numeric predictors to use for predicting the outcome term (the default is \code{50}).
+#'
+#' @examples
+#' library(mgcv)
+#' set.seed(10)
+#' data <- gamSim(4)
+#' model <- gam(y ~ fac + s(x2) + s(x2, by = fac) +s(x0), data = data)
+#'
+#' # get predictions
+#' p <- predict_gam(model)
+#'
+#' # get predictions excluding x0 (thecoefficient of x0 is set to 0)
+#' p_2 <- predict_gam(model, exclude_terms = "s(x0)")
+#'
+#' @export
+predict_gam <- function(model, exclude_terms = NULL, length_out = 50) {
+  n_terms <- length(model[["var.summary"]])
+
+  term_list <- list()
+
+  for (term in 1:n_terms) {
+    term_summary <- model[["var.summary"]][[term]]
+
+    if (is.numeric(term_summary)) {
+
+      min_value <- min(term_summary)
+      max_value <- max(term_summary)
+
+      new_term <- seq(min_value, max_value, length.out = length_out)
+
+    } else if (is.factor(term_summary)) {
+
+      new_term <- levels(term_summary)
+
+    } else {
+      stop("The terms are not numeric or factor.\n")
+    }
+
+    term_list <- append(term_list, list(new_term))
+
+    names(term_list)[term] <- names(model[["var.summary"]])[term]
+  }
+
+  new_data <- expand.grid(term_list)
+
+  predicted <- as.data.frame(mgcv::predict.gam(model, new_data, exclude = exclude_terms, se.fit = TRUE))
+
+  predictions <- cbind(new_data, predicted)
+
+  return(predictions)
+}
+
 #' Get predictions from a GAM model.
 #'
 #' It returns a tibble with the predictions from a a \link[mgcv]{gam} or \link[mgcv]{bam} object.
