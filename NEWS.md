@@ -3,6 +3,7 @@
 ## [Unreleased]
 ### Added
 - `predict_gam()` for return a dataframe with all predictors and fitted values with standard error
+- `geom_smooth_ci()` which provides a new `ggplot2` `geom` for conveniently plotting smooths and confidence intervals from the output of `predict_gam()`
 
 ## [1.5.4] - 2018-12-05
 ### Changed
