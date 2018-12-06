@@ -521,10 +521,11 @@ plot_difference <- function(model, time_series, difference, conditions = NULL, s
 #' @param group The optional grouping factor.
 #' @param ci_z The z-value for calculating the CIs (the default is \code{1.96} for 95 percent CI).
 #' @param ci_alpha Transparency value of CIs (the default is \code{0.1}).
+#' @param data The data to be displayed in this layer. If \code{NULL}, it is inherited.
 #' @param ... Arguments passed to \code{geom_path()}.
 #'
 #' @export
-geom_smooth_ci <- function(group = NULL, ci_z = 1.96, ci_alpha = 0.1, ...) {
+geom_smooth_ci <- function(group = NULL, ci_z = 1.96, ci_alpha = 0.1, data = NULL, ...) {
   group_q <- rlang::enquo(group)
 
   list(
@@ -534,8 +535,13 @@ geom_smooth_ci <- function(group = NULL, ci_z = 1.96, ci_alpha = 0.1, ...) {
         ymax = fit + (se.fit * ci_z),
         group = !!group_q
       ),
-      alpha = ci_alpha
+      alpha = ci_alpha,
+      data = data
     ),
-    ggplot2::geom_path(ggplot2::aes(colour = !!group_q, linetype = !!group_q), ...)
+    ggplot2::geom_path(
+      ggplot2::aes(colour = !!group_q, linetype = !!group_q),
+      data = data,
+      ...
+    )
   )
 }
