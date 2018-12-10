@@ -35,7 +35,7 @@ First of all let's generate some simulated data and create a GAM model with a fa
 ```{r model}
 library(mgcv)
 set.seed(10)
-data <- gamSim(4, 400*4)
+data <- gamSim(4, 400)
 
 model <- gam(
   y ~
@@ -101,4 +101,41 @@ To plot the smooths across a few values of a continuous predictor, we can use th
 predict_gam(model_2, values = list(f1 = c(0.5, 1, 1.5))) %>%
   ggplot(aes(x2, fit)) +
   geom_smooth_ci(f1)
+```
+
+## Exclude terms (like random effects)
+
+It is possible to exclude terms when predicting values by means of the `exclude_terms` argument.
+This can be useful when there are random effects, like in the following model.
+
+```{r model-3}
+data_re <- data %>%
+  mutate(rand = rep(letters[1:4], each = 100), rand = as.factor(rand))
+
+model_3 <- gam(
+  y ~
+    s(x2) +
+    s(x2, rand, bs = "fs", m = 1),
+  data = data_re
+)
+
+summary(model_3)
+```
+
+`exclude_terms` takes a character vector of term names, as they appear in the output of `summary()` (rather than as they are specified in the model formula).
+For example, to remove the term `s(x2, fac, bs = "fs", m = 1)`, `"s(x2,fac)"` should be used since this is how the summary output reports this term.
+
+```{r model-3-plot}
+predict_gam(model_3, exclude_terms = "s(x2,rand)") %>%
+  ggplot(aes(x2, fit)) +
+  geom_smooth_ci()
+```
+
+Of course, it is possible to plot the predicted values of the random effects.
+
+```{r model-3-rand}
+predict_gam(model_3) %>%
+  ggplot(aes(x2, fit)) +
+  geom_smooth_ci() +
+  facet_wrap(~rand)
 ```
