@@ -536,24 +536,46 @@ plot_difference <- function(model, time_series, difference, conditions = NULL, s
 geom_smooth_ci <- function(group = NULL, ci_z = 1.96, ci_alpha = 0.1, data = NULL, ...) {
   group_q <- rlang::enquo(group)
 
-  list(
-    ggplot2::geom_ribbon(
-      ggplot2::aes(
-        ymin = fit - (se.fit * ci_z),
-        ymax = fit + (se.fit * ci_z),
-        group = !!group_q
+  if (rlang::quo_is_null(group_q)) {
+    group_q <- NULL
+  }
+
+  if (is.null(group_q)) {
+    list(
+      ggplot2::geom_ribbon(
+        ggplot2::aes(
+          ymin = fit - (se.fit * ci_z),
+          ymax = fit + (se.fit * ci_z)
+        ),
+        alpha = ci_alpha,
+        data = data
       ),
-      alpha = ci_alpha,
-      data = data
-    ),
-    ggplot2::geom_path(
-      ggplot2::aes(
-        colour = as.factor(!!group_q), linetype = as.factor(!!group_q)
+      ggplot2::geom_path(
+        data = data,
+        ...
+      )
+    )
+  } else {
+    list(
+      ggplot2::geom_ribbon(
+        ggplot2::aes(
+          ymin = fit - (se.fit * ci_z),
+          ymax = fit + (se.fit * ci_z),
+          group = !!group_q
+        ),
+        alpha = ci_alpha,
+        data = data
       ),
-      data = data,
-      ...
-    ),
-    scale_colour_discrete(name = quo_name(group_q)),
-    scale_linetype_discrete(name = quo_name(group_q))
-  )
+      ggplot2::geom_path(
+        ggplot2::aes(
+          colour = as.factor(!!group_q), linetype = as.factor(!!group_q)
+        ),
+        data = data,
+        ...
+      ),
+      scale_colour_discrete(name = quo_name(group_q)),
+      scale_linetype_discrete(name = quo_name(group_q))
+    )
+  }
+
 }
