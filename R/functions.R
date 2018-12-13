@@ -39,6 +39,8 @@ create_start_event <- function(tibble, series_col) {
 #' @param length_out An integer indicating how many values along the numeric predictors to use for predicting the outcome term (the default is \code{50}).
 #' @param values User supplied values for numeric terms as a named list.
 #'
+#' @return A tibble with predictions from a a \link[mgcv]{gam} or \link[mgcv]{bam} model.
+#'
 #' @examples
 #' library(mgcv)
 #' set.seed(10)
@@ -277,6 +279,12 @@ get_gam_predictions <- function(model, time_series, series_length = 25, conditio
 #' @param facet_terms An unquoted formula with the terms used for faceting.
 #' @param conditions A list of quosures with \link[rlang]{quos} specifying the levels to plot from the model terms not among \code{time_series}, \code{comparison}, or \code{facet_terms}.
 #'
+#' @examples
+#' # see vignette
+#' \dontrun{
+#' vignette("plot-smooths", package = "tidymv")
+#' }
+#'
 #' @importFrom magrittr "%>%"
 #' @importFrom rlang ":="
 #' @importFrom rlang "quo_name"
@@ -476,6 +484,12 @@ plot_gamsd <- function(model, view, comparison, conditions = NULL, rm_re = FALSE
 #' It plots the difference smooth from a \link[mgcv]{gam} or \link[mgcv]{bam}.
 #' Significant differences are marked with red areas.
 #'
+#' @examples
+#' # see vignette
+#' \dontrun{
+#' vignette("plot-smooths", package = "tidymv")
+#' }
+#'
 #' @inheritParams get_gam_predictions
 #' @param time_series An unquoted expression indicating the model term that defines the time series.
 #' @param difference A named list with the levels to compute the difference of.
@@ -535,13 +549,31 @@ plot_difference <- function(model, time_series, difference, conditions = NULL, s
 
 #' Smooths and confidence intervals.
 #'
-#' It provides a `geom` for plotting GAM smooths with confidence intervals.
+#' It provides a `geom` for plotting GAM smooths with confidence intervals from the output of \link[tidymv]{predict_gam}. It inherits the following `aes` from a call to `ggplot`:
+#'   \itemize{
+#'     \item The term defining the x-axis.
+#'     \item The fitted values (the \code{fit} column in the tibble returned by \link[tidymv]{predict_gam}).
+#'     \item The standard error of the fit (the \code{se.fit} column in the tibble returned by \link[tidymv]{predict_gam}).
+#'   }
 #'
 #' @param group The optional grouping factor.
 #' @param ci_z The z-value for calculating the CIs (the default is \code{1.96} for 95 percent CI).
 #' @param ci_alpha Transparency value of CIs (the default is \code{0.1}).
 #' @param data The data to be displayed in this layer. If \code{NULL}, it is inherited.
 #' @param ... Arguments passed to \code{geom_path()}.
+#'
+#' @examples
+#' library(mgcv)
+#' library(ggplot2)
+#' set.seed(10)
+#' data <- gamSim(4)
+#' model <- gam(y ~ fac + s(x2) + s(x2, by = fac), data = data)
+#'
+#' # get predictions
+#' p <- predict_gam(model)
+#'
+#' # plot smooths and confidence intervals
+#' ggplot(p, aes(x2, fit)) + geom_smooth_ci(fac)
 #'
 #' @export
 geom_smooth_ci <- function(group = NULL, ci_z = 1.96, ci_alpha = 0.1, data = NULL, ...) {

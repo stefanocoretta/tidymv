@@ -22,3 +22,10 @@ plot_difference(model, time_series, difference, conditions = NULL,
 It plots the difference smooth from a \link[mgcv]{gam} or \link[mgcv]{bam}.
 Significant differences are marked with red areas.
 }
+\examples{
+# see vignette
+\dontrun{
+vignette("plot-smooths", package = "tidymv")
+}
+
+}

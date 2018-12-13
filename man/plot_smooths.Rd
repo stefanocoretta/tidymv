@@ -32,3 +32,10 @@ plot_smooths(model, time_series, comparison = NULL, facet_terms = NULL,
 \description{
 It plots the smooths from the estimates of a \link[mgcv]{gam} or \link[mgcv]{bam} object.
 }
+\examples{
+# see vignette
+\dontrun{
+vignette("plot-smooths", package = "tidymv")
+}
+
+}
