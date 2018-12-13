@@ -1,22 +1,33 @@
 #' Create a start event column.
 #'
-#' Create a new column which marks the beginning of each time series in a tibble.
-#' The effect is the same as \code{start_event} from \code{itsadug}, but it works
-#' with tibbles.
+#' Create a new column which marks the beginning of each series in a tibble (for example, time series).
 #'
-#' @param tibble A tibble arranged according to the time series.
-#' @param event_col A string with the name of the column that defines the time series.
+#' @param tibble A tibble arranged according to the series.
+#' @param series_col The name of the column that defines the group of series, as an unquoted expression.
+#'
+#' @return A tibble with an extra column that marks the begninning of the series.
+#'
+#' @examples
+#' library(dplyr)
+#' series_tbl <- tibble(
+#'   time_series = rep(1:5, 3),
+#'   group = rep(c("a", "b", "c"), each = 5)
+#' ) %>%
+#'   create_start_event(group)
 #'
 #' @export
-create_event_start <- function(tibble, event_col) {
-    dplyr::mutate(
-        tibble,
-        start.event = ifelse(
-            as.character(tibble[[event_col]]) == dplyr::lag(as.character(tibble[[event_col]]), default = FALSE),
-            FALSE,
-            TRUE
-            )
+create_start_event <- function(tibble, series_col) {
+  series_col_q <- dplyr::enquo(series_col)
+  series_col_name <- rlang::quo_name(series_col_q)
+
+  dplyr::mutate(
+    tibble,
+    start_event = ifelse(
+      as.character(tibble[[series_col_name]]) == dplyr::lag(as.character(tibble[[series_col_name]]), default = FALSE),
+      FALSE,
+      TRUE
     )
+  )
 }
 
 #' Get all predictions from a GAM model.
