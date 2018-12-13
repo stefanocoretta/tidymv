@@ -1,10 +1,10 @@
 ---
-title: "Get model predictions and plot with `ggplot2`"
+title: "Get model predictions and plot them with `ggplot2`"
 author: "Stefano Coretta"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Get model predictions and plot}
+  %\VignetteIndexEntry{Get and plot model predictions}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

@@ -1,12 +1,13 @@
 Package: tidymv
 Type: Package
-Title: Tidy Model Visualisation
+Title: Plotting for generalised additive models
 Version: 1.5.4.9000
 Date: 2018-12-13
 Authors@R: person("Stefano", "Coretta", email = paste0("stefano.coretta", "@", "gmail.com"),
                   role = c("aut", "cre"))
-Description: This package provides functions for model visualisation using tidy
-    tools from the tidyverse.
+Description: This package provides functions for visualising generalised
+    additive models and get predicted values using tidy tools from the tidyverse.
+    The name stands for TIDY Model Visualisation.
 URL: https://github.com/stefanocoretta/tidymv
 BugReports: https://github.com/stefanocoretta/tidymv/issues
 License: MIT + file LICENSE

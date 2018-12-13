@@ -1,6 +1,6 @@
-# `tidymv`: Tidy Model Visualisation
+# `tidymv`: Plotting for generalised additive models
 
-This is the repository of the `R` package `tidymv`. This package provides functions for the visualisation of GAM(M)s using tidy tools from the `tidyverse`. `tidymv` is based on the `itsadug` package, and indeed it uses some of its functions under the hood.
+This is the repository of the `R` package `tidymv`. This package provides functions for the visualisation of GAM(M)s and the generation of model-based predicted values using tidy tools from the `tidyverse`. `tidymv` uses some functions from the `itsadug` package.
 
 ## Installation
 

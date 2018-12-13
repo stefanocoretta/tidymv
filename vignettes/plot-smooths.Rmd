@@ -1,10 +1,10 @@
 ---
-title: "Plotting GAMs"
+title: "Plot smooths from GAMs"
 author: "Stefano Coretta"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Plotting GAMs}
+  %\VignetteIndexEntry{Plotting smooths}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
