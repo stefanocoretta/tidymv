@@ -2,27 +2,13 @@
 % Please edit documentation in R/functions.R
 \name{plot_gamsd}
 \alias{plot_gamsd}
-\title{Plot GAM estimate smooths and difference curve.}
+\title{Deprecated function plot_gamsd()}
 \usage{
-plot_gamsd(model, view, comparison, conditions = NULL, rm_re = FALSE,
-  bw = FALSE, ylim = NULL)
+plot_gamsd(...)
 }
 \arguments{
-\item{model}{A \code{gam} or \code{bam} model object.}
-
-\item{view}{The predictor determining the time series.}
-
-\item{comparison}{The levels for the comparison as a named list.}
-
-\item{conditions}{The values to use for other predictors as a named list.}
-
-\item{rm_re}{Whether to remove random effects (the default is \code{FALSE}).}
-
-\item{bw}{Whether to plot in black and white (the default is \code{FALSE}).}
-
-\item{ylim}{Limits of the y-axis of the smooths panel.}
+\item{...}{Not used.}
 }
 \description{
-It plots comparison smooths from the estimates of a \link[mgcv]{gam} or \link[mgcv]{bam}
-and the difference curve. Significant differences are marked with red areas.
+This function is deprecated and has been removed. Please, use \link[tidymv]{plot_smooths} and  \link[tidymv]{plot_difference}.
 }
