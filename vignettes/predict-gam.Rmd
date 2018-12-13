@@ -124,9 +124,12 @@ summary(model_3)
 
 `exclude_terms` takes a character vector of term names, as they appear in the output of `summary()` (rather than as they are specified in the model formula).
 For example, to remove the term `s(x2, fac, bs = "fs", m = 1)`, `"s(x2,fac)"` should be used since this is how the summary output reports this term.
+The output still contains the excluded columns, and the predicted values of the oucome variable are the same independent of the value the excluded terms (the predicted values are repeated for each value of the excluded terms).
+We can filter the predicted dataset by chosing any value or level of the excluded terms.
 
 ```{r model-3-plot}
 predict_gam(model_3, exclude_terms = "s(x2,rand)") %>%
+  filter(rand == "a") %>%
   ggplot(aes(x2, fit)) +
   geom_smooth_ci()
 ```
