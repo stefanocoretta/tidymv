@@ -493,13 +493,29 @@ geom_smooth_ci <- function(group = NULL, ci_z = 1.96, ci_alpha = 0.1, data = NUL
 
 }
 
-#' Deprecated function plot_gamsd()
+#' Plot GAM estimate smooths and difference curve.
 #'
-#' This function is deprecated and has been removed. Please, use \link[tidymv]{plot_smooths} and  \link[tidymv]{plot_difference}.
+#' It plots comparison smooths from the estimates of a \link[mgcv]{gam} or \link[mgcv]{bam}
+#' and the difference curve. Significant differences are marked with red areas.
 #'
-#' @param ... Not used.
+#' @param model A \code{gam} or \code{bam} model object.
+#' @param view The predictor determining the time series.
+#' @param comparison The levels for the comparison as a named list.
+#' @param conditions The values to use for other predictors as a named list.
+#' @param rm_re Whether to remove random effects (the default is \code{FALSE}).
+#' @param bw Whether to plot in black and white (the default is \code{FALSE}).
+#' @param ylim Limits of the y-axis of the smooths panel.
+#'
+#' @importFrom magrittr "%>%"
+#' @name plot_gamsd-defunct
+#' @seealso \code{\link{tidymv-defunct}}
+#' @keywords internal
+NULL
+
+#' @rdname tidymv-defunct
+#' @section This function is deprecated and has been removed. Please, use \link[tidymv]{plot_smooths} and  \link[tidymv]{plot_difference}.
 #'
 #' @export
 plot_gamsd <- function(...) {
-  .Deprecated("plot_smooth", msg = "'plot_gamsd' was deprecated and has been removed, use 'plot_smooths()' and 'plot_difference()'.\n")
+  .Defunct("plot_smooth", msg = "'plot_gamsd' was deprecated and has been removed, use 'plot_smooths()' and 'plot_difference()'.\n")
 }

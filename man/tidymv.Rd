@@ -4,8 +4,9 @@
 \name{tidymv}
 \alias{tidymv}
 \alias{tidymv-package}
-\title{tidymv: Tidy Model Visualisation.}
+\title{tidymv: Plotting for generalised additive models.}
 \description{
-This package provides functions for model visualisation using tidy tools from
-the tidyverse.
+This package provides functions for visualising generalised additive models
+and get predicted values using tidy tools from the tidyverse. The name stands
+for TIDY Model Visualisation.
 }
