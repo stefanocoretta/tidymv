@@ -584,8 +584,8 @@ geom_smooth_ci <- function(group = NULL, ci_z = 1.96, ci_alpha = 0.1, data = NUL
         data = data,
         ...
       ),
-      scale_colour_discrete(name = quo_name(group_q)),
-      scale_linetype_discrete(name = quo_name(group_q))
+      ggplot2::scale_colour_discrete(name = rlang::quo_name(group_q)),
+      ggplot2::scale_linetype_discrete(name = rlang::quo_name(group_q))
     )
   }
 
