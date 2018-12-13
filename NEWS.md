@@ -10,6 +10,9 @@
 ### Changed
 - name, arguments, and output of `create_event_start()` (> `create_start_event()`, back compatibility breaks)
 
+### Removed
+- `plot_gamsd()` (use `plot_smooths()` and `plot_difference()`)
+
 ## [1.5.4] - 2018-12-05
 ### Changed
 - README now uses new `install_github` argument for building vignettes
