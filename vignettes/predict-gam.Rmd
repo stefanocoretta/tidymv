@@ -17,6 +17,7 @@ knitr::opts_chunk$set(
 )
 library(ggplot2)
 theme_set(theme_bw())
+library(dplyr)
 library(mgcv)
 library(tidymv)
 ```
