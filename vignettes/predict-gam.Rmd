@@ -22,7 +22,7 @@ library(mgcv)
 library(tidymv)
 ```
 
-While `plot_smooths()` offers a streamlined way of plotting predicted smooths from a GAM model, it is too constrained in other more complex cases.
+While `plot_smooths()` offers a streamlined way of plotting predicted smooths from a GAM model, it is too constrained for other more complex cases.
 
 The most general solution is to get the predicted values of the outcome variable according to all the combinations of terms in the model and use this dataframe for plotting.
 This method grants the user maximum control over what can be plotted and how to transform the data (if necessary).
@@ -135,7 +135,8 @@ predict_gam(model_3, exclude_terms = "s(x2,rand)") %>%
   geom_smooth_ci()
 ```
 
-Of course, it is possible to plot the predicted values of the random effects.
+Of course, it is possible to plot the predicted values of random effects if the user wishes to.
+In the following example, the random effect `rand` is not excluded when predicting, and it is used two wrap facets in the plot.
 
 ```{r model-3-rand}
 predict_gam(model_3) %>%
