@@ -31,7 +31,11 @@ model <- gam(y ~ fac + s(x2) + s(x2, by = fac) + s(x0), data = data)
 # get predictions
 p <- predict_gam(model)
 
-# get predictions excluding x0 (thecoefficient of x0 is set to 0)
+# get predictions excluding x0 (the coefficient of x0 is set to 0)
 p_2 <- predict_gam(model, exclude_terms = "s(x0)")
+
+# get predictions with chosen values of x0
+
+p_3 <- predict_gam(model, values = list(x0 = c(0.250599, 0.503313, 0.756028)))
 
 }
