@@ -50,8 +50,12 @@ create_start_event <- function(tibble, series_col) {
 #' # get predictions
 #' p <- predict_gam(model)
 #'
-#' # get predictions excluding x0 (thecoefficient of x0 is set to 0)
+#' # get predictions excluding x0 (the coefficient of x0 is set to 0)
 #' p_2 <- predict_gam(model, exclude_terms = "s(x0)")
+#'
+#' # get predictions with chosen values of x0
+#'
+#' p_3 <- predict_gam(model, values = list(x0 = c(0.250599, 0.503313, 0.756028)))
 #'
 #' @export
 predict_gam <- function(model, exclude_terms = NULL, length_out = 50, values = NULL) {
