@@ -2,13 +2,13 @@
 
 ## [Unreleased]
 ### Added
-- `predict_gam()` for return a dataframe with all predictors and fitted values with standard error
-- `geom_smooth_ci()` which provides a new `ggplot2` `geom` for conveniently plotting smooths and confidence intervals from the output of `predict_gam()`
+- `predict_gam()` to return a dataframe with all predictors and fitted values with standard error
+- `geom_smooth_ci()` which provides a new `ggplot2` `geom` to conveniently plot smooths and confidence intervals from the output of `predict_gam()`
 - vignette that illustrates how to use the new functions
 - examples in the documentation
 
 ### Changed
-- name, arguments, and output of `create_event_start()` (> `create_start_event()`, back compatibility breaks)
+- name, arguments, and output of `create_event_start()` (> `create_start_event()`, it breaks backward compatibility)
 
 ### Removed
 - `plot_gamsd()` (use `plot_smooths()` and `plot_difference()`)
