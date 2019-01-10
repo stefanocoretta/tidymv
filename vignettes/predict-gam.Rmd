@@ -22,7 +22,7 @@ library(mgcv)
 library(tidymv)
 ```
 
-While `plot_smooths()` offers a streamlined way of plotting predicted smooths from a GAM model, it is too constrained for other more complex cases.
+While `plot_smooths()` offers a streamlined way of plotting predicted smooths from a GAM model (see `vignette("plot-smooths", package = "tidymv")`), it is too constrained for other more complex cases.
 
 The most general solution is to get the predicted values of the outcome variable according to all the combinations of terms in the model and use this dataframe for plotting.
 This method grants the user maximum control over what can be plotted and how to transform the data (if necessary).
