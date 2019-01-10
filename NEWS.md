@@ -1,6 +1,6 @@
 # Change Log
 
-## [Unreleased]
+## [2.0.0] - 2019-01-10
 ### Added
 - `predict_gam()` to return a dataframe with all predictors and fitted values with standard error
 - `geom_smooth_ci()` which provides a new `ggplot2` `geom` to conveniently plot smooths and confidence intervals from the output of `predict_gam()`
@@ -109,6 +109,8 @@
 - `create_start_event` function
 - `plot_gamsd` function
 
+[2.0.0]: https://github.com/stefanocoretta/tidymv/compare/v1.5.4...v2.0.0
+[1.5.4]: https://github.com/stefanocoretta/tidymv/compare/v1.5.3...v1.5.4
 [1.5.3]: https://github.com/stefanocoretta/tidymv/compare/v1.5.2...v1.5.3
 [1.5.2]: https://github.com/stefanocoretta/tidymv/compare/v1.5.1...v1.5.2
 [1.5.1]: https://github.com/stefanocoretta/tidymv/compare/v1.5.0...v1.5.1

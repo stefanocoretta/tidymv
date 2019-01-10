@@ -1,8 +1,8 @@
 Package: tidymv
 Type: Package
 Title: Plotting for generalised additive models
-Version: 1.5.4.9000
-Date: 2019-01-09
+Version: 2.0.0
+Date: 2019-01-10
 Authors@R: person("Stefano", "Coretta", email = paste0("stefano.coretta", "@", "gmail.com"),
                   role = c("aut", "cre"))
 Description: This package provides functions for visualising generalised
