@@ -1,5 +1,9 @@
 # Change Log
 
+## Unreleased
+### Fixed
+- missing import in `plot_difference()`
+
 ## [2.0.0] - 2019-01-10
 ### Added
 - `predict_gam()` to return a dataframe with all predictors and fitted values with standard error

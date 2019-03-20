@@ -416,7 +416,7 @@ plot_difference <- function(model, time_series, difference, conditions = NULL, s
         ) +
         ggplot2::geom_path(
         ) +
-        geom_hline(yintercept = 0)
+        ggplot2::geom_hline(yintercept = 0)
 
     return(diff_plot)
 }
