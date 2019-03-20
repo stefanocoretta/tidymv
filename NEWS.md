@@ -1,6 +1,9 @@
 # Change Log
 
 ## Unreleased
+### Changed
+- alpha of 0 line in difference smooth plot (now set to 0.5)
+
 ### Fixed
 - missing import in `plot_difference()`
 
