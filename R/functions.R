@@ -121,12 +121,12 @@ get_gam_predictions <- function(model, series, series_length = 25, conditions = 
     if(!missing(time_series)) {
       warning("This argument has been deprecated and will be removed in the future. Please use `series` instead.")
 
-      series = dplyr::enquo(time_series)
+      series_q = dplyr::enquo(time_series)
     } else {
       time_series = NULL
+      series_q <- dplyr::enquo(series)
     }
 
-    series_q <- dplyr::enquo(series)
     series_name <- rlang::quo_name(series_q)
     outcome_q <- model$formula[[2]]
 
@@ -307,12 +307,12 @@ plot_smooths <- function(model, series, comparison = NULL, facet_terms = NULL, c
     if(!missing(time_series)) {
       warning("This argument has been deprecated and will be removed in the future. Please use `series` instead.")
 
-      series = dplyr::enquo(time_series)
+      series_q = dplyr::enquo(time_series)
     } else {
       time_series = NULL
+      series_q <- dplyr::enquo(series)
     }
 
-    series_q <- dplyr::enquo(series)
     comparison_q <- dplyr::enquo(comparison)
     facet_terms_q <- dplyr::enquo(facet_terms)
     if (rlang::quo_is_null(comparison_q)) {
@@ -390,12 +390,12 @@ plot_difference <- function(model, series, difference, conditions = NULL, series
     if(!missing(time_series)) {
       warning("This argument has been deprecated and will be removed in the future. Please use `series` instead.")
 
-      series = dplyr::enquo(time_series)
+      series_q = dplyr::enquo(time_series)
     } else {
       time_series = NULL
+      series_q <- dplyr::enquo(series)
     }
 
-    series_q <- dplyr::enquo(series)
     series_chr <- rlang::quo_name(series_q)
 
     fitted <- model$model
