@@ -4,19 +4,21 @@
 \alias{plot_difference}
 \title{Plot difference smooth from a GAM.}
 \usage{
-plot_difference(model, time_series, difference, conditions = NULL,
-  series_length = 100)
+plot_difference(model, series, difference, conditions = NULL,
+  series_length = 100, time_series)
 }
 \arguments{
 \item{model}{A \code{gam} or \code{bam} model object.}
 
-\item{time_series}{An unquoted expression indicating the model term that defines the time series.}
+\item{series}{An unquoted expression indicating the model term that defines the series on which smoothing is applied. This is the term that is displayed on the x-axis when plotting.}
 
 \item{difference}{A named list with the levels to compute the difference of.}
 
-\item{conditions}{A named list specifying the levels to plot from the model terms not among \code{time_series} or \code{difference}. Notice the difference with \link[tidymv]{plot_smooths}, which uses \link[rlang]{quos}.}
+\item{conditions}{A named list specifying the levels to plot from the model terms not among \code{series} or \code{difference}. Notice the difference with \link[tidymv]{plot_smooths}, which uses \link[rlang]{quos}.}
 
 \item{series_length}{An integer indicating how many values along the time series to use for predicting the outcome term.}
+
+\item{time_series}{Deprecated, use \code{series} instead.}
 }
 \description{
 It plots the difference smooth from a \link[mgcv]{gam} or \link[mgcv]{bam}.

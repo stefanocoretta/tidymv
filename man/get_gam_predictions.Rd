@@ -4,14 +4,14 @@
 \alias{get_gam_predictions}
 \title{Get predictions from a GAM model.}
 \usage{
-get_gam_predictions(model, time_series, series_length = 25,
+get_gam_predictions(model, series, series_length = 25,
   conditions = NULL, exclude_random = TRUE, exclude_terms = NULL,
-  split = NULL, sep = "\\\\.")
+  split = NULL, sep = "\\\\.", time_series)
 }
 \arguments{
 \item{model}{A \code{gam} or \code{bam} model object.}
 
-\item{time_series}{An unquoted expression indicating the model term that defines the time series.}
+\item{series}{An unquoted expression indicating the model term that defines the series on which smoothing is applied. This is the term that is displayed on the x-axis when plotting.}
 
 \item{series_length}{An integer indicating how many values along the time series to use for predicting the outcome term.}
 
@@ -24,6 +24,8 @@ get_gam_predictions(model, time_series, series_length = 25,
 \item{split}{Columns to separate as a named list.}
 
 \item{sep}{Separator between columns (default is \code{"\\."}, which is the default with \code{}). If character, it is interpreted as a regular expression.}
+
+\item{time_series}{Deprecated, use \code{series} instead.}
 }
 \description{
 It returns a tibble with the predictions from a a \link[mgcv]{gam} or \link[mgcv]{bam} object.

@@ -107,7 +107,8 @@ predict_gam <- function(model, exclude_terms = NULL, length_out = 50, values = N
 #' It returns a tibble with the predictions from a a \link[mgcv]{gam} or \link[mgcv]{bam} object.
 #'
 #' @param model A \code{gam} or \code{bam} model object.
-#' @param time_series An unquoted expression indicating the model term that defines the time series.
+#' @param series An unquoted expression indicating the model term that defines the series on which smoothing is applied. This is the term that is displayed on the x-axis when plotting.
+#' @param time_series Deprecated, use \code{series} instead.
 #' @param series_length An integer indicating how many values along the time series to use for predicting the outcome term.
 #' @param conditions A list of quosures with \link[rlang]{quos} specifying the levels to plot from the model terms.
 #' @param exclude_random Whether to exclude random smooths (the default is \code{TRUE}).
@@ -116,9 +117,17 @@ predict_gam <- function(model, exclude_terms = NULL, length_out = 50, values = N
 #' @param sep Separator between columns (default is \code{"\\."}, which is the default with \code{}). If character, it is interpreted as a regular expression.
 #'
 #' @export
-get_gam_predictions <- function(model, time_series, series_length = 25, conditions = NULL, exclude_random = TRUE, exclude_terms = NULL, split = NULL, sep = "\\.") {
-    time_series_q <- dplyr::enquo(time_series)
-    time_series_name <- rlang::quo_name(time_series_q)
+get_gam_predictions <- function(model, series, series_length = 25, conditions = NULL, exclude_random = TRUE, exclude_terms = NULL, split = NULL, sep = "\\.", time_series) {
+    if(!missing(time_series)) {
+      warning("This argument has been deprecated and will be removed in the future. Please use `series` instead.")
+
+      series = dplyr::enquo(time_series)
+    } else {
+      time_series = NULL
+    }
+
+    series_q <- dplyr::enquo(series)
+    series_name <- rlang::quo_name(series_q)
     outcome_q <- model$formula[[2]]
 
     fitted <- model$model
@@ -142,11 +151,11 @@ get_gam_predictions <- function(model, time_series, series_length = 25, conditio
         }
     }
 
-    time_series_min <- dplyr::select(fitted, !!time_series_q) %>% min()
-    time_series_max <- dplyr::select(fitted, !!time_series_q) %>% max()
+    series_min <- dplyr::select(fitted, !!series_q) %>% min()
+    series_max <- dplyr::select(fitted, !!series_q) %>% max()
 
     fitted <- fitted %>%
-        dplyr::select(-!!time_series_q, -!!outcome_q)
+        dplyr::select(-!!series_q, -!!outcome_q)
 
     if ("(AR.start)" %in% colnames(fitted)) {
         fitted$`(AR.start)` <- NULL
@@ -161,12 +170,12 @@ get_gam_predictions <- function(model, time_series, series_length = 25, conditio
 
     fitted_series <- fitted_series %>%
         dplyr::mutate(
-            !!rlang::quo_name(time_series_q) := rep(
-                list(seq(time_series_min, time_series_max, length.out = series_length)),
+            !!rlang::quo_name(series_q) := rep(
+                list(seq(series_min, series_max, length.out = series_length)),
                 nrow(fitted_series)
             )
         ) %>%
-        tidyr::unnest(!!time_series_q)
+        tidyr::unnest(!!series_q)
 
     if (ncol(fitted_series) > 0) {
         fitted_series <- fitted_series %>%
@@ -188,7 +197,7 @@ get_gam_predictions <- function(model, time_series, series_length = 25, conditio
     excluded_terms <- as.null()
     for (smooth in 1:length(model[["smooth"]])) {
         smooth_term <- model[["smooth"]][[smooth]][["term"]][[1]]
-        if (smooth_term != time_series_name) {
+        if (smooth_term != series_name) {
             excluded_terms <- c(excluded_terms, smooth_term)
             smooth_label <- model[["smooth"]][[smooth]][["label"]]
             exclude_smooths <- c(exclude_smooths, smooth_label)
@@ -281,7 +290,7 @@ get_gam_predictions <- function(model, time_series, series_length = 25, conditio
 #' @inheritParams get_gam_predictions
 #' @param comparison An unquoted expression indicating the model term for which the comparison will be plotted.
 #' @param facet_terms An unquoted formula with the terms used for faceting.
-#' @param conditions A list of quosures with \link[rlang]{quos} specifying the levels to plot from the model terms not among \code{time_series}, \code{comparison}, or \code{facet_terms}.
+#' @param conditions A list of quosures with \link[rlang]{quos} specifying the levels to plot from the model terms not among \code{series}, \code{comparison}, or \code{facet_terms}.
 #'
 #' @examples
 #' # see vignette
@@ -294,8 +303,16 @@ get_gam_predictions <- function(model, time_series, series_length = 25, conditio
 #' @importFrom rlang "quo_name"
 #' @importFrom stats "predict"
 #' @export
-plot_smooths <- function(model, time_series, comparison = NULL, facet_terms = NULL, conditions = NULL, exclude_random = TRUE, exclude_terms = NULL, series_length = 25, split = NULL, sep = "\\.") {
-    time_series_q <- dplyr::enquo(time_series)
+plot_smooths <- function(model, series, comparison = NULL, facet_terms = NULL, conditions = NULL, exclude_random = TRUE, exclude_terms = NULL, series_length = 25, split = NULL, sep = "\\.", time_series) {
+    if(!missing(time_series)) {
+      warning("This argument has been deprecated and will be removed in the future. Please use `series` instead.")
+
+      series = dplyr::enquo(time_series)
+    } else {
+      time_series = NULL
+    }
+
+    series_q <- dplyr::enquo(series)
     comparison_q <- dplyr::enquo(comparison)
     facet_terms_q <- dplyr::enquo(facet_terms)
     if (rlang::quo_is_null(comparison_q)) {
@@ -306,12 +323,12 @@ plot_smooths <- function(model, time_series, comparison = NULL, facet_terms = NU
     }
     outcome_q <- model$formula[[2]]
 
-    predicted_tbl <- get_gam_predictions(model, !!time_series_q, conditions, exclude_random = exclude_random, exclude_terms = exclude_terms, series_length = series_length, split = split, sep = sep)
+    predicted_tbl <- get_gam_predictions(model, !!series_q, conditions, exclude_random = exclude_random, exclude_terms = exclude_terms, series_length = series_length, split = split, sep = sep)
 
     smooths_plot <- predicted_tbl %>%
         ggplot2::ggplot(
             ggplot2::aes_string(
-                rlang::quo_name(time_series_q), rlang::quo_name(outcome_q)
+                rlang::quo_name(series_q), rlang::quo_name(outcome_q)
             )
         ) +
         {if (!is.null(comparison_q)) {
@@ -365,21 +382,28 @@ plot_smooths <- function(model, time_series, comparison = NULL, facet_terms = NU
 #' }
 #'
 #' @inheritParams get_gam_predictions
-#' @param time_series An unquoted expression indicating the model term that defines the time series.
 #' @param difference A named list with the levels to compute the difference of.
-#' @param conditions A named list specifying the levels to plot from the model terms not among \code{time_series} or \code{difference}. Notice the difference with \link[tidymv]{plot_smooths}, which uses \link[rlang]{quos}.
+#' @param conditions A named list specifying the levels to plot from the model terms not among \code{series} or \code{difference}. Notice the difference with \link[tidymv]{plot_smooths}, which uses \link[rlang]{quos}.
 #'
 #' @export
-plot_difference <- function(model, time_series, difference, conditions = NULL, series_length = 100) {
-    time_series_q <- dplyr::enquo(time_series)
-    time_series_chr <- rlang::quo_name(time_series_q)
+plot_difference <- function(model, series, difference, conditions = NULL, series_length = 100, time_series) {
+    if(!missing(time_series)) {
+      warning("This argument has been deprecated and will be removed in the future. Please use `series` instead.")
+
+      series = dplyr::enquo(time_series)
+    } else {
+      time_series = NULL
+    }
+
+    series_q <- dplyr::enquo(series)
+    series_chr <- rlang::quo_name(series_q)
 
     fitted <- model$model
 
-    time_series_min <- dplyr::select(fitted, !!time_series_q) %>% min()
-    time_series_max <- dplyr::select(fitted, !!time_series_q) %>% max()
+    series_min <- dplyr::select(fitted, !!series_q) %>% min()
+    series_max <- dplyr::select(fitted, !!series_q) %>% max()
 
-    conditions <- c(conditions, rlang::ll(!!time_series_chr := seq(time_series_min, time_series_max, length.out = series_length)))
+    conditions <- c(conditions, rlang::ll(!!series_chr := seq(series_min, series_max, length.out = series_length)))
 
     diff <- itsadug::get_difference(model, difference, cond = conditions, print.summary = FALSE) %>%
         dplyr::mutate(
@@ -388,7 +412,7 @@ plot_difference <- function(model, time_series, difference, conditions = NULL, s
         )
 
     sig_diff <- itsadug::find_difference(
-        diff$difference, diff$CI, diff[[time_series_chr]]
+        diff$difference, diff$CI, diff[[series_chr]]
     )
 
     annotate <- ggplot2::annotate(
@@ -403,7 +427,7 @@ plot_difference <- function(model, time_series, difference, conditions = NULL, s
     diff_plot <- diff %>%
         ggplot2::ggplot(
             ggplot2::aes_string(
-                rlang::quo_name(time_series_q), "difference"
+                rlang::quo_name(series_q), "difference"
             )
         ) +
         {if (is_sig) {annotate}} +

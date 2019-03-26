@@ -4,20 +4,20 @@
 \alias{plot_smooths}
 \title{Plot GAM smooths.}
 \usage{
-plot_smooths(model, time_series, comparison = NULL, facet_terms = NULL,
+plot_smooths(model, series, comparison = NULL, facet_terms = NULL,
   conditions = NULL, exclude_random = TRUE, exclude_terms = NULL,
-  series_length = 25, split = NULL, sep = "\\\\.")
+  series_length = 25, split = NULL, sep = "\\\\.", time_series)
 }
 \arguments{
 \item{model}{A \code{gam} or \code{bam} model object.}
 
-\item{time_series}{An unquoted expression indicating the model term that defines the time series.}
+\item{series}{An unquoted expression indicating the model term that defines the series on which smoothing is applied. This is the term that is displayed on the x-axis when plotting.}
 
 \item{comparison}{An unquoted expression indicating the model term for which the comparison will be plotted.}
 
 \item{facet_terms}{An unquoted formula with the terms used for faceting.}
 
-\item{conditions}{A list of quosures with \link[rlang]{quos} specifying the levels to plot from the model terms not among \code{time_series}, \code{comparison}, or \code{facet_terms}.}
+\item{conditions}{A list of quosures with \link[rlang]{quos} specifying the levels to plot from the model terms not among \code{series}, \code{comparison}, or \code{facet_terms}.}
 
 \item{exclude_random}{Whether to exclude random smooths (the default is \code{TRUE}).}
 
@@ -28,6 +28,8 @@ plot_smooths(model, time_series, comparison = NULL, facet_terms = NULL,
 \item{split}{Columns to separate as a named list.}
 
 \item{sep}{Separator between columns (default is \code{"\\."}, which is the default with \code{}). If character, it is interpreted as a regular expression.}
+
+\item{time_series}{Deprecated, use \code{series} instead.}
 }
 \description{
 It plots the smooths from the estimates of a \link[mgcv]{gam} or \link[mgcv]{bam} object.

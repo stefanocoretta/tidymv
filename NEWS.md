@@ -7,6 +7,9 @@
 ### Fixed
 - missing import in `plot_difference()`
 
+### Deprecated
+- ⚠️ `time_series` is now deprecated and replaced with `series`. `time_series` will be removed in future releases.
+
 ## [2.0.0] - 2019-01-10
 ### Added
 - `predict_gam()` to return a dataframe with all predictors and fitted values with standard error
@@ -33,7 +36,7 @@
 
 ## [1.5.2] - 2018-10-22
 ### Fixed
-- error with updated `rlang` 
+- error with updated `rlang`
 
 ## [1.5.1] - 2018-08-18
 ### Added
