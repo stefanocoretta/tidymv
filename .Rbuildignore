@@ -5,3 +5,4 @@
 ^NEWS\.md$
 ^LICENSE\.md$
 ^\.travis\.yml$
+^cran-comments\.md$
