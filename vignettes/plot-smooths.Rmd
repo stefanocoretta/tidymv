@@ -103,7 +103,7 @@ plot_smooths(
 ```
 
 To plot just one or some of the facets, you should use the `conditions` argument.
-This argument takes a list of quosures qith `quos()`.
+This argument takes a list of quosures with `quos()`.
 
 ```{r plot-interactions-2}
 plot_smooths(
@@ -132,7 +132,7 @@ plot_smooths(
 ## Plotting the difference smooth
 
 The difference smooth can be plotted with `plot_difference()`.
-Portions of the difference smooth that do not inlcude 0 are shaded in red.
+Portions of the difference smooth that do not include 0 are shaded in red.
 
 ```{r plot-diff-model}
 plot_difference(

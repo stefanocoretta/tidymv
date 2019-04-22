@@ -12,7 +12,7 @@ create_start_event(tibble, series_col)
 \item{series_col}{The name of the column that defines the group of series, as an unquoted expression.}
 }
 \value{
-A tibble with an extra column that marks the begninning of the series.
+A tibble with an extra column that marks the beginning of the series.
 }
 \description{
 Create a new column which marks the beginning of each series in a tibble (for example, time series).

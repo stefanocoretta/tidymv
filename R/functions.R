@@ -5,7 +5,7 @@
 #' @param tibble A tibble arranged according to the series.
 #' @param series_col The name of the column that defines the group of series, as an unquoted expression.
 #'
-#' @return A tibble with an extra column that marks the begninning of the series.
+#' @return A tibble with an extra column that marks the beginning of the series.
 #'
 #' @examples
 #' library(dplyr)
@@ -447,7 +447,7 @@ plot_difference <- function(model, series, difference, conditions = NULL, series
 
 #' Smooths and confidence intervals.
 #'
-#' It provides a `geom` for plotting GAM smooths with confidence intervals from the output of \link[tidymv]{predict_gam}. It inherits the following `aes` from a call to `ggplot`:
+#' It provides a `geom` for plotting GAM smooths with confidence intervals from the output of \link[tidymv]{predict_gam}. It inherits the following aesthetics from a call to \code{ggplot}:
 #'   \itemize{
 #'     \item The term defining the x-axis.
 #'     \item The fitted values (the \code{fit} column in the tibble returned by \link[tidymv]{predict_gam}).
