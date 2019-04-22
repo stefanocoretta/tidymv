@@ -4,3 +4,4 @@
 ^\.Rproj\.user$
 ^NEWS\.md$
 ^LICENSE\.md$
+^\.travis\.yml$

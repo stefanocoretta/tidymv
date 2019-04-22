@@ -1,8 +1,8 @@
 Package: tidymv
 Type: Package
 Title: Tidy Model Visualisation for Generalised Additive Models
-Version: 2.0.0.9000
-Date: 2019-03-26
+Version: 2.1.0
+Date: 2019-04-22
 Authors@R: person("Stefano", "Coretta", email = paste0("stefano.coretta", "@", "gmail.com"),
                   role = c("aut", "cre"))
 Description: Functions for visualising generalised
