@@ -120,6 +120,7 @@
 - `create_start_event` function
 - `plot_gamsd` function
 
+[2.1.0]: https://github.com/stefanocoretta/tidymv/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/stefanocoretta/tidymv/compare/v1.5.4...v2.0.0
 [1.5.4]: https://github.com/stefanocoretta/tidymv/compare/v1.5.3...v1.5.4
 [1.5.3]: https://github.com/stefanocoretta/tidymv/compare/v1.5.2...v1.5.3
