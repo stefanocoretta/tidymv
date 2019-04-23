@@ -30,3 +30,12 @@ get_gam_predictions(model, series, series_length = 25,
 \description{
 It returns a tibble with the predictions from a a \link[mgcv]{gam} or \link[mgcv]{bam} object.
 }
+\examples{
+library(mgcv)
+set.seed(10)
+data <- gamSim(4)
+model <- gam(y ~ fac + s(x2) + s(x2, by = fac) + s(x0), data = data)
+
+pred <- get_gam_predictions(model, x2)
+
+}

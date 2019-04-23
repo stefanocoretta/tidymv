@@ -25,7 +25,14 @@ It plots the difference smooth from a \link[mgcv]{gam} or \link[mgcv]{bam}.
 Significant differences are marked with red areas.
 }
 \examples{
-# see vignette
+library(mgcv)
+set.seed(10)
+data <- gamSim(4)
+model <- gam(y ~ fac + s(x2) + s(x2, by = fac) + s(x0), data = data)
+
+plot_smooths(model, x2, fac)
+
+# For details, see vignette
 \dontrun{
 vignette("plot-smooths", package = "tidymv")
 }

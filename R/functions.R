@@ -116,6 +116,14 @@ predict_gam <- function(model, exclude_terms = NULL, length_out = 50, values = N
 #' @param split Columns to separate as a named list.
 #' @param sep Separator between columns (default is \code{"\\."}, which is the default with \code{}). If character, it is interpreted as a regular expression.
 #'
+#' @examples
+#' library(mgcv)
+#' set.seed(10)
+#' data <- gamSim(4)
+#' model <- gam(y ~ fac + s(x2) + s(x2, by = fac) + s(x0), data = data)
+#'
+#' pred <- get_gam_predictions(model, x2)
+#'
 #' @export
 get_gam_predictions <- function(model, series, series_length = 25, conditions = NULL, exclude_random = TRUE, exclude_terms = NULL, split = NULL, sep = "\\.", time_series) {
     if(!missing(time_series)) {
@@ -293,7 +301,14 @@ get_gam_predictions <- function(model, series, series_length = 25, conditions = 
 #' @param conditions A list of quosures with \link[rlang]{quos} specifying the levels to plot from the model terms not among \code{series}, \code{comparison}, or \code{facet_terms}.
 #'
 #' @examples
-#' # see vignette
+#' library(mgcv)
+#' set.seed(10)
+#' data <- gamSim(4)
+#' model <- gam(y ~ fac + s(x2) + s(x2, by = fac) + s(x0), data = data)
+#'
+#' plot_difference(model, x2, list(fac = c("1", "2")))
+#'
+#' # For details, see vignette
 #' \dontrun{
 #' vignette("plot-smooths", package = "tidymv")
 #' }
@@ -376,7 +391,14 @@ plot_smooths <- function(model, series, comparison = NULL, facet_terms = NULL, c
 #' Significant differences are marked with red areas.
 #'
 #' @examples
-#' # see vignette
+#' library(mgcv)
+#' set.seed(10)
+#' data <- gamSim(4)
+#' model <- gam(y ~ fac + s(x2) + s(x2, by = fac) + s(x0), data = data)
+#'
+#' plot_smooths(model, x2, fac)
+#'
+#' # For details, see vignette
 #' \dontrun{
 #' vignette("plot-smooths", package = "tidymv")
 #' }

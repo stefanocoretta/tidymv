@@ -1,6 +1,9 @@
 # Change Log
 
-## [2.1.0] - 2019-04-22
+## [2.1.0] - 2019-04-23
+### Added
+- examples in documentation for all functions
+
 ### Changed
 - alpha of 0 line in difference smooth plot (now set to 0.5)
 - prepared for CRAN first release

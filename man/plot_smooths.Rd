@@ -35,7 +35,14 @@ plot_smooths(model, series, comparison = NULL, facet_terms = NULL,
 It plots the smooths from the estimates of a \link[mgcv]{gam} or \link[mgcv]{bam} object.
 }
 \examples{
-# see vignette
+library(mgcv)
+set.seed(10)
+data <- gamSim(4)
+model <- gam(y ~ fac + s(x2) + s(x2, by = fac) + s(x0), data = data)
+
+plot_difference(model, x2, list(fac = c("1", "2")))
+
+# For details, see vignette
 \dontrun{
 vignette("plot-smooths", package = "tidymv")
 }
