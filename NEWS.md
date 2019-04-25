@@ -1,5 +1,7 @@
 # Change Log
 
+## Unreleased
+
 ## [2.1.0] - 2019-04-23
 ### Added
 - examples in documentation for all functions
