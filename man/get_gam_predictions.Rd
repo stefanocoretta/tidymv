@@ -6,7 +6,7 @@
 \usage{
 get_gam_predictions(model, series, series_length = 25,
   conditions = NULL, exclude_random = TRUE, exclude_terms = NULL,
-  split = NULL, sep = "\\\\.", time_series)
+  split = NULL, sep = "\\\\.", time_series, transform = NULL)
 }
 \arguments{
 \item{model}{A \code{gam} or \code{bam} model object.}
@@ -26,6 +26,8 @@ get_gam_predictions(model, series, series_length = 25,
 \item{sep}{Separator between columns (default is \code{"\\."}, which is the default with \code{}). If character, it is interpreted as a regular expression.}
 
 \item{time_series}{Deprecated, use \code{series} instead.}
+
+\item{transform}{Function used to transform the fitted values (useful for getting plots on the response scale).}
 }
 \description{
 It returns a tibble with the predictions from a a \link[mgcv]{gam} or \link[mgcv]{bam} object.

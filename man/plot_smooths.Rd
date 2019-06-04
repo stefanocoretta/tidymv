@@ -6,7 +6,8 @@
 \usage{
 plot_smooths(model, series, comparison = NULL, facet_terms = NULL,
   conditions = NULL, exclude_random = TRUE, exclude_terms = NULL,
-  series_length = 25, split = NULL, sep = "\\\\.", time_series)
+  series_length = 25, split = NULL, sep = "\\\\.",
+  transform = NULL, time_series)
 }
 \arguments{
 \item{model}{A \code{gam} or \code{bam} model object.}
@@ -28,6 +29,8 @@ plot_smooths(model, series, comparison = NULL, facet_terms = NULL,
 \item{split}{Columns to separate as a named list.}
 
 \item{sep}{Separator between columns (default is \code{"\\."}, which is the default with \code{}). If character, it is interpreted as a regular expression.}
+
+\item{transform}{Function used to transform the fitted values (useful for getting plots on the response scale).}
 
 \item{time_series}{Deprecated, use \code{series} instead.}
 }

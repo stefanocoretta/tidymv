@@ -14,7 +14,7 @@ predict_gam(model, exclude_terms = NULL, length_out = 50,
 
 \item{length_out}{An integer indicating how many values along the numeric predictors to use for predicting the outcome term (the default is \code{50}).}
 
-\item{values}{User supplied values for numeric terms as a named list.}
+\item{values}{User supplied values for specific terms as a named list. If the value is \code{NULL}, the first value of the term is selected (useful when excluding terms).}
 }
 \value{
 A tibble with predictions from a a \link[mgcv]{gam} or \link[mgcv]{bam} model.
@@ -31,8 +31,10 @@ model <- gam(y ~ fac + s(x2) + s(x2, by = fac) + s(x0), data = data)
 # get predictions
 p <- predict_gam(model)
 
-# get predictions excluding x0 (the coefficient of x0 is set to 0)
-p_2 <- predict_gam(model, exclude_terms = "s(x0)")
+# get predictions excluding x0 (the coefficient of x0 is set to 0);
+# setting the value for the excluded term to NULL with the argument 'values'
+# reduces computation time
+p_2 <- predict_gam(model, exclude_terms = "s(x0)", values = list(x0 = NULL))
 
 # get predictions with chosen values of x0
 
