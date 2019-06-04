@@ -1,6 +1,9 @@
 # Change Log
 
 ## Unreleased
+### Changed
+- add option of setting values to `NULL` in `predict_gam()` when excluding terms to reduce computation time (also mentioned in the vignette)
+
 ### Fixed
 - wrong examples in `plot_smooths()` and `plot_difference()` (closes https://github.com/stefanocoretta/tidymv/issues/10)
 

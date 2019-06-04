@@ -37,7 +37,7 @@ create_start_event <- function(tibble, series_col) {
 #' @param model A \code{gam} or \code{bam} model object.
 #' @param exclude_terms Terms to be excluded from the prediction. Term names should be given as they appear in the model summary (for example, \code{"s(x0,x1)"}).
 #' @param length_out An integer indicating how many values along the numeric predictors to use for predicting the outcome term (the default is \code{50}).
-#' @param values User supplied values for numeric terms as a named list.
+#' @param values User supplied values for specific terms as a named list. If the value is \code{NULL}, the first value of the term is selected (useful when excluding terms).
 #'
 #' @return A tibble with predictions from a a \link[mgcv]{gam} or \link[mgcv]{bam} model.
 #'
@@ -50,8 +50,10 @@ create_start_event <- function(tibble, series_col) {
 #' # get predictions
 #' p <- predict_gam(model)
 #'
-#' # get predictions excluding x0 (the coefficient of x0 is set to 0)
-#' p_2 <- predict_gam(model, exclude_terms = "s(x0)")
+#' # get predictions excluding x0 (the coefficient of x0 is set to 0);
+#' # setting the value for the excluded term to NULL with the argument 'values'
+#' # reduces computation time
+#' p_2 <- predict_gam(model, exclude_terms = "s(x0)", values = list(x0 = NULL))
 #'
 #' # get predictions with chosen values of x0
 #'
@@ -69,6 +71,11 @@ predict_gam <- function(model, exclude_terms = NULL, length_out = 50, values = N
 
     if (term_name %in% names(values)) {
       new_term <- values[[which(names(values) == term_name)]]
+
+      if (is.null(new_term)) {
+        new_term <- model[["var.summary"]][[term]][[1]]
+      }
+
     } else {
       if (is.numeric(term_summary)) {
 

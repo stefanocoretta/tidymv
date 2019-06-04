@@ -142,7 +142,17 @@ predict_gam(model_3, exclude_terms = "s(x2,rand)") %>%
   geom_smooth_ci()
 ```
 
-Of course, it is possible to plot the predicted values of random effects if we wishes so.
+To speed up the calculation of the predictions when excluding terms, it is helpful to select a single value for the unnecessary terms using the `values` argument, rather than filtering with `filter()`.
+As with `filter()`, any value of the excluded variable can be used.
+If the value is `NULL`, the first value/level of the term is automatically selected (in the example below, `values = list(rand = NULL)` and `values = list(rand = "a")` would be equivalent).
+
+```{r model-3-plot-2}
+predict_gam(model_3, exclude_terms = "s(x2,rand)", values = list(rand = NULL)) %>%
+  ggplot(aes(x2, fit)) +
+  geom_smooth_ci()
+```
+
+Of course, it is possible to plot the predicted values of random effects if we wish to do so.
 In the following example, the random effect `rand` is not excluded when predicting, and it is used to facet the plot.
 
 ```{r model-3-rand}
