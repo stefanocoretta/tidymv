@@ -1,6 +1,8 @@
 # Change Log
 
 ## Unreleased
+### Fixed
+- wrong examples in `plot_smooths()` and `plot_difference()` (closes https://github.com/stefanocoretta/tidymv/issues/10)
 
 ## [2.1.0] - 2019-04-23
 ### Added

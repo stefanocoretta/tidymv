@@ -306,7 +306,7 @@ get_gam_predictions <- function(model, series, series_length = 25, conditions = 
 #' data <- gamSim(4)
 #' model <- gam(y ~ fac + s(x2) + s(x2, by = fac) + s(x0), data = data)
 #'
-#' plot_difference(model, x2, list(fac = c("1", "2")))
+#' plot_smooths(model, x2, fac)
 #'
 #' # For details, see vignette
 #' \dontrun{
@@ -396,7 +396,7 @@ plot_smooths <- function(model, series, comparison = NULL, facet_terms = NULL, c
 #' data <- gamSim(4)
 #' model <- gam(y ~ fac + s(x2) + s(x2, by = fac) + s(x0), data = data)
 #'
-#' plot_smooths(model, x2, fac)
+#' plot_difference(model, x2, list(fac = c("1", "2")))
 #'
 #' # For details, see vignette
 #' \dontrun{

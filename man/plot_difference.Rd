@@ -30,7 +30,7 @@ set.seed(10)
 data <- gamSim(4)
 model <- gam(y ~ fac + s(x2) + s(x2, by = fac) + s(x0), data = data)
 
-plot_smooths(model, x2, fac)
+plot_difference(model, x2, list(fac = c("1", "2")))
 
 # For details, see vignette
 \dontrun{
