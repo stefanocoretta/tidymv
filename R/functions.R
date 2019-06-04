@@ -143,14 +143,17 @@ get_gam_predictions <- function(model, series, series_length = 25, conditions = 
       series_q <- dplyr::enquo(series)
     }
 
+  if (!is.null(model$dinfo) && (exclude_random || !is.null(exclude_terms))) {
+    stop("Excluding random effects and/or terms is not currently supported with discretised models (fitted with discrete = TRUE). Please, set 'exclude_random' to FALSE and/or 'exclude_terms' to null.")
+  }
+
     series_name <- rlang::quo_name(series_q)
     outcome_q <- model$formula[[2]]
-
-    fitted <- model$model
 
     random_effects <- list()
     random_effects_terms <- NULL
 
+    # Get a list of the terms that are random effect
     if (exclude_random == TRUE) {
         for (i in 1:length(model[["smooth"]])) {
             smooth_class <- attr(model$smooth[[i]],"class")[1]
@@ -167,37 +170,9 @@ get_gam_predictions <- function(model, series, series_length = 25, conditions = 
         }
     }
 
-    series_min <- dplyr::select(fitted, !!series_q) %>% min()
-    series_max <- dplyr::select(fitted, !!series_q) %>% max()
-
-    fitted <- fitted %>%
-        dplyr::select(-!!series_q, -!!outcome_q)
-
-    if ("(AR.start)" %in% colnames(fitted)) {
-        fitted$`(AR.start)` <- NULL
-    }
-
-    if (ncol(fitted) > 0) {
-        fitted_series <- fitted %>%
-            unique()
-    } else {
-        fitted_series <- fitted
-    }
-
-    fitted_series <- fitted_series %>%
-        dplyr::mutate(
-            !!rlang::quo_name(series_q) := rep(
-                list(seq(series_min, series_max, length.out = series_length)),
-                nrow(fitted_series)
-            )
-        ) %>%
-        tidyr::unnest(!!series_q)
-
-    if (ncol(fitted_series) > 0) {
-        fitted_series <- fitted_series %>%
-            unique()
-    }
-
+    # Get a list of the smooth term labels that are random effects, necessary
+    # in predict.gam which takes the label of the smooths as they appear in
+    # the summary output
     if (exclude_random) {
         if (rlang::is_empty(random_effects)) {
             exclude_random_effects <- as.null()
@@ -208,7 +183,8 @@ get_gam_predictions <- function(model, series, series_length = 25, conditions = 
         exclude_random_effects <- as.null()
     }
 
-    # Exclude smooth terms which are not the time series to be plotted or tensor smooths
+    # Get smooth term labels which are not the time series to be plotted or
+    # tensor smooths
     exclude_smooths <- as.null()
     excluded_terms <- as.null()
     for (smooth in 1:length(model[["smooth"]])) {
@@ -227,6 +203,7 @@ get_gam_predictions <- function(model, series, series_length = 25, conditions = 
         }
     }
 
+    # Get excluded terms
     excluded <- as.null()
     if (!is.null(exclude_terms)) {
         for (term in 1:length(exclude_terms)) {
@@ -245,9 +222,42 @@ get_gam_predictions <- function(model, series, series_length = 25, conditions = 
 
     exclude_these <- c(exclude_random_effects, exclude_smooths, exclude_terms)
 
+    # Prapare the new data frame for prediction. Only one value is selected
+    # in excluded terms (the first level in factors, the minimum value in numeric
+    # variables)
+    var_list <- list()
+
+    for (var in 1:length(model[["var.summary"]])) {
+      var_class <- class(model[["var.summary"]][[var]])
+
+      if (var_class == "numeric") {
+        if (names(model[["var.summary"]][var]) %in% c(random_effects_terms, excluded_terms, excluded)) {
+          var_values <- model[["var.summary"]][[var]][[1]]
+        } else {
+          var_values <- seq(model[["var.summary"]][[var]][[1]], model[["var.summary"]][[var]][[3]], length.out = series_length)
+        }
+      } else if (var_class == "factor") {
+        if (names(model[["var.summary"]][var]) %in% c(random_effects_terms, excluded_terms, excluded)) {
+          var_values <- model[["var.summary"]][[var]][[1]]
+        } else {
+        var_values <- levels(model[["var.summary"]][[var]])
+        }
+      }
+      var_values_list <- list(var_values)
+      names(var_values_list)[[1]] <- names(model[["var.summary"]][var])
+
+      var_list <- c(var_list, var_values_list)
+    }
+
+    fitted_df <- expand.grid(var_list)
+
+    if ("(AR.start)" %in% colnames(fitted_df)) {
+      fitted_df$`(AR.start)` <- NULL
+    }
+
     predicted <- stats::predict(
         model,
-        fitted_series,
+        fitted_df,
         se.fit = TRUE,
         exclude = exclude_these
     )
@@ -257,7 +267,7 @@ get_gam_predictions <- function(model, series, series_length = 25, conditions = 
       predicted$fit <- trans_fun(predicted$fit)
     }
 
-    predicted_tbl <- cbind(fitted_series, predicted) %>%
+    predicted_tbl <- cbind(fitted_df, predicted) %>%
         dplyr::mutate(
             CI_upper = fit + 1.96 * se.fit,
             CI_lower = fit - 1.96 * se.fit
