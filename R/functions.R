@@ -144,7 +144,7 @@ get_gam_predictions <- function(model, series, series_length = 25, conditions = 
     }
 
   if (!is.null(model$dinfo) && (exclude_random || !is.null(exclude_terms))) {
-    stop("Excluding random effects and/or terms is not currently supported with discretised models (fitted with discrete = TRUE). Please, set 'exclude_random' to FALSE and/or 'exclude_terms' to null.")
+    stop("Excluding random effects and/or terms is not currently supported with discretised models (fitted with discrete = TRUE). Please, set 'exclude_random' to FALSE and/or 'exclude_terms' to NULL.")
   }
 
     series_name <- rlang::quo_name(series_q)
