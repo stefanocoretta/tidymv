@@ -25,7 +25,7 @@ data(simdat)
 
 ## Plotting smooths
 
-To illustrate how to use `plot_smooths()`, let's first prepare some dummy data with a factor variable and run `gam()` on this data. The `gam` model includes a reference smooth `s(x2)`, a by-factor difference smooth `s(x2, by = fac)`, and a smooth `s(x0)`.
+To illustrate how to use `plot_smooths()`, let's first prepare some dummy data with a factor variable and run `gam()` on this data. The `gam` model includes a reference smooth `s(x2)`, a by-factor difference smooth `s(x2, by = fac)`, and a smooth `s(x0)`. For more flexibility and for more complex models, using `predict_gam()` and then plotting the predicted data yourself might be helpful (see "predict-gam" vignette).
 
 ```{r gam}
 set.seed(10)
@@ -43,7 +43,7 @@ model <- gam(
 We can now plot the estimated smooths for the two levels of `fac`.
 The function supports factors with more than 2 levels.
 
-```{r plot-1-2}
+```{r plot-gam}
 plot_smooths(
     model = model,
     series = x2,
@@ -52,27 +52,60 @@ plot_smooths(
     theme(legend.position = "top")
 ```
 
+With models that transform the response scale (like Poisson and binomial models), use the `transform` argument with the function to be used for transformation as the value.
+Let's first make some data and fit a Poisson GAM.
+
+```{r pois-gam}
+# Prepare data
+set.seed(9753)
+obs <- 25
+x_i <- 50
+y_a <- NULL
+for (i in seq(1, 5, length.out = x_i)) {
+  y_a <- c(y_a, rpois(obs, log(i) ^ exp(0.6210526)))
+}
+y_b <- NULL
+for (i in seq(1, 5, length.out = x_i)) {
+  y_b <- c(y_b, rpois(obs, log(i) ^ exp(0.1736842)))
+}
+
+pois_df <- tibble(
+  y = c(y_a, y_b),
+  x = c(rep(1:x_i, each = obs), rep(1:x_i, each = obs)),
+  fac = as.factor(rep(c("a", "b"), each = obs * 50))
+)
+
+# Fit gam
+pois_gam <- gam(y ~ s(x, by = fac), data = pois_df, family = poisson)
+```
+
+We can now plot on the response scale using `transform = exp`.
+
+```{r plot-pois-gam}
+plot_smooths(pois_gam, x, fac, transform = exp, series_length = 70)
+```
+
 ## Plotting a single smooth
 
 It is also possible to plot a single smooth.
 
 ```{r gam-2}
 model_2 <- gam(
-    y ~
-        s(x0),
-    data = data
+  y ~
+    s(x0) +
+    s(x2),
+  data = data
 )
 
 plot_smooths(
-    model = model_2,
-    series = x0
+  model = model_2,
+  series = x0
 )
 ```
 
 ## Plotting interactions
 
-It is very likely that the model will contain interactions.
-It is possible to plot models with interactions by specifying faceting with the `facet_terms` argument.
+It is possible to plot models with interactions by specifying faceting with the `facet_terms` and `split` arguments.
 
 ```{r interaction-data}
 simdata <- simdat %>%
@@ -91,6 +124,9 @@ model_inter <- bam(
 )
 ```
 
+The `split` argument allows the user to split the factor interaction (back) into separate factors, which can be used to facet with the `facet_terms` argument.
+`split` takes a named list, where each object in the list is a named vector with the names of the new factors as strings (`c("Group", "Condition")`) and the name of the factor interaction to be splitted as the name of this vector (`GroupCondition = ...`).
+
 ```{r plot-interactions}
 plot_smooths(
     model = model_inter,
@@ -102,8 +138,12 @@ plot_smooths(
     theme(legend.position = "top")
 ```
 
+You can use the `sep` argument to specify the character used for separating the factor interaction.
+By default is `"\\."`, which is the default character used when creating interactions with `interaction()`.
+
 To plot just one or some of the facets, you should use the `conditions` argument.
 This argument takes a list of quosures with `quos()`.
+The quosures are statements like the ones used in `dplyr::filter()`, and you can include multiple statements separated by commas inside `quos()`.
 
 ```{r plot-interactions-2}
 plot_smooths(
@@ -132,13 +172,16 @@ plot_smooths(
 ## Plotting the difference smooth
 
 The difference smooth can be plotted with `plot_difference()`.
-Portions of the difference smooth that do not include 0 are shaded in red.
+The difference smooth is the difference between the smooths of two conditions (two levels in a factor).
+Portions of the difference smooth confidence interval that do not include 0 are shaded in red.
+
+The following is a difference smooth comparing the two levels of the `fac` term in the poisson GAM above.
 
 ```{r plot-diff-model}
 plot_difference(
-  model,
-  series = x2,
-  difference = list(fac = c("1", "2"))
+  pois_gam,
+  series = x,
+  difference = list(fac = c("b", "a"))
 )
 ```
 

@@ -2,8 +2,9 @@
 
 ## Unreleased
 ### Added
-- added `transform` argument in `get_gam_predictions()` and `plot_smooths()` (closes https://github.com/stefanocoretta/tidymv/issues/9)
-- added error message in `get_gam_predictions` when using discretised bam models and `exclude_random = TRUE` (which is the default)
+- `transform` argument in `get_gam_predictions()` and `plot_smooths()` (closes https://github.com/stefanocoretta/tidymv/issues/9)
+- error message in `get_gam_predictions` when using discretised bam models and `exclude_random = TRUE` (which is the default)
+- example of non-Gaussian GAM in `plot-smooths` vignette
 
 ### Changed
 - add option of setting values to `NULL` in `predict_gam()` when excluding terms to reduce computation time (also mentioned in the vignette)
