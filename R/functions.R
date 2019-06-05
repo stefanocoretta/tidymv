@@ -123,6 +123,7 @@ predict_gam <- function(model, exclude_terms = NULL, length_out = 50, values = N
 #' @param split Columns to separate as a named list.
 #' @param sep Separator between columns (default is \code{"\\."}, which is the default with \code{}). If character, it is interpreted as a regular expression.
 #' @param transform Function used to transform the fitted values (useful for getting plots on the response scale).
+#' @param ci_z The z-value for calculating the CIs (the default is \code{1.96} for 95 percent CI).
 #'
 #' @examples
 #' library(mgcv)
@@ -133,7 +134,7 @@ predict_gam <- function(model, exclude_terms = NULL, length_out = 50, values = N
 #' pred <- get_gam_predictions(model, x2)
 #'
 #' @export
-get_gam_predictions <- function(model, series, series_length = 25, conditions = NULL, exclude_random = TRUE, exclude_terms = NULL, split = NULL, sep = "\\.", time_series, transform = NULL) {
+get_gam_predictions <- function(model, series, series_length = 25, conditions = NULL, exclude_random = TRUE, exclude_terms = NULL, split = NULL, sep = "\\.", time_series, transform = NULL, ci_z = 1.96) {
     if (!missing(time_series)) {
       warning("This argument has been deprecated and will be removed in the future. Please use `series` instead.")
 
@@ -262,20 +263,24 @@ get_gam_predictions <- function(model, series, series_length = 25, conditions = 
         exclude = exclude_these
     )
 
-    if (!is.null(transform)) {
-      trans_fun <- transform
-      predicted$fit <- trans_fun(predicted$fit)
-    }
-
     predicted_tbl <- cbind(fitted_df, predicted) %>%
         dplyr::mutate(
-            CI_upper = fit + 1.96 * se.fit,
-            CI_lower = fit - 1.96 * se.fit
-        ) %>%
-        dplyr::rename(
-            !!outcome_q := fit,
-            SE = se.fit
+            CI_upper = fit + ci_z * se.fit,
+            CI_lower = fit - ci_z * se.fit
         )
+
+    if (!is.null(transform)) {
+      trans_fun <- transform
+      predicted_tbl$CI_upper <- trans_fun(predicted_tbl$CI_upper)
+      predicted_tbl$CI_lower <- trans_fun(predicted_tbl$CI_lower)
+      predicted_tbl$fit <- trans_fun(predicted_tbl$fit)
+    }
+
+    predicted_tbl <- predicted_tbl %>%
+      dplyr::rename(
+        !!outcome_q := fit,
+        SE = se.fit
+      )
 
     if (!is.null(exclude_random_effects)) {
         predicted_tbl <- predicted_tbl %>%
@@ -341,7 +346,7 @@ get_gam_predictions <- function(model, series, series_length = 25, conditions = 
 #' @importFrom rlang "quo_name"
 #' @importFrom stats "predict"
 #' @export
-plot_smooths <- function(model, series, comparison = NULL, facet_terms = NULL, conditions = NULL, exclude_random = TRUE, exclude_terms = NULL, series_length = 25, split = NULL, sep = "\\.", transform = NULL, time_series) {
+plot_smooths <- function(model, series, comparison = NULL, facet_terms = NULL, conditions = NULL, exclude_random = TRUE, exclude_terms = NULL, series_length = 25, split = NULL, sep = "\\.", transform = NULL, ci_z = 1.96, time_series) {
     if (!missing(time_series)) {
       warning("This argument has been deprecated and will be removed in the future. Please use `series` instead.")
 
@@ -361,7 +366,7 @@ plot_smooths <- function(model, series, comparison = NULL, facet_terms = NULL, c
     }
     outcome_q <- model$formula[[2]]
 
-    predicted_tbl <- get_gam_predictions(model, !!series_q, conditions, exclude_random = exclude_random, exclude_terms = exclude_terms, series_length = series_length, split = split, sep = sep, transform = transform)
+    predicted_tbl <- get_gam_predictions(model, !!series_q, conditions, exclude_random = exclude_random, exclude_terms = exclude_terms, series_length = series_length, split = split, sep = sep, transform = transform, ci_z = ci_z)
 
     smooths_plot <- predicted_tbl %>%
         ggplot2::ggplot(
