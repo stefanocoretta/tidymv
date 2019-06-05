@@ -8,6 +8,8 @@ This is the repository of the `R` package `tidymv`. This package provides functi
 
 ## Installation
 
+The package is on CRAN, so you can install it from there.
+
 To install the package from GitHub, use `devtools::install_github("stefanocoretta/tidymv@v2.1.0", build_opts = c("--no-resave-data", "--no-manual"))`. To learn how to use the package, check out the vignettes (for example, `vignette("predict-gam", package = "tidymv")`).
 
 If you wish to install the development version, use `devtools::install_github("stefanocoretta/tidymv", build_opts = c("--no-resave-data", "--no-manual"))`.
