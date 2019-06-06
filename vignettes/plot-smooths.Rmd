@@ -56,14 +56,14 @@ Let's first load some data and fit a Poisson GAM.
 
 ```{r pois-gam}
 data("pois_df")
-pois_gam <- gam(y ~ s(x, by = fac), data = pois_df, family = poisson) +
-  theme(legend.position = "top")
+pois_gam <- gam(y ~ s(x, by = fac), data = pois_df, family = poisson)
 ```
 
 We can now plot on the response scale using `transform = exp`.
 
 ```{r plot-pois-gam}
-plot_smooths(pois_gam, x, fac, transform = exp, series_length = 70)
+plot_smooths(pois_gam, x, fac, transform = exp, series_length = 70) +
+  theme(legend.position = "top")
 ```
 
 ## Plotting a single smooth
