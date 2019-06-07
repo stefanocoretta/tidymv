@@ -297,6 +297,8 @@ get_gam_predictions <- function(model, series, series_length = 25, conditions = 
 
     predicted_tbl <- predicted_tbl %>%
       dplyr::rename(
+        # quo_name is needed for terms that are non-syntactic column names like
+        # `log(x)`
         !!rlang::quo_name(outcome_q) := fit,
         SE = se.fit
       )
@@ -394,6 +396,8 @@ plot_smooths <- function(model, series, comparison = NULL, facet_terms = NULL, c
     smooths_plot <- predicted_tbl %>%
         ggplot2::ggplot(
             ggplot2::aes_string(
+              # quo_name and sym are needed for terms which are non-syntactic
+              # column names like `log(x)`
               rlang::quo_name(series_q), rlang::sym(rlang::quo_name(outcome_q))
             )
         ) +
