@@ -297,7 +297,7 @@ get_gam_predictions <- function(model, series, series_length = 25, conditions = 
 
     predicted_tbl <- predicted_tbl %>%
       dplyr::rename(
-        !!outcome_q := fit,
+        !!rlang::quo_name(outcome_q) := fit,
         SE = se.fit
       )
 
@@ -394,7 +394,7 @@ plot_smooths <- function(model, series, comparison = NULL, facet_terms = NULL, c
     smooths_plot <- predicted_tbl %>%
         ggplot2::ggplot(
             ggplot2::aes_string(
-                rlang::quo_name(series_q), rlang::quo_name(outcome_q)
+              rlang::quo_name(series_q), rlang::sym(rlang::quo_name(outcome_q))
             )
         ) +
         {if (!is.null(comparison_q)) {
