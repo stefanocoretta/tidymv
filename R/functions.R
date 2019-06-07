@@ -167,6 +167,7 @@ get_gam_predictions <- function(model, series, series_length = 25, conditions = 
 
     random_effects <- list()
     random_effects_terms <- NULL
+    re_term <- NULL
 
     # Get a list of the terms that are random effect
     if (exclude_random == TRUE) {
@@ -175,7 +176,7 @@ get_gam_predictions <- function(model, series, series_length = 25, conditions = 
             smooth_class <- attr(model$smooth[[i]],"class")[1]
             # If smooth term is one of those in conditions or the comparison
             # term of plot_smooths(), it should not be excluded
-            if (smooth_class %in% c("random.effect", "fs.interaction") && !(smooth_term %in% cond_terms)) {
+            if (smooth_class == "fs.interaction" && !(smooth_term %in% cond_terms)) {
                 random_effects <- c(
                     random_effects,
                     list(model$smooth[[i]]$label)
@@ -184,6 +185,20 @@ get_gam_predictions <- function(model, series, series_length = 25, conditions = 
                     random_effects_terms,
                     model$smooth[[i]]$fterm
                 )
+            }
+            if (smooth_class == "random.effect" && !(smooth_term %in% cond_terms)) {
+              random_effects <- c(
+                random_effects,
+                list(model[["smooth"]][[i]]$label)
+              )
+              random_effects_terms <- c(
+                random_effects_terms,
+                model$smooth[[i]]$term
+              )
+              # Used later to remove terms that were in s(bs = "re") from the
+              # list of columns to remove, since they don't get their column in
+              # the predicted tibble.
+              re_term <- c(re_term, model$smooth[[i]]$term)
             }
         }
     }
@@ -303,13 +318,24 @@ get_gam_predictions <- function(model, series, series_length = 25, conditions = 
         SE = se.fit
       )
 
+    # Get rid of terms that were in s(bs = "re") to avoid error from one_off(NULL)
     if (!is.null(exclude_random_effects)) {
+      for (term in 1:length(random_effects_terms)) {
+        if (random_effects_terms[term] %in% re_term) {
+          random_effects_terms <- random_effects_terms[-term]
+        }
+      }
         predicted_tbl <- predicted_tbl %>%
             dplyr::select(-dplyr::one_of(random_effects_terms)) %>%
             unique()
     }
 
     if (!is.null(exclude_smooths)) {
+      for (term in 1:length(excluded_terms)) {
+        if (excluded_terms[term] %in% re_term) {
+          excluded_terms <- excluded_terms[-term]
+        }
+      }
         predicted_tbl <- predicted_tbl %>%
             dplyr::select(-dplyr::one_of(excluded_terms)) %>%
             unique()
