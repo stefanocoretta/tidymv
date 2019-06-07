@@ -124,6 +124,7 @@ predict_gam <- function(model, exclude_terms = NULL, length_out = 50, values = N
 #' @param sep Separator between columns (default is \code{"\\."}, which is the default with \code{}). If character, it is interpreted as a regular expression.
 #' @param transform Function used to transform the fitted values (useful for getting plots on the response scale).
 #' @param ci_z The z-value for calculating the CIs (the default is \code{1.96} for 95 percent CI).
+#' @param .comparison Internal paramenter, passed from plot_smooths().
 #'
 #' @examples
 #' library(mgcv)
@@ -134,7 +135,7 @@ predict_gam <- function(model, exclude_terms = NULL, length_out = 50, values = N
 #' pred <- get_gam_predictions(model, x2)
 #'
 #' @export
-get_gam_predictions <- function(model, series, series_length = 25, conditions = NULL, exclude_random = TRUE, exclude_terms = NULL, split = NULL, sep = "\\.", time_series, transform = NULL, ci_z = 1.96) {
+get_gam_predictions <- function(model, series, series_length = 25, conditions = NULL, exclude_random = TRUE, exclude_terms = NULL, split = NULL, sep = "\\.", time_series, transform = NULL, ci_z = 1.96, .comparison = NULL) {
     if (!missing(time_series)) {
       warning("This argument has been deprecated and will be removed in the future. Please use `series` instead.")
 
@@ -143,6 +144,7 @@ get_gam_predictions <- function(model, series, series_length = 25, conditions = 
       time_series = NULL
       series_q <- dplyr::enquo(series)
     }
+    .comparison_q <- dplyr::enquo(.comparison)
 
   if (!is.null(model$dinfo) && (exclude_random || !is.null(exclude_terms))) {
     stop("Excluding random effects and/or terms is not currently supported with discretised models (fitted with discrete = TRUE). Please, set 'exclude_random' to FALSE and/or 'exclude_terms' to NULL.")
@@ -150,6 +152,16 @@ get_gam_predictions <- function(model, series, series_length = 25, conditions = 
 
     series_name <- rlang::quo_name(series_q)
     outcome_q <- model$formula[[2]]
+    # Comparison and conditions terms are collected here, so that they are not
+    # excluded when also part of random effects.
+    cond_terms <- NULL
+    if (!is.null(conditions)) {
+      for (cond_i in 1:length(conditions)) {
+        cond_term <- as.character(rlang::quo_get_expr(conditions[[cond_i]])[2])
+        cond_terms <- c(cond_terms, cond_term)
+      }
+    }
+    cond_terms <- c(cond_terms, rlang::as_name(.comparison_q))
 
     random_effects <- list()
     random_effects_terms <- NULL
@@ -157,8 +169,11 @@ get_gam_predictions <- function(model, series, series_length = 25, conditions = 
     # Get a list of the terms that are random effect
     if (exclude_random == TRUE) {
         for (i in 1:length(model[["smooth"]])) {
+            smooth_term <- model[["smooth"]][[i]][["term"]][[1]]
             smooth_class <- attr(model$smooth[[i]],"class")[1]
-            if (smooth_class %in% c("random.effect", "fs.interaction")) {
+            # If smooth term is one of those in conditions or the comparison
+            # term of plot_smooths(), it should not be excluded
+            if (smooth_class %in% c("random.effect", "fs.interaction") && !(smooth_term %in% cond_terms)) {
                 random_effects <- c(
                     random_effects,
                     list(model$smooth[[i]]$label)
@@ -171,9 +186,9 @@ get_gam_predictions <- function(model, series, series_length = 25, conditions = 
         }
     }
 
-    # Get a list of the smooth term labels that are random effects, necessary
-    # in predict.gam which takes the label of the smooths as they appear in
-    # the summary output
+    # Get a list of the smooth term labels that are random effects (like
+    # 's(x0,fac)'), necessary in predict.gam() which takes the label of the
+    # smooths as they appear in the summary output.
     if (exclude_random) {
         if (rlang::is_empty(random_effects)) {
             exclude_random_effects <- as.null()
@@ -184,13 +199,13 @@ get_gam_predictions <- function(model, series, series_length = 25, conditions = 
         exclude_random_effects <- as.null()
     }
 
-    # Get smooth term labels which are not the time series to be plotted or
-    # tensor smooths
+    # Get smooth term labels which are not in the series, comparison, or conditions, or
+    # terms in tensor smooths.
     exclude_smooths <- as.null()
     excluded_terms <- as.null()
     for (smooth in 1:length(model[["smooth"]])) {
         smooth_term <- model[["smooth"]][[smooth]][["term"]][[1]]
-        if (smooth_term != series_name) {
+        if (smooth_term != series_name && !(smooth_term %in% cond_terms)) {
             excluded_terms <- c(excluded_terms, smooth_term)
             smooth_label <- model[["smooth"]][[smooth]][["label"]]
             exclude_smooths <- c(exclude_smooths, smooth_label)
@@ -212,9 +227,11 @@ get_gam_predictions <- function(model, series, series_length = 25, conditions = 
                 smooth_label <- model[["smooth"]][[label]][["label"]]
                 if (smooth_label == exclude_terms[term]) {
                     smooth_term <- model[["smooth"]][[label]][["term"]]
-                    if (length(smooth_term) > 1) {
+                    if (!(smooth_term %in% cond_terms)) {
+                      if (length(smooth_term) > 1) {
                         smooth_term_2 <- model[["smooth"]][[label]][["term"]][[2]]
                         excluded <- c(excluded, smooth_term_2)
+                      }
                     }
                 }
             }
@@ -336,6 +353,10 @@ get_gam_predictions <- function(model, series, series_length = 25, conditions = 
 #'
 #' plot_smooths(model, x2, fac)
 #'
+#' # alternative model specification
+#' model <- gam(y ~ s(fac, bs = "re") + s(x2) + s(x2, by = fac) + s(x0), data = data)
+#' plot_smooths(model, x2, fac)
+#'
 #' # For details, see vignette
 #' \dontrun{
 #' vignette("plot-smooths", package = "tidymv")
@@ -366,7 +387,7 @@ plot_smooths <- function(model, series, comparison = NULL, facet_terms = NULL, c
     }
     outcome_q <- model$formula[[2]]
 
-    predicted_tbl <- get_gam_predictions(model, !!series_q, conditions, exclude_random = exclude_random, exclude_terms = exclude_terms, series_length = series_length, split = split, sep = sep, transform = transform, ci_z = ci_z)
+    predicted_tbl <- get_gam_predictions(model, !!series_q, conditions, exclude_random = exclude_random, exclude_terms = exclude_terms, series_length = series_length, split = split, sep = sep, transform = transform, ci_z = ci_z, .comparison = !!comparison_q)
 
     smooths_plot <- predicted_tbl %>%
         ggplot2::ggplot(

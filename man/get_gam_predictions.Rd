@@ -7,7 +7,7 @@
 get_gam_predictions(model, series, series_length = 25,
   conditions = NULL, exclude_random = TRUE, exclude_terms = NULL,
   split = NULL, sep = "\\\\.", time_series, transform = NULL,
-  ci_z = 1.96)
+  ci_z = 1.96, .comparison = NULL)
 }
 \arguments{
 \item{model}{A \code{gam} or \code{bam} model object.}
@@ -31,6 +31,8 @@ get_gam_predictions(model, series, series_length = 25,
 \item{transform}{Function used to transform the fitted values (useful for getting plots on the response scale).}
 
 \item{ci_z}{The z-value for calculating the CIs (the default is \code{1.96} for 95 percent CI).}
+
+\item{.comparison}{Internal paramenter, passed from plot_smooths().}
 }
 \description{
 It returns a tibble with the predictions from a a \link[mgcv]{gam} or \link[mgcv]{bam} object.

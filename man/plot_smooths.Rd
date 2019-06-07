@@ -47,6 +47,10 @@ model <- gam(y ~ fac + s(x2) + s(x2, by = fac) + s(x0), data = data)
 
 plot_smooths(model, x2, fac)
 
+# alternative model specification
+model <- gam(y ~ s(fac, bs = "re") + s(x2) + s(x2, by = fac) + s(x0), data = data)
+plot_smooths(model, x2, fac)
+
 # For details, see vignette
 \dontrun{
 vignette("plot-smooths", package = "tidymv")
