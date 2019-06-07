@@ -221,14 +221,18 @@ get_gam_predictions <- function(model, series, series_length = 25, conditions = 
     exclude_smooths <- as.null()
     excluded_terms <- as.null()
     for (smooth in 1:length(model[["smooth"]])) {
+        smooth_class <- attr(model$smooth[[smooth]],"class")[1]
         smooth_term <- model[["smooth"]][[smooth]][["term"]][[1]]
-        if (smooth_term != series_name && !(smooth_term %in% cond_terms)) {
+        # Do not include factor terms that are in s(bs = "re"), these are dealt
+        # by the random effect code above. Not sure it's safe.
+        if (smooth_class == "random.effect") {
+          exclude_smooths <- exclude_smooths
+          excluded_terms <- excluded_terms
+        } else if (smooth_term != series_name && !(smooth_term %in% cond_terms)) {
             excluded_terms <- c(excluded_terms, smooth_term)
             smooth_label <- model[["smooth"]][[smooth]][["label"]]
             exclude_smooths <- c(exclude_smooths, smooth_label)
-        }
-        smooth_class <- attr(model$smooth[[smooth]],"class")[1]
-        if (smooth_class == "tensor.smooth") {
+        } else if (smooth_class == "tensor.smooth") {
             smooth_term <- model[["smooth"]][[smooth]][["term"]][[2]]
             excluded_terms <- c(excluded_terms, smooth_term)
             smooth_label <- model[["smooth"]][[smooth]][["label"]]
@@ -256,6 +260,9 @@ get_gam_predictions <- function(model, series, series_length = 25, conditions = 
     }
 
     exclude_these <- c(exclude_random_effects, exclude_smooths, exclude_terms)
+    # Used for debugging.
+    # print(exclude_random_effects)
+    # print(exclude_smooths)
 
     # Prapare the new data frame for prediction. Only one value is selected
     # in excluded terms (the first level in factors, the minimum value in numeric
