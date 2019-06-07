@@ -6,6 +6,7 @@
 - error message in `get_gam_predictions` when using discretised bam models and `exclude_random = TRUE` (which is the default)
 - two example datasets to be used in the examples
 - example of non-Gaussian GAM in `plot-smooths` vignette
+- support for models with non-syntactic column names (`log(y) ~ s(log(x))`)
 
 ### Changed
 - add option of setting values to `NULL` in `predict_gam()` when excluding terms to reduce computation time (also mentioned in the vignette)
@@ -13,6 +14,7 @@
 
 ### Fixed
 - wrong examples in `plot_smooths()` and `plot_difference()` (closes https://github.com/stefanocoretta/tidymv/issues/10)
+- handling of `s(bs = "re")` smooths
 
 ## [2.1.0] - 2019-04-23
 ### Added
