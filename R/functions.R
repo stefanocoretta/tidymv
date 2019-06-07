@@ -161,7 +161,9 @@ get_gam_predictions <- function(model, series, series_length = 25, conditions = 
         cond_terms <- c(cond_terms, cond_term)
       }
     }
-    cond_terms <- c(cond_terms, rlang::as_name(.comparison_q))
+    if (!(rlang::quo_is_null(.comparison_q))) {
+      cond_terms <- c(cond_terms, rlang::as_name(.comparison_q))
+    }
 
     random_effects <- list()
     random_effects_terms <- NULL
