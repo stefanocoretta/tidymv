@@ -3,6 +3,7 @@
 ## Unreleased
 ### Added
 - `transform` argument in `get_gam_predictions()` and `plot_smooths()` (closes https://github.com/stefanocoretta/tidymv/issues/9)
+- `exlude_random` argument in `plot_difference()` (it was `TRUE` by default and it was not possible to change it)
 - error message in `get_gam_predictions` when using discretised bam models and `exclude_random = TRUE` (which is the default)
 - two example datasets to be used in the examples
 - example of non-Gaussian GAM in `plot-smooths` vignette

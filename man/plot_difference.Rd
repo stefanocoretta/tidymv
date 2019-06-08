@@ -5,7 +5,7 @@
 \title{Plot difference smooth from a GAM.}
 \usage{
 plot_difference(model, series, difference, conditions = NULL,
-  series_length = 100, time_series)
+  exclude_random = TRUE, series_length = 100, time_series)
 }
 \arguments{
 \item{model}{A \code{gam} or \code{bam} model object.}
@@ -15,6 +15,8 @@ plot_difference(model, series, difference, conditions = NULL,
 \item{difference}{A named list with the levels to compute the difference of.}
 
 \item{conditions}{A named list specifying the levels to plot from the model terms not among \code{series} or \code{difference}. Notice the difference with \link[tidymv]{plot_smooths}, which uses \link[rlang]{quos}.}
+
+\item{exclude_random}{Whether to exclude random smooths (the default is \code{TRUE}).}
 
 \item{series_length}{An integer indicating how many values along the time series to use for predicting the outcome term.}
 

@@ -121,7 +121,7 @@ plot_smooths <- function(model, series, comparison = NULL, facet_terms = NULL, c
 #' @param conditions A named list specifying the levels to plot from the model terms not among \code{series} or \code{difference}. Notice the difference with \link[tidymv]{plot_smooths}, which uses \link[rlang]{quos}.
 #'
 #' @export
-plot_difference <- function(model, series, difference, conditions = NULL, series_length = 100, time_series) {
+plot_difference <- function(model, series, difference, conditions = NULL, exclude_random = TRUE, series_length = 100, time_series) {
     if(!missing(time_series)) {
       warning("This argument has been deprecated and will be removed in the future. Please use `series` instead.")
 
@@ -140,7 +140,7 @@ plot_difference <- function(model, series, difference, conditions = NULL, series
 
     conditions <- c(conditions, rlang::ll(!!series_chr := seq(series_min, series_max, length.out = series_length)))
 
-    diff <- itsadug::get_difference(model, difference, cond = conditions, print.summary = FALSE) %>%
+    diff <- suppressWarnings(itsadug::get_difference(model, difference, cond = conditions, rm.ranef = exclude_random, print.summary = FALSE)) %>%
         dplyr::mutate(
             CI_upper = difference + CI,
             CI_lower = difference - CI
