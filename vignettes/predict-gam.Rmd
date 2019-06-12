@@ -29,6 +29,16 @@ This method grants the user maximum control over what can be plotted and how to 
 
 I will illustrate how to use the function `predict_gam()` to create a prediction dataframe and how this dataframe can be used for plotting different cases.
 
+Let's load the necessary packages.
+
+```{r load, eval=FALSE}
+library(ggplot2)
+theme_set(theme_bw())
+library(dplyr)
+library(mgcv)
+library(tidymv)
+```
+
 ## Smooths
 
 First of all let's generate some simulated data and create a GAM model with a factor `by` variable.

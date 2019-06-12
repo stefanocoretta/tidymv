@@ -24,7 +24,19 @@ library(tidymv)
 
 ## Plotting smooths
 
-To illustrate how to use `plot_smooths()`, let's first prepare some dummy data with a factor variable and run `gam()` on this data. The `gam` model includes a reference smooth `s(x2)`, a by-factor difference smooth `s(x2, by = fac)`, and a smooth `s(x0)`. For more flexibility and for more complex models, using `predict_gam()` and then plotting the predicted data yourself might be helpful (see "predict-gam" vignette).
+To illustrate how to use `plot_smooths()`, let's first prepare some dummy data with a factor variable and run `gam()` on this data.
+
+We need to load the following packages.
+
+```{r load, eval=FALSE}
+library(ggplot2)
+theme_set(theme_bw())
+library(dplyr)
+library(mgcv)
+library(tidymv)
+```
+
+The `gam` model includes a reference smooth `s(x2)`, a by-factor difference smooth `s(x2, by = fac)`, and a smooth `s(x0)`. For more flexibility and for more complex models, using `predict_gam()` and then plotting the predicted data yourself might be helpful (see "predict-gam" vignette).
 
 ```{r gam}
 set.seed(10)
