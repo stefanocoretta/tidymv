@@ -12,10 +12,14 @@
 ### Changed
 - add option of setting values to `NULL` in `predict_gam()` when excluding terms to reduce computation time (also mentioned in the vignette)
 - improved performance of `get_gam_predictions()` when excluding terms
+- included mention to loaded packages in the vignettes
 
 ### Fixed
 - wrong examples in `plot_smooths()` and `plot_difference()` (closes https://github.com/stefanocoretta/tidymv/issues/10)
 - handling of `s(bs = "re")` smooths
+
+### Removed
+- import from cowplot (the function that required it has been removed)
 
 ## [2.1.0] - 2019-04-23
 ### Added
