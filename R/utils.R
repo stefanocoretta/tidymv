@@ -124,7 +124,7 @@ predict_gam <- function(model, exclude_terms = NULL, length_out = 50, values = N
 #' @param sep Separator between columns (default is \code{"\\."}, which is the default with \code{}). If character, it is interpreted as a regular expression.
 #' @param transform Function used to transform the fitted values (useful for getting plots on the response scale).
 #' @param ci_z The z-value for calculating the CIs (the default is \code{1.96} for 95 percent CI).
-#' @param .comparison Internal paramenter, passed from plot_smooths().
+#' @param .comparison Internal parameter, passed from plot_smooths().
 #'
 #' @examples
 #' library(mgcv)

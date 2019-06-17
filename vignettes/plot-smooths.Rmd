@@ -116,7 +116,7 @@ model_inter <- bam(
 ```
 
 The `split` argument allows the user to split the factor interaction (back) into separate factors, which can be used to facet with the `facet_terms` argument.
-`split` takes a named list, where each object in the list is a named vector with the names of the new factors as strings (`c("x1", "x2")`) and the name of the factor interaction to be splitted as the name of this vector (`x1x2 = ...`).
+`split` takes a named list, where each object in the list is a named vector with the names of the new factors as strings (`c("x1", "x2")`) and the name of the factor interaction to be split as the name of this vector (`x1x2 = ...`).
 
 ```{r plot-interactions}
 plot_smooths(
@@ -166,7 +166,7 @@ The difference smooth can be plotted with `plot_difference()`.
 The difference smooth is the difference between the smooths of two conditions (two levels in a factor).
 Portions of the difference smooth confidence interval that do not include 0 are shaded in red.
 
-The following is a difference smooth comparing the two levels of the `fac` term in the poisson GAM above.
+The following is a difference smooth comparing the two levels of the `fac` term in the Poisson GAM above.
 
 ```{r plot-diff-model}
 plot_difference(
