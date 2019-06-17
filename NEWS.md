@@ -1,6 +1,6 @@
 # Change Log
 
-## Unreleased
+## 2.2.0 - 2019-06-17
 ### Added
 - `transform` argument in `get_gam_predictions()` and `plot_smooths()` (closes https://github.com/stefanocoretta/tidymv/issues/9)
 - `exlude_random` argument in `plot_difference()` (it was `TRUE` by default and it was not possible to change it)
