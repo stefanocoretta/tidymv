@@ -4,7 +4,6 @@ doc
 .Rhistory
 .RData
 .Ruserdata
-*.Rproj
 inst/doc
 *.DS_Store
 CRAN-RELEASE
