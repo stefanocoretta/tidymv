@@ -23,7 +23,7 @@ create_start_event <- function(tibble, series_col) {
   dplyr::mutate(
     tibble,
     start_event = ifelse(
-      as.character(tibble[[series_col_name]]) == dplyr::lag(as.character(tibble[[series_col_name]]), default = FALSE),
+      as.character(tibble[[series_col_name]]) == dplyr::lag(as.character(tibble[[series_col_name]]), default = "FALSE"),
       FALSE,
       TRUE
     )
