@@ -4,10 +4,20 @@
 \alias{get_gam_predictions}
 \title{Get predictions from a GAM model.}
 \usage{
-get_gam_predictions(model, series, series_length = 25,
-  conditions = NULL, exclude_random = TRUE, exclude_terms = NULL,
-  split = NULL, sep = "\\\\.", time_series, transform = NULL,
-  ci_z = 1.96, .comparison = NULL)
+get_gam_predictions(
+  model,
+  series,
+  series_length = 25,
+  conditions = NULL,
+  exclude_random = TRUE,
+  exclude_terms = NULL,
+  split = NULL,
+  sep = "\\\\.",
+  time_series,
+  transform = NULL,
+  ci_z = 1.96,
+  .comparison = NULL
+)
 }
 \arguments{
 \item{model}{A \code{gam} or \code{bam} model object.}

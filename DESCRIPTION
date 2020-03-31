@@ -12,7 +12,7 @@ BugReports: https://github.com/stefanocoretta/tidymv/issues
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.0
 Depends: R (>= 2.10)
 Imports: dplyr,
     ggplot2,

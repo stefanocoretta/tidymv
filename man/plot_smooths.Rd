@@ -4,10 +4,21 @@
 \alias{plot_smooths}
 \title{Plot GAM smooths.}
 \usage{
-plot_smooths(model, series, comparison = NULL, facet_terms = NULL,
-  conditions = NULL, exclude_random = TRUE, exclude_terms = NULL,
-  series_length = 25, split = NULL, sep = "\\\\.",
-  transform = NULL, ci_z = 1.96, time_series)
+plot_smooths(
+  model,
+  series,
+  comparison = NULL,
+  facet_terms = NULL,
+  conditions = NULL,
+  exclude_random = TRUE,
+  exclude_terms = NULL,
+  series_length = 25,
+  split = NULL,
+  sep = "\\\\.",
+  transform = NULL,
+  ci_z = 1.96,
+  time_series
+)
 }
 \arguments{
 \item{model}{A \code{gam} or \code{bam} model object.}

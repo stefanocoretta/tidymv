@@ -4,8 +4,7 @@
 \alias{predict_gam}
 \title{Get all predictions from a GAM model.}
 \usage{
-predict_gam(model, exclude_terms = NULL, length_out = 50,
-  values = NULL)
+predict_gam(model, exclude_terms = NULL, length_out = 50, values = NULL)
 }
 \arguments{
 \item{model}{A \code{gam} or \code{bam} model object.}

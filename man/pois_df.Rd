@@ -4,12 +4,14 @@
 \name{pois_df}
 \alias{pois_df}
 \title{Dataset with a Poisson outcome variable}
-\format{A tibble with 2500 observations and 3 variables.
+\format{
+A tibble with 2500 observations and 3 variables.
 \describe{
   \item{\code{y}}{outcome count variable}
   \item{\code{x}}{time series}
   \item{\code{fac}}{factor with two levels}
-}}
+}
+}
 \usage{
 pois_df
 }

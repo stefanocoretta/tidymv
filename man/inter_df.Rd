@@ -4,13 +4,15 @@
 \name{inter_df}
 \alias{inter_df}
 \title{Dataset with two factors}
-\format{A tibble with 1259 observations and 4 variables.
+\format{
+A tibble with 1259 observations and 4 variables.
 \describe{
   \item{\code{x0}}{time series}
   \item{\code{y}}{outcome variable}
   \item{\code{x1}}{factor with three levels}
   \item{\code{x2}}{factor with two levels}
-}}
+}
+}
 \usage{
 inter_df
 }

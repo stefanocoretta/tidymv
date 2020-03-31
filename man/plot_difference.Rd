@@ -4,8 +4,15 @@
 \alias{plot_difference}
 \title{Plot difference smooth from a GAM.}
 \usage{
-plot_difference(model, series, difference, conditions = NULL,
-  exclude_random = TRUE, series_length = 100, time_series)
+plot_difference(
+  model,
+  series,
+  difference,
+  conditions = NULL,
+  exclude_random = TRUE,
+  series_length = 100,
+  time_series
+)
 }
 \arguments{
 \item{model}{A \code{gam} or \code{bam} model object.}

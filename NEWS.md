@@ -3,6 +3,7 @@
 ## Unreleased
 ### Changed
 - prevent error from `dplyr::lag()` when type of default is different (prepare for upcoming dplyr 1.0.0)
+- roxygen version 7.1.0
 
 ## 2.2.0 - 2019-06-17
 ### Added

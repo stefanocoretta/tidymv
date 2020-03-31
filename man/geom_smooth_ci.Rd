@@ -4,8 +4,7 @@
 \alias{geom_smooth_ci}
 \title{Smooths and confidence intervals.}
 \usage{
-geom_smooth_ci(group = NULL, ci_z = 1.96, ci_alpha = 0.1,
-  data = NULL, ...)
+geom_smooth_ci(group = NULL, ci_z = 1.96, ci_alpha = 0.1, data = NULL, ...)
 }
 \arguments{
 \item{group}{The optional grouping factor.}

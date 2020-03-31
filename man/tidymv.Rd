@@ -3,7 +3,6 @@
 \docType{package}
 \name{tidymv}
 \alias{tidymv}
-\alias{tidymv-package}
 \title{tidymv: Plotting for generalised additive models.}
 \description{
 This package provides functions for visualising generalised additive models
