@@ -1,7 +1,8 @@
 # Change Log
 
 ## Unreleased
-
+### Removed
+- ⚠️ BREAKING CHANGE!!! remove `plot_difference()` due to archiviation of itsadug
 
 ## 2.2.1 - 2020-04-22
 ### Changed
