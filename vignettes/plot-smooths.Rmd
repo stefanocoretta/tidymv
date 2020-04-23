@@ -159,37 +159,3 @@ plot_smooths(
 ) +
   theme(legend.position = "top")
 ```
-
-## Plotting the difference smooth
-
-The difference smooth can be plotted with `plot_difference()`.
-The difference smooth is the difference between the smooths of two conditions (two levels in a factor).
-Portions of the difference smooth confidence interval that do not include 0 are shaded in red.
-
-The following is a difference smooth comparing the two levels of the `fac` term in the Poisson GAM above.
-
-```{r plot-diff-model}
-plot_difference(
-  pois_gam,
-  series = x,
-  difference = list(fac = c("b", "a"))
-)
-```
-
-To plot a difference smooth from a model with factor interactions, it is possible to specify the two levels to compare from the factor interaction (the argument `split` is not supported in `plot_difference()`).
-
-```{r plot-diff-inter-1}
-plot_difference(
-  model_inter,
-  x0,
-  difference = list(x1x2 = c("2.a", "3.a"))
-)
-```
-
-```{r plot-diff-inter-3}
-plot_difference(
-  model_inter,
-  x0,
-  difference = list(x1x2 = c("1.b", "2.b"))
-)
-```
