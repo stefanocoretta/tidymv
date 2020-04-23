@@ -1,5 +1,8 @@
 # Change Log
 
+## Unreleased
+
+
 ## 2.2.1 - 2020-04-22
 ### Changed
 - prevent error from `dplyr::lag()` when type of default is different (prepare for upcoming dplyr 1.0.0)
