@@ -16,7 +16,7 @@ The functions listed below are defunct.
   functionality are also mentioned. Help pages for defunct functions are
   available at \code{help("<function>-defunct")}.
 }
-\section{This function has been removed due to archival of upstream dependency. Please, use \link[mgcViz]{plotDiff}instead.}{
+\section{This function has been removed due to the archiving of upstream dependency. Please, use plotDiff() from mgcViz instead.}{
 NA
 }
 

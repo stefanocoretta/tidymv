@@ -1,8 +1,8 @@
 # Change Log
 
-## Unreleased
+## 3.0.0 - 2020-04-24
 ### Removed
-- ⚠️ BREAKING CHANGE!!! remove `plot_difference()` due to archiviation of itsadug
+- ⚠️ BREAKING CHANGE!!! remove `plot_difference()` due to the archiving of itsadug. To plot difference smooths, you can use `mgcViz::plotDiff()`.
 
 ## 2.2.1 - 2020-04-22
 ### Changed

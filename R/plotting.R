@@ -113,11 +113,11 @@ plot_smooths <- function(model, series, comparison = NULL, facet_terms = NULL, c
 NULL
 
 #' @rdname tidymv-defunct
-#' @section This function has been removed due to archival of upstream dependency. Please, use \link[mgcViz]{plotDiff}instead.
+#' @section This function has been removed due to the archiving of upstream dependency. Please, use plotDiff() from mgcViz instead.
 #'
 #' @export
 plot_difference <- function(...) {
-  .Defunct(msg = "'plot_difference' has been removed due to archival of upstream dependency. Use mgcViz::plotDiff() instead.\n")
+  .Defunct(msg = "'plot_difference' has been removed due to archiving of upstream dependency. Please, use plotDiff() from mgcViz instead.\n")
 }
 
 #' Smooths and confidence intervals.

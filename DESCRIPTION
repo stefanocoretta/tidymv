@@ -22,7 +22,6 @@ Imports: dplyr,
     tibble,
     tidyr
 Suggests: knitr,
-    rmarkdown,
-    mgcViz
+    rmarkdown
 VignetteBuilder: knitr
 Language: en_GB
