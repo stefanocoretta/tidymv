@@ -159,3 +159,8 @@ plot_smooths(
 ) +
   theme(legend.position = "top")
 ```
+
+## Plotting the difference smooth
+
+Due to the archiving of an upstream dependency on CRAN, the function `plot_difference()` has been removed.
+You can use `mgcViz::plotDiff()` instead.
