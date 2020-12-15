@@ -3,6 +3,7 @@
 ## [Unreleased] - 2020-12-20
 ### Added
 - reintroduced `plot_difference()`.
+- 🍇 include example of `get_gam_predictions()` in plot smooths vignette.
 
 ### Changed
 - `get_gam_predictions()` now returns an `.idx` column which assigns a number to each curve (when multiple variables are used). The `.idx` column can be used to correctly group `geom_ribbon()` for plotting CIs.
