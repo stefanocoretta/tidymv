@@ -2,7 +2,9 @@
 title: "Plot smooths from GAMs"
 author: "Stefano Coretta"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output:
+  rmarkdown::html_vignette:
+    toc: true
 vignette: >
   %\VignetteIndexEntry{Plotting smooths}
   %\VignetteEngine{knitr::rmarkdown}
