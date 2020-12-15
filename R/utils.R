@@ -370,5 +370,15 @@ get_gam_predictions <- function(model, series, series_length = 25, conditions = 
       dplyr::filter(!!!conditions)
   }
 
+  if (ncol(predicted_tbl) > 5) {
+    predicted_tbl <- tidyr::unite(
+      predicted_tbl,
+      ".idx",
+      c(-CI_lower, -CI_upper, -SE, -!!rlang::quo_name(outcome_q), -!!rlang::quo_name(series_q)),
+      remove = FALSE
+    ) %>%
+      dplyr::mutate(.idx = as.numeric(as.factor(.idx)))
+  }
+
   return(predicted_tbl)
 }

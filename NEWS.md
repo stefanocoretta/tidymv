@@ -1,5 +1,9 @@
 # Change Log
 
+## [Unreleased] - 2020-12-20
+### Changed
+- `get_gam_predictions()` now returns an `.idx` column which assigns a number to each curve (when multiple variables are used). The `.idx` column can be used to correctly group `geom_ribbon()` for plotting CIs. 
+
 ## 3.0.0 - 2020-04-24
 ### Removed
 - ⚠️ BREAKING CHANGE!!! remove `plot_difference()` due to the archiving of itsadug. To plot difference smooths, you can use `mgcViz::plotDiff()`.
