@@ -103,21 +103,81 @@ plot_smooths <- function(model, series, comparison = NULL, facet_terms = NULL, c
 #' It plots the difference smooth from a \link[mgcv]{gam} or \link[mgcv]{bam}.
 #' Significant differences are marked with red areas.
 #'
+#' @examples
+#' library(mgcv)
+#' set.seed(10)
+#' data <- gamSim(4)
+#' model <- gam(y ~ fac + s(x2) + s(x2, by = fac) + s(x0), data = data)
 #'
+#' plot_difference(model, x2, list(fac = c("1", "2")))
+#'
+#' # For details, see vignette
+#' \dontrun{
+#' vignette("plot-smooths", package = "tidymv")
+#' }
+#'
+#' @inheritParams get_gam_predictions
 #' @param difference A named list with the levels to compute the difference of.
 #' @param conditions A named list specifying the levels to plot from the model terms not among \code{series} or \code{difference}. Notice the difference with \link[tidymv]{plot_smooths}, which uses \link[rlang]{quos}.
 #'
-#' @name plot_difference-defunct
-#' @seealso \code{\link{tidymv-defunct}}
-#' @keywords internal
-NULL
-
-#' @rdname tidymv-defunct
-#' @section This function has been removed due to the archiving of upstream dependency. Please, use plotDiff() from mgcViz instead.
-#'
 #' @export
-plot_difference <- function(...) {
-  .Defunct(msg = "'plot_difference' has been removed due to archiving of upstream dependency. Please, use plotDiff() from mgcViz instead.\n")
+plot_difference <- function(model, series, difference, conditions = NULL, exclude_random = TRUE, series_length = 100, time_series) {
+    if(!missing(time_series)) {
+      warning("This argument has been deprecated and will be removed in the future. Please use `series` instead.")
+
+      series_q = dplyr::enquo(time_series)
+    } else {
+      time_series = NULL
+      series_q <- dplyr::enquo(series)
+    }
+
+    series_chr <- rlang::quo_name(series_q)
+
+    fitted <- model$model
+
+    series_min <- dplyr::select(fitted, !!series_q) %>% min()
+    series_max <- dplyr::select(fitted, !!series_q) %>% max()
+
+    conditions <- c(conditions, rlang::ll(!!series_chr := seq(series_min, series_max, length.out = series_length)))
+
+    diff <- suppressWarnings(itsadug::get_difference(model, difference, cond = conditions, rm.ranef = exclude_random, print.summary = FALSE)) %>%
+        dplyr::mutate(
+            CI_upper = difference + CI,
+            CI_lower = difference - CI
+        )
+
+    sig_diff <- itsadug::find_difference(
+        diff$difference, diff$CI, diff[[series_chr]]
+    )
+
+    annotate <- ggplot2::annotate(
+        "rect",
+        xmin = sig_diff$start, xmax = sig_diff$end,
+        ymin = -Inf, ymax = Inf, alpha = 0.1,
+        fill = "red"
+    )
+
+    is_sig <- is.null(sig_diff) == FALSE
+
+    diff_plot <- diff %>%
+        ggplot2::ggplot(
+            ggplot2::aes_string(
+                rlang::quo_name(series_q), "difference"
+            )
+        ) +
+        {if (is_sig) {annotate}} +
+        ggplot2::geom_ribbon(
+            ggplot2::aes_string(
+                ymin = "CI_lower",
+                ymax = "CI_upper"
+            ),
+            alpha = 0.2
+        ) +
+        ggplot2::geom_path(
+        ) +
+        ggplot2::geom_hline(yintercept = 0, alpha = 0.5)
+
+    return(diff_plot)
 }
 
 #' Smooths and confidence intervals.
