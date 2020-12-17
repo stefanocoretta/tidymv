@@ -122,7 +122,7 @@ plot_smooths <- function(model, series, comparison = NULL, facet_terms = NULL, c
 #'
 #' @export
 plot_difference <- function(model, series, difference, conditions = NULL, exclude_random = TRUE, series_length = 100, time_series) {
-    if(!missing(time_series)) {
+    if (!missing(time_series)) {
       warning("This argument has been deprecated and will be removed in the future. Please use `series` instead.")
 
       series_q = dplyr::enquo(time_series)
@@ -140,13 +140,13 @@ plot_difference <- function(model, series, difference, conditions = NULL, exclud
 
     conditions <- c(conditions, rlang::ll(!!series_chr := seq(series_min, series_max, length.out = series_length)))
 
-    diff <- suppressWarnings(itsadug::get_difference(model, difference, cond = conditions, rm.ranef = exclude_random, print.summary = FALSE)) %>%
+    diff <- suppressWarnings(tidymv::get_difference(model, difference, cond = conditions, rm.ranef = exclude_random, print.summary = FALSE)) %>%
         dplyr::mutate(
             CI_upper = difference + CI,
             CI_lower = difference - CI
         )
 
-    sig_diff <- itsadug::find_difference(
+    sig_diff <- tidymv::find_difference(
         diff$difference, diff$CI, diff[[series_chr]]
     )
 

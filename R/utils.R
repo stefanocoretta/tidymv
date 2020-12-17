@@ -42,6 +42,7 @@ create_start_event <- function(tibble, series_col) {
 #' @return A tibble with predictions from a a \link[mgcv]{gam} or \link[mgcv]{bam} model.
 #'
 #' @examples
+#' \dontrun{
 #' library(mgcv)
 #' set.seed(10)
 #' data <- gamSim(4)
@@ -58,7 +59,7 @@ create_start_event <- function(tibble, series_col) {
 #' # get predictions with chosen values of x0
 #'
 #' p_3 <- predict_gam(model, values = list(x0 = c(0.250599, 0.503313, 0.756028)))
-#'
+#'}
 #' @export
 predict_gam <- function(model, exclude_terms = NULL, length_out = 50, values = NULL) {
   n_terms <- length(model[["var.summary"]])

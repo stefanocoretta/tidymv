@@ -22,6 +22,7 @@ A tibble with predictions from a a \link[mgcv]{gam} or \link[mgcv]{bam} model.
 It returns a tibble with the predictions from all the terms in a \link[mgcv]{gam} or \link[mgcv]{bam} model.
 }
 \examples{
+\dontrun{
 library(mgcv)
 set.seed(10)
 data <- gamSim(4)
@@ -38,5 +39,5 @@ p_2 <- predict_gam(model, exclude_terms = "s(x0)", values = list(x0 = NULL))
 # get predictions with chosen values of x0
 
 p_3 <- predict_gam(model, values = list(x0 = c(0.250599, 0.503313, 0.756028)))
-
+}
 }
