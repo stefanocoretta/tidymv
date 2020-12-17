@@ -18,7 +18,7 @@
 #' @param sim.ci Logical: Using simultaneous confidence intervals or not
 #' (default set to FALSE). The implementation of simultaneous CIs follows
 #' Gavin Simpson's blog of December 15, 2016:
-#' \url{http://www.fromthebottomoftheheap.net/2016/12/15/simultaneous-interval-revisited/}.
+#' \url{https://fromthebottomoftheheap.net/2016/12/15/simultaneous-interval-revisited/}.
 #' This interval is calculated from simulations based.
 #' Please specify a seed (e.g., \code{set.seed(123)}) for reproducable results.
 #' In addition, make sure to specify at least 200 points for each smooth
