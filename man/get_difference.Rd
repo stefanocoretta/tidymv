@@ -13,7 +13,7 @@ get_difference(
   sim.ci = FALSE,
   f = 1.96,
   return.n.posterior = 0,
-  print.summary = getOption("itsadug_print")
+  print.summary = FALSE
 )
 }
 \arguments{
@@ -38,7 +38,7 @@ standard error around the estimates.}
 \item{sim.ci}{Logical: Using simultaneous confidence intervals or not
 (default set to FALSE). The implementation of simultaneous CIs follows
 Gavin Simpson's blog of December 15, 2016:
-\url{http://www.fromthebottomoftheheap.net/2016/12/15/simultaneous-interval-revisited/}.
+\url{https://fromthebottomoftheheap.net/2016/12/15/simultaneous-interval-revisited/}.
 This interval is calculated from simulations based.
 Please specify a seed (e.g., \code{set.seed(123)}) for reproducable results.
 In addition, make sure to specify at least 200 points for each smooth
@@ -60,7 +60,7 @@ Only workes when \code{sim.ci=TRUE}.}
 \item{print.summary}{Logical: whether or not to print a summary of the
 values selected for each predictor.
 Default set to the print info messages option
-(see \code{\link{infoMessages}}).}
+(see \code{infoMessages}).}
 }
 \value{
 Returns a data frame with the estimates of the difference and

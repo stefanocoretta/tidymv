@@ -3,7 +3,7 @@
 ## [Unreleased] - 2020-12-20
 ### Added
 - reintroduced `plot_difference()`.
-- imported code from itsadug for better integration with `plot_difference()`.
+- imported code from itsadug for better integration with `plot_difference()` and compatibility with R 3.6.1.
 - 🍇 include example of `get_gam_predictions()` in plot smooths vignette.
 
 ### Changed

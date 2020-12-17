@@ -37,7 +37,7 @@
 #' @param print.summary Logical: whether or not to print a summary of the
 #' values selected for each predictor.
 #' Default set to the print info messages option
-#' (see \code{\link{infoMessages}}).
+#' (see \code{infoMessages}).
 #' @return Returns a data frame with the estimates of the difference and
 #' optionally the confidence intervals around that estimate.
 #' @section Notes:
@@ -52,7 +52,7 @@
 #' @keywords internal
 #' @importFrom magrittr "%>%"
 get_difference <- function(model, comp, cond = NULL, rm.ranef = TRUE, se = TRUE, sim.ci = FALSE, f = 1.96,
-                           return.n.posterior = 0, print.summary = getOption("itsadug_print")) {
+                           return.n.posterior = 0, print.summary = FALSE) {
   if (!"lm" %in% class(model)) {
     stop("This function does not work for class %s models.", class(model)[1])
   } else {
