@@ -3,8 +3,8 @@ Type: Package
 Title: Tidy Model Visualisation for Generalised Additive Models
 Version: 3.1.0
 Date: 2020-12-20
-Authors@R: person("Stefano", "Coretta", email = paste0("stefano.coretta", "@", "gmail.com"),
-                  role = c("aut", "cre"))
+Authors@R: c(person("Stefano", "Coretta", email = paste0("stefano.coretta", "@", "gmail.com"),
+                  role = c("aut", "cre")), person("Jacolien", "van Rij", role = "ctb"), person("Martijn", "Wieling", role = "ctb"))
 Description: Provides functions for visualising generalised
     additive models and getting predicted values using tidy tools from the 'tidyverse' packages.
 URL: https://github.com/stefanocoretta/tidymv

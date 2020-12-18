@@ -6,7 +6,17 @@
 - local macOS (r-release)
 
 ## R CMD check results
-0 errors ✓ | 0 warnings ✓ | 0 notes ✓
+> On windows-x86_64-devel (r-devel), ubuntu-gcc-release (r-release), fedora-clang-devel (r-devel)
+  checking CRAN incoming feasibility ... NOTE
+  Maintainer: 'Stefano Coretta <stefano.coretta@gmail.com>'
+  
+    GPL (>= 3) + file LICENSE
+  File 'LICENSE':
+    YEAR: 2020
+  License components with restrictions and base license permitting such:
+    COPYRIGHT HOLDER: Stefano Coretta
+
+0 errors ✓ | 0 warnings ✓ | 1 note x
 
 ## Downstream dependencies
 
