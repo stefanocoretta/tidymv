@@ -14,9 +14,11 @@
   File 'LICENSE':
     YEAR: 2020
   License components with restrictions and base license permitting such:
-    COPYRIGHT HOLDER: Stefano Coretta
+    COPYRIGHT HOLDER: Stefano Coretta, Jacolien van Rij, Martijn Wieling
 
 0 errors ✓ | 0 warnings ✓ | 1 note x
+
+The package contains both code licensed under the GPL and under the MIT license, so that the GPL needs to be the primary license.
 
 ## Downstream dependencies
 
