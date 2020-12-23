@@ -29,7 +29,7 @@ factors.}
 
 \item{rm.ranef}{Logical: whether or not to remove random effects.
 Default is TRUE. Alternatively a vector of numbers with the
-mdoelterm number of the random effect(s) to remove.
+model term number of the random effect(s) to remove.
 (See notes.)}
 
 \item{se}{Logical: whether or not to return the confidence interval or
@@ -40,7 +40,7 @@ standard error around the estimates.}
 Gavin Simpson's blog of December 15, 2016:
 \url{https://fromthebottomoftheheap.net/2016/12/15/simultaneous-interval-revisited/}.
 This interval is calculated from simulations based.
-Please specify a seed (e.g., \code{set.seed(123)}) for reproducable results.
+Please specify a seed (e.g., \code{set.seed(123)}) for reproducible results.
 In addition, make sure to specify at least 200 points for each smooth
 for the simulations when using simultaneous CI.
 Note: in contrast with Gavin Simpson's code, here the Bayesian posterior
@@ -55,7 +55,7 @@ in 95\% confidence intervals. For 99\% confidence intervals use a value of
 \item{return.n.posterior}{Numeric: N samples from
 the posterior distribution of the fitted model are returned.
 Default value is 0 (no samples returned).
-Only workes when \code{sim.ci=TRUE}.}
+Only works when \code{sim.ci=TRUE}.}
 
 \item{print.summary}{Logical: whether or not to print a summary of the
 values selected for each predictor.
@@ -71,7 +71,7 @@ Get model predictions for differences between conditions.
 }
 \section{Notes}{
 
-Other, not specified effects and random effects are generally canceled
+Other, not specified effects and random effects are generally cancelled
 out, when calculating the difference. When the predictors that
 specify the conditions to compare are involved in other interactions
 or included as random slopes, it may be useful to specify the values

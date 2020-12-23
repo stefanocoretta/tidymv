@@ -10,9 +10,6 @@ This is the repository of the `R` package `tidymv`. This package provides functi
 
 The package is on CRAN, so you can install it from there.
 
-**NOTE**: v3.0.0 brings breaking changes.
-The function `plot_difference()` has been removed due to the archiving of one dependecy.
-
-To install the package from GitHub, use `devtools::install_github("stefanocoretta/tidymv@v3.0.0", build_opts = c("--no-resave-data", "--no-manual"))`. To learn how to use the package, check out the vignettes (for example, `vignette("predict-gam", package = "tidymv")`).
+To install the package from GitHub, use `devtools::install_github("stefanocoretta/tidymv@v3.1.0", build_opts = c("--no-resave-data", "--no-manual"))`. To learn how to use the package, check out the vignettes (for example, `vignette("predict-gam", package = "tidymv")`).
 
 If you wish to install the development version, use `devtools::install_github("stefanocoretta/tidymv", build_opts = c("--no-resave-data", "--no-manual"))`.

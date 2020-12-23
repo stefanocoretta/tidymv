@@ -11,7 +11,7 @@
 #' factors.
 #' @param rm.ranef Logical: whether or not to remove random effects.
 #' Default is TRUE. Alternatively a vector of numbers with the
-#' mdoelterm number of the random effect(s) to remove.
+#' model term number of the random effect(s) to remove.
 #' (See notes.)
 #' @param se Logical: whether or not to return the confidence interval or
 #' standard error around the estimates.
@@ -20,7 +20,7 @@
 #' Gavin Simpson's blog of December 15, 2016:
 #' \url{https://fromthebottomoftheheap.net/2016/12/15/simultaneous-interval-revisited/}.
 #' This interval is calculated from simulations based.
-#' Please specify a seed (e.g., \code{set.seed(123)}) for reproducable results.
+#' Please specify a seed (e.g., \code{set.seed(123)}) for reproducible results.
 #' In addition, make sure to specify at least 200 points for each smooth
 #' for the simulations when using simultaneous CI.
 #' Note: in contrast with Gavin Simpson's code, here the Bayesian posterior
@@ -33,7 +33,7 @@
 #' @param return.n.posterior Numeric: N samples from
 #' the posterior distribution of the fitted model are returned.
 #' Default value is 0 (no samples returned).
-#' Only workes when \code{sim.ci=TRUE}.
+#' Only works when \code{sim.ci=TRUE}.
 #' @param print.summary Logical: whether or not to print a summary of the
 #' values selected for each predictor.
 #' Default set to the print info messages option
@@ -41,7 +41,7 @@
 #' @return Returns a data frame with the estimates of the difference and
 #' optionally the confidence intervals around that estimate.
 #' @section Notes:
-#' Other, not specified effects and random effects are generally canceled
+#' Other, not specified effects and random effects are generally cancelled
 #' out, when calculating the difference. When the predictors that
 #' specify the conditions to compare are involved in other interactions
 #' or included as random slopes, it may be useful to specify the values
@@ -156,11 +156,11 @@ get_difference <- function(model, comp, cond = NULL, rm.ranef = TRUE, se = TRUE,
       test <- table(predictors$Terms) - table(predictors[predictors$Label %in% rm.ranef, ]$Terms)
       for (pred in names(test[test == 0])) {
         if (pred %in% names(mysummary)) {
-          mysummary[[pred]] <- paste(mysummary[[pred]], "(Might be canceled as random effect, check below.)")
+          mysummary[[pred]] <- paste(mysummary[[pred]], "(Might be cancelled as random effect, check below.)")
         }
       }
       if (length(rm.col) > 0) {
-        mysummary[["NOTE"]] = sprintf("The following random effects columns are canceled: %s\n", paste(smoothlabels,
+        mysummary[["NOTE"]] = sprintf("The following random effects columns are cancelled: %s\n", paste(smoothlabels,
                                                                                                        collapse = ","))
       } else {
         mysummary[["NOTE"]] = "No random effects in the model to cancel.\n"
