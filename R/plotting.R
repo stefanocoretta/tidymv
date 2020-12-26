@@ -31,7 +31,7 @@
 #' @export
 plot_smooths <- function(model, series, comparison = NULL, facet_terms = NULL, conditions = NULL, exclude_random = TRUE, exclude_terms = NULL, series_length = 25, split = NULL, sep = "\\.", transform = NULL, ci_z = 1.96, time_series) {
     if (!missing(time_series)) {
-      warning("This argument has been deprecated and will be removed in the future. Please use `series` instead.")
+      warning("The time_series argument has been deprecated and will be removed in the future. Please use `series` instead.")
 
       series_q = dplyr::enquo(time_series)
     } else {
@@ -123,7 +123,7 @@ plot_smooths <- function(model, series, comparison = NULL, facet_terms = NULL, c
 #' @export
 plot_difference <- function(model, series, difference, conditions = NULL, exclude_random = TRUE, series_length = 100, time_series) {
     if (!missing(time_series)) {
-      warning("This argument has been deprecated and will be removed in the future. Please use `series` instead.")
+      warning("The time_series argument has been deprecated and will be removed in the future. Please use `series` instead.")
 
       series_q = dplyr::enquo(time_series)
     } else {

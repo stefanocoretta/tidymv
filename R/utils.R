@@ -138,7 +138,7 @@ predict_gam <- function(model, exclude_terms = NULL, length_out = 50, values = N
 #' @export
 get_gam_predictions <- function(model, series, series_length = 25, conditions = NULL, exclude_random = TRUE, exclude_terms = NULL, split = NULL, sep = "\\.", time_series, transform = NULL, ci_z = 1.96, .comparison = NULL) {
   if (!missing(time_series)) {
-    warning("This argument has been deprecated and will be removed in the future. Please use `series` instead.")
+    warning("The time_series argument has been deprecated and will be removed in the future. Please use `series` instead.")
 
     series_q = dplyr::enquo(time_series)
   } else {
