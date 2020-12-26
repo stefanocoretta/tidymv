@@ -171,6 +171,7 @@ get_difference <- function(model, comp, cond = NULL, rm.ranef = TRUE, se = TRUE,
     p <- p1 - p2
     newd$difference <- as.vector(p %*% coef(model))
     if (se) {
+      newd$SE <- sqrt(rowSums((p %*% vcov(model)) * p))
       newd$CI <- f * sqrt(rowSums((p %*% vcov(model)) * p))
     }
     # simultaneous CI See http://www.fromthebottomoftheheap.net/2016/12/15/simultaneous-interval-revisited/

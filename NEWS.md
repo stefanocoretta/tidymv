@@ -1,5 +1,10 @@
 # tidymv (development version)
 
+## Added
+
+* ✨ `get_smooths_difference()` which returns a tibble with the difference of two levels of a smooth (#11).
+
+* 🍇 `plot-smooths.Rmd` now includes a plotting example with `get_smooths_difference()`.
 
 
 # tidymv v3.1.0

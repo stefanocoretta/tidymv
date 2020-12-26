@@ -208,3 +208,20 @@ plot_difference(
   difference = list(x1x2 = c("1.b", "2.b"))
 )
 ```
+
+If you would rather get a tibble with the difference smooths and plot it yourself, you can use `get_smooths_difference()`.
+
+```{r get-smooths-diff}
+inter_diff <- get_smooths_difference(model_inter, x0, list(x1x2 = c("2.a", "3.a")))
+
+inter_diff %>%
+  ggplot(aes(x0, difference)) +
+  geom_hline(aes(yintercept = 0), colour = "#8f5f3f") +
+  geom_ribbon(aes(ymin = CI_lower, ymax = CI_upper, fill = sig_diff), alpha = 0.3) +
+  geom_line(aes(colour = sig_diff), size = 1) +
+  scale_colour_manual(values = c("#e35760", "#6f849c")) +
+  scale_fill_manual(values = c("#e35760", "#6f849c")) +
+  labs(colour = "significant", fill = "significant") +
+  theme(legend.position = "top")
+```
+

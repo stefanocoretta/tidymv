@@ -383,3 +383,65 @@ get_gam_predictions <- function(model, series, series_length = 25, conditions = 
 
   return(predicted_tbl)
 }
+
+#' Get difference of smooths from a GAM model
+#'
+#' It returns a tibble with difference of the specified levels of a smooth from
+#' a \link[mgcv]{gam} or \link[mgcv]{bam}. The \code{sig_diff} column states
+#' whether the CI includes 0.
+#'
+#' @examples
+#' library(mgcv)
+#' set.seed(10)
+#' data <- gamSim(4)
+#' model <- gam(y ~ fac + s(x2) + s(x2, by = fac) + s(x0), data = data)
+#'
+#' get_smooths_difference(model, x2, list(fac = c("1", "2")))
+#'
+#' # For details, see vignette
+#' \dontrun{
+#' vignette("plot-smooths", package = "tidymv")
+#' }
+#'
+#' @inheritParams get_gam_predictions
+#' @param difference A named list with the levels to compute the difference of.
+#' @param conditions A named list specifying the levels to plot from the model
+#'   terms not among \code{series} or \code{difference}. Notice the difference
+#'   with \link[tidymv]{plot_smooths}, which uses \link[rlang]{quos}.
+#'
+#' @export
+get_smooths_difference <- function(model, series, difference, conditions = NULL, exclude_random = TRUE, series_length = 100, time_series) {
+    if (!missing(time_series)) {
+      warning("The time_series argument has been deprecated and will be removed in the future. Please use `series` instead.")
+
+      series_q = dplyr::enquo(time_series)
+    } else {
+      time_series = NULL
+      series_q <- dplyr::enquo(series)
+    }
+
+    series_chr <- rlang::quo_name(series_q)
+
+    fitted <- model$model
+
+    series_min <- dplyr::select(fitted, !!series_q) %>% min()
+    series_max <- dplyr::select(fitted, !!series_q) %>% max()
+
+    conditions <- c(conditions, rlang::ll(!!series_chr := seq(series_min, series_max, length.out = series_length)))
+
+    diff <- suppressWarnings(tidymv::get_difference(model, difference, cond = conditions, rm.ranef = exclude_random, print.summary = FALSE)) %>%
+      dplyr::mutate(
+        CI_upper = difference + CI,
+        CI_lower = difference - CI
+      )
+
+    sig_diff <- tidymv::find_difference(
+      diff$difference, diff$CI, diff[[series_chr]],
+      # We want a boolean vector to mark where the CI does not include 0.
+      as.vector = TRUE
+    )
+
+    diff$sig_diff <- sig_diff
+
+    tibble::as_tibble(diff)
+}
