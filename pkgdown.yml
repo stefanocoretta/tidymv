@@ -4,8 +4,5 @@ pkgdown_sha: ~
 articles:
   plot-smooths: plot-smooths.html
   predict-gam: predict-gam.html
-last_built: 2020-12-26T19:54Z
-urls:
-  reference: https://stefanocoretta.github.io/tidymv/reference
-  article: https://stefanocoretta.github.io/tidymv/articles
+last_built: 2020-12-27T10:59Z
 
