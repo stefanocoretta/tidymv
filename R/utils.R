@@ -390,6 +390,12 @@ get_gam_predictions <- function(model, series, series_length = 25, conditions = 
 #' a \link[mgcv]{gam} or \link[mgcv]{bam}. The \code{sig_diff} column states
 #' whether the CI includes 0.
 #'
+#' @inheritParams get_gam_predictions
+#' @param difference A named list with the levels to compute the difference of.
+#' @param conditions A named list specifying the levels to plot from the model
+#'   terms not among \code{series} or \code{difference}. Notice the difference
+#'   with \link[tidymv]{plot_smooths}, which uses \link[rlang]{quos}.
+#'
 #' @examples
 #' library(mgcv)
 #' set.seed(10)
@@ -402,12 +408,6 @@ get_gam_predictions <- function(model, series, series_length = 25, conditions = 
 #' \dontrun{
 #' vignette("plot-smooths", package = "tidymv")
 #' }
-#'
-#' @inheritParams get_gam_predictions
-#' @param difference A named list with the levels to compute the difference of.
-#' @param conditions A named list specifying the levels to plot from the model
-#'   terms not among \code{series} or \code{difference}. Notice the difference
-#'   with \link[tidymv]{plot_smooths}, which uses \link[rlang]{quos}.
 #'
 #' @export
 get_smooths_difference <- function(model, series, difference, conditions = NULL, exclude_random = TRUE, series_length = 100, time_series) {
