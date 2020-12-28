@@ -49,7 +49,7 @@ plot_smooths <- function(model, series, comparison = NULL, facet_terms = NULL, c
     }
     outcome_q <- model$formula[[2]]
 
-    predicted_tbl <- get_gam_predictions(model, !!series_q, conditions, exclude_random = exclude_random, exclude_terms = exclude_terms, series_length = series_length, split = split, sep = sep, transform = transform, ci_z = ci_z, .comparison = !!comparison_q)
+    predicted_tbl <- get_gam_predictions(model, {{series}}, conditions, exclude_random = exclude_random, exclude_terms = exclude_terms, series_length = series_length, split = split, sep = sep, transform = transform, ci_z = ci_z, .comparison = {{comparison}})
 
     smooths_plot <- predicted_tbl %>%
         ggplot2::ggplot(

@@ -424,10 +424,10 @@ get_smooths_difference <- function(model, series, difference, conditions = NULL,
 
     fitted <- model$model
 
-    series_min <- dplyr::select(fitted, !!series_q) %>% min()
-    series_max <- dplyr::select(fitted, !!series_q) %>% max()
+    series_min <- dplyr::select(fitted, {{series}}) %>% min()
+    series_max <- dplyr::select(fitted, {{series}}) %>% max()
 
-    conditions <- c(conditions, rlang::ll(!!series_chr := seq(series_min, series_max, length.out = series_length)))
+    conditions <- c(conditions, rlang::ll({{series_chr}} := seq(series_min, series_max, length.out = series_length)))
 
     diff <- suppressWarnings(tidymv::get_difference(model, difference, cond = conditions, rm.ranef = exclude_random, print.summary = FALSE)) %>%
       dplyr::mutate(
