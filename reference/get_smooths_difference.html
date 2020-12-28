@@ -22,7 +22,7 @@
   }
 </script>
 
-<title>Plot GAM smooths. — plot_smooths • tidymv</title>
+<title>Get difference of smooths from a GAM model — get_smooths_difference • tidymv</title>
 
 
 <!-- jquery -->
@@ -65,8 +65,10 @@
 
 
 
-<meta property="og:title" content="Plot GAM smooths. — plot_smooths" />
-<meta property="og:description" content="It plots the smooths from the estimates of a gam or bam object." />
+<meta property="og:title" content="Get difference of smooths from a GAM model — get_smooths_difference" />
+<meta property="og:description" content="It returns a tibble with difference of the specified levels of a smooth from
+a gam or bam. The sig_diff column states
+whether the CI includes 0." />
 
 
 
@@ -156,28 +158,24 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot GAM smooths.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/stefanocoretta/tidymv/blob/master/R/plotting.R'><code>R/plotting.R</code></a></small>
-    <div class="hidden name"><code>plot_smooths.Rd</code></div>
+    <h1>Get difference of smooths from a GAM model</h1>
+    <small class="dont-index">Source: <a href='https://github.com/stefanocoretta/tidymv/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
+    <div class="hidden name"><code>get_smooths_difference.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>It plots the smooths from the estimates of a <a href='https://rdrr.io/pkg/mgcv/man/gam.html'>gam</a> or <a href='https://rdrr.io/pkg/mgcv/man/bam.html'>bam</a> object.</p>
+    <p>It returns a tibble with difference of the specified levels of a smooth from
+a <a href='https://rdrr.io/pkg/mgcv/man/gam.html'>gam</a> or <a href='https://rdrr.io/pkg/mgcv/man/bam.html'>bam</a>. The <code>sig_diff</code> column states
+whether the CI includes 0.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plot_smooths</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'>get_smooths_difference</span><span class='op'>(</span>
   <span class='va'>model</span>,
   <span class='va'>series</span>,
-  comparison <span class='op'>=</span> <span class='cn'>NULL</span>,
-  facet_terms <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>difference</span>,
   conditions <span class='op'>=</span> <span class='cn'>NULL</span>,
   exclude_random <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  exclude_terms <span class='op'>=</span> <span class='cn'>NULL</span>,
-  series_length <span class='op'>=</span> <span class='fl'>25</span>,
-  split <span class='op'>=</span> <span class='cn'>NULL</span>,
-  sep <span class='op'>=</span> <span class='st'>"\\."</span>,
-  transform <span class='op'>=</span> <span class='cn'>NULL</span>,
-  ci_z <span class='op'>=</span> <span class='fl'>1.96</span>,
+  series_length <span class='op'>=</span> <span class='fl'>100</span>,
   <span class='va'>time_series</span>
 <span class='op'>)</span></pre>
 
@@ -193,44 +191,22 @@
       <td><p>An unquoted expression indicating the model term that defines the series on which smoothing is applied. This is the term that is displayed on the x-axis when plotting.</p></td>
     </tr>
     <tr>
-      <th>comparison</th>
-      <td><p>An unquoted expression indicating the model term for which the comparison will be plotted.</p></td>
-    </tr>
-    <tr>
-      <th>facet_terms</th>
-      <td><p>An unquoted formula with the terms used for faceting.</p></td>
+      <th>difference</th>
+      <td><p>A named list with the levels to compute the difference of.</p></td>
     </tr>
     <tr>
       <th>conditions</th>
-      <td><p>A list of quosures with <a href='https://rlang.r-lib.org/reference/nse-defuse.html'>quos</a> specifying the levels to plot from the model terms not among <code>series</code>, <code>comparison</code>, or <code>facet_terms</code>.</p></td>
+      <td><p>A named list specifying the levels to plot from the model
+terms not among <code>series</code> or <code>difference</code>. Notice the difference
+with <a href='plot_smooths.html'>plot_smooths</a>, which uses <a href='https://rlang.r-lib.org/reference/nse-defuse.html'>quos</a>.</p></td>
     </tr>
     <tr>
       <th>exclude_random</th>
       <td><p>Whether to exclude random smooths (the default is <code>TRUE</code>).</p></td>
     </tr>
     <tr>
-      <th>exclude_terms</th>
-      <td><p>Terms to be excluded from the prediction. Term names should be given as they appear in the model summary (for example, <code>"s(x0,x1)"</code>).</p></td>
-    </tr>
-    <tr>
       <th>series_length</th>
       <td><p>An integer indicating how many values along the time series to use for predicting the outcome term.</p></td>
-    </tr>
-    <tr>
-      <th>split</th>
-      <td><p>Columns to separate as a named list.</p></td>
-    </tr>
-    <tr>
-      <th>sep</th>
-      <td><p>Separator between columns (default is <code>"\."</code>, which is the default with <code></code>). If character, it is interpreted as a regular expression.</p></td>
-    </tr>
-    <tr>
-      <th>transform</th>
-      <td><p>Function used to transform the fitted values (useful for getting plots on the response scale).</p></td>
-    </tr>
-    <tr>
-      <th>ci_z</th>
-      <td><p>The z-value for calculating the CIs (the default is <code>1.96</code> for 95 percent CI).</p></td>
     </tr>
     <tr>
       <th>time_series</th>
@@ -245,18 +221,27 @@
 <span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/mgcv/man/gamSim.html'>gamSim</a></span><span class='op'>(</span><span class='fl'>4</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Factor `by' variable example</div><div class='input'><span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/mgcv/man/gam.html'>gam</a></span><span class='op'>(</span><span class='va'>y</span> <span class='op'>~</span> <span class='va'>fac</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/pkg/mgcv/man/s.html'>s</a></span><span class='op'>(</span><span class='va'>x2</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/pkg/mgcv/man/s.html'>s</a></span><span class='op'>(</span><span class='va'>x2</span>, by <span class='op'>=</span> <span class='va'>fac</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/pkg/mgcv/man/s.html'>s</a></span><span class='op'>(</span><span class='va'>x0</span><span class='op'>)</span>, data <span class='op'>=</span> <span class='va'>data</span><span class='op'>)</span>
 
-<span class='fu'>plot_smooths</span><span class='op'>(</span><span class='va'>model</span>, <span class='va'>x2</span>, <span class='va'>fac</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_smooths-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># alternative model specification</span>
-<span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/mgcv/man/gam.html'>gam</a></span><span class='op'>(</span><span class='va'>y</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/pkg/mgcv/man/s.html'>s</a></span><span class='op'>(</span><span class='va'>fac</span>, bs <span class='op'>=</span> <span class='st'>"re"</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/pkg/mgcv/man/s.html'>s</a></span><span class='op'>(</span><span class='va'>x2</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/pkg/mgcv/man/s.html'>s</a></span><span class='op'>(</span><span class='va'>x2</span>, by <span class='op'>=</span> <span class='va'>fac</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/pkg/mgcv/man/s.html'>s</a></span><span class='op'>(</span><span class='va'>x0</span><span class='op'>)</span>, data <span class='op'>=</span> <span class='va'>data</span><span class='op'>)</span>
-<span class='fu'>plot_smooths</span><span class='op'>(</span><span class='va'>model</span>, <span class='va'>x2</span>, <span class='va'>fac</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_smooths-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>get_smooths_difference</span><span class='op'>(</span><span class='va'>model</span>, <span class='va'>x2</span>, <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>fac <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"1"</span>, <span class='st'>"2"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 100 x 8</span><span>
+#&gt;         x2    x0 difference    SE    CI CI_upper CI_lower sig_diff
+#&gt;      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>   
+#&gt; </span><span style='color: #555555;'> 1</span><span> 0.001</span><span style='text-decoration: underline;'>34</span><span> 0.501       3.82 0.748 1.47      5.28     2.35 TRUE    
+#&gt; </span><span style='color: #555555;'> 2</span><span> 0.011</span><span style='text-decoration: underline;'>4</span><span>  0.501       3.79 0.707 1.39      5.18     2.40 TRUE    
+#&gt; </span><span style='color: #555555;'> 3</span><span> 0.021</span><span style='text-decoration: underline;'>5</span><span>  0.501       3.76 0.668 1.31      5.07     2.45 TRUE    
+#&gt; </span><span style='color: #555555;'> 4</span><span> 0.031</span><span style='text-decoration: underline;'>6</span><span>  0.501       3.73 0.632 1.24      4.97     2.50 TRUE    
+#&gt; </span><span style='color: #555555;'> 5</span><span> 0.041</span><span style='text-decoration: underline;'>7</span><span>  0.501       3.71 0.598 1.17      4.88     2.54 TRUE    
+#&gt; </span><span style='color: #555555;'> 6</span><span> 0.051</span><span style='text-decoration: underline;'>8</span><span>  0.501       3.68 0.567 1.11      4.79     2.57 TRUE    
+#&gt; </span><span style='color: #555555;'> 7</span><span> 0.061</span><span style='text-decoration: underline;'>9</span><span>  0.501       3.66 0.539 1.06      4.71     2.60 TRUE    
+#&gt; </span><span style='color: #555555;'> 8</span><span> 0.071</span><span style='text-decoration: underline;'>9</span><span>  0.501       3.63 0.514 1.01      4.64     2.62 TRUE    
+#&gt; </span><span style='color: #555555;'> 9</span><span> 0.082</span><span style='text-decoration: underline;'>0</span><span>  0.501       3.61 0.492 0.965     4.57     2.64 TRUE    
+#&gt; </span><span style='color: #555555;'>10</span><span> 0.092</span><span style='text-decoration: underline;'>1</span><span>  0.501       3.58 0.473 0.928     4.51     2.66 TRUE    
+#&gt; </span><span style='color: #555555;'># … with 90 more rows</span><span></div><div class='input'>
 <span class='co'># For details, see vignette</span>
 <span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/vignette.html'>vignette</a></span><span class='op'>(</span><span class='st'>"plot-smooths"</span>, package <span class='op'>=</span> <span class='st'>"tidymv"</span><span class='op'>)</span>
 <span class='op'>}</span>
 
-</div></pre>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
