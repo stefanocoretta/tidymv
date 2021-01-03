@@ -1,0 +1,1 @@
+The tidymv package as a whole is distributed under GPL (>= 3). The tidymv package includes code imported from the itsadug package in the file R/imported-fun.R

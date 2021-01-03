@@ -1,3 +1,6 @@
+# Functions imported from itsadug. The copyright holders are Jacolien van Rij
+# and Martijn Wieling.
+
 #' Get model predictions for differences between conditions.
 #'
 #' @import mgcv

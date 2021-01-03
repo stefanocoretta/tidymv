@@ -1,11 +1,7 @@
-The package is licensed in part under the GNU General Public License 3 and in part under the MIT license.
-More specifically, the code of the functions `get_difference()` and `find_difference()` are licensed under GPL3 and they are ported from the itsadug package (Jacolien van Rij).
-The remaining code is licensed under the MIT license (Stefano Coretta).
-
 GNU General Public License
 ==========================
 
-_Version 3, 29 June 2007_
+_Version 3, 29 June 2007_  
 _Copyright © 2007 Free Software Foundation, Inc. &lt;<http://fsf.org/>&gt;_
 
 Everyone is permitted to copy and distribute verbatim copies of this license
@@ -597,25 +593,3 @@ more useful to permit linking proprietary applications with the library. If this
 what you want to do, use the GNU Lesser General Public License instead of this
 License. But first, please read
 &lt;<http://www.gnu.org/philosophy/why-not-lgpl.html>&gt;.
-
-# MIT License
-
-Copyright (c) 2017 Stefano Coretta
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
