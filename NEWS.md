@@ -6,9 +6,15 @@
 
 * 🍇 - `plot-smooths.Rmd` now includes a plotting example with `get_smooths_difference()`.
 
+* 👷 - Add GitHub actions for R CMD check.
+
 ## Changed
 
 * ⬆️ - Use tidy evaluation.
+
+## Removed
+
+* 🔥 - Travis CI has been removed (now use GitHub Actions).
 
 # tidymv v3.1.0
 

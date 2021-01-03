@@ -1,9 +1,5 @@
 # `tidymv`: Tidy Model Visualisation for Generalised Additive Models
 
-<!-- badges: start -->
-[![Travis build status](https://travis-ci.org/stefanocoretta/tidymv.svg?branch=master)](https://travis-ci.org/stefanocoretta/tidymv)
-<!-- badges: end -->
-
 This is the repository of the `R` package `tidymv`. This package provides functions for the visualisation of GAM(M)s and the generation of model-based predicted values using tidy tools from the `tidyverse`.
 
 ## Installation

@@ -3,7 +3,6 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^LICENSE\.md$
-^\.travis\.yml$
 ^cran-comments\.md$
 ^CRAN-RELEASE$
 ^data-raw$
