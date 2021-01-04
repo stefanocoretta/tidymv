@@ -8,6 +8,8 @@
 
 * 👷 - Add GitHub actions for R CMD check.
 
+* 🖼 - Add logo!
+
 ## Changed
 
 * ⬆️ - Use tidy evaluation.
