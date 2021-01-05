@@ -1,3 +1,9 @@
+## Resubmission
+This is a resubmission. In this version I have:
+
+* Fixed the invalid URL in Readme.md
+* Fixed other errors in Readme.md
+
 ## Test environments
 
 - R-hub windows-x86_64-devel (r-devel)

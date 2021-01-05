@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 `r badger::badge_cran_release("tidymv", "blue")`
 `r badger::badge_cran_checks("tidymv")`
 `r badger::badge_github_actions()`
-`r badger::badge_devel("tidymv", "orange")`
+`r badger::badge_devel(color = "orange")`
 <!-- badges: end -->
 
 This is the repository of the `R` package `tidymv`. This package provides functions for the visualisation of GAM(M)s and the generation of model-based predicted values using tidy tools from the `tidyverse`.
@@ -28,11 +28,11 @@ This is the repository of the `R` package `tidymv`. This package provides functi
 
 The package is on CRAN, so you can install it from there with `install.packages("tidymv")`.
 
-If like living on edge, install a polished pre-release with:
+If you like living on edge, install a polished pre-release with:
 
 ```{r install-pre, eval=FALSE}
 remotes::install_github(
-  "stefanocoretta/rticulate",
+  "stefanocoretta/tidymv",
   build_vignettes = TRUE
 )
 ```
@@ -41,7 +41,7 @@ Or the development version with:
 
 ```{r install-dev, eval=FALSE}
 remotes::install_github(
-  "stefanocoretta/rticulate@devel",
+  "stefanocoretta/tidymv@devel",
   build_vignettes = TRUE
 )
 ```
