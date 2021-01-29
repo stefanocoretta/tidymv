@@ -1,8 +1,8 @@
 Package: tidymv
 Type: Package
 Title: Tidy Model Visualisation for Generalised Additive Models
-Version: 3.2.0
-Date: 2021-01-04
+Version: 3.2.0.9000
+Date: 2021-01-29
 Authors@R: 
     c(person(given = "Stefano",
              family = "Coretta",
