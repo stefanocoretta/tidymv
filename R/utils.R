@@ -443,5 +443,21 @@ get_smooths_difference <- function(model, series, difference, conditions = NULL,
 
     diff$sig_diff <- sig_diff
 
+    n <- 1
+    prev <- sig_diff[1]
+    group <- as.numeric()
+    for (i in 1:length(sig_diff)) {
+      if (sig_diff[i] == prev) {
+        group[i] <- n
+      } else {
+        group[i] <- n + 1
+      }
+
+      n <- group[i]
+      prev <- sig_diff[i]
+    }
+
+    diff$group <- group
+
     tibble::as_tibble(diff)
 }

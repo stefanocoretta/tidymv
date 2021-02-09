@@ -215,12 +215,33 @@ If you would rather get a tibble with the difference smooths and plot it yoursel
 inter_diff <- get_smooths_difference(model_inter, x0, list(x1x2 = c("2.a", "3.a")))
 
 inter_diff %>%
-  ggplot(aes(x0, difference)) +
+  ggplot(aes(x0, difference, group = group)) +
   geom_hline(aes(yintercept = 0), colour = "#8f5f3f") +
   geom_ribbon(aes(ymin = CI_lower, ymax = CI_upper, fill = sig_diff), alpha = 0.3) +
   geom_line(aes(colour = sig_diff), size = 1) +
   scale_colour_manual(values = c("#e35760", "#6f849c")) +
   scale_fill_manual(values = c("#e35760", "#6f849c")) +
+  labs(colour = "significant", fill = "significant") +
+  theme(legend.position = "top")
+```
+
+Another example.
+
+```{r diff-gam}
+set.seed(10)
+data <- gamSim(4)
+fac_gam <- gam(y ~ fac + s(x2) + s(x2, by = fac) + s(x0), data = data)
+```
+
+```{r diff-gam-plot}
+fac_diff <- get_smooths_difference(model, x2, list(fac = c("1", "2")))
+
+fac_diff %>%
+  ggplot(aes(x2, difference)) +
+  geom_hline(aes(yintercept = 0)) +
+  geom_ribbon(aes(ymin = -Inf, ymax = Inf, fill = sig_diff, group = group), alpha = 0.2) +
+  geom_ribbon(aes(ymin = CI_lower, ymax = CI_upper), alpha = 0.3) +
+  geom_line(size = 1) +
   labs(colour = "significant", fill = "significant") +
   theme(legend.position = "top")
 ```
