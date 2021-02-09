@@ -16,7 +16,7 @@ predict_gam(model, exclude_terms = NULL, length_out = 50, values = NULL)
 \item{values}{User supplied values for specific terms as a named list. If the value is \code{NULL}, the first value of the term is selected (useful when excluding terms).}
 }
 \value{
-A tibble with predictions from a a \link[mgcv]{gam} or \link[mgcv]{bam} model.
+A tibble with predictions from a \link[mgcv]{gam} or \link[mgcv]{bam} model.
 }
 \description{
 It returns a tibble with the predictions from all the terms in a \link[mgcv]{gam} or \link[mgcv]{bam} model.

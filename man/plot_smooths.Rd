@@ -47,6 +47,9 @@ plot_smooths(
 
 \item{time_series}{Deprecated, use \code{series} instead.}
 }
+\value{
+A \code{\link[ggplot2]{ggplot} object.}
+}
 \description{
 It plots the smooths from the estimates of a \link[mgcv]{gam} or \link[mgcv]{bam} object.
 }

@@ -7,6 +7,8 @@
 #' @param facet_terms An unquoted formula with the terms used for faceting.
 #' @param conditions A list of quosures with \link[rlang]{quos} specifying the levels to plot from the model terms not among \code{series}, \code{comparison}, or \code{facet_terms}.
 #'
+#' @return A \code{\link[ggplot2]{ggplot} object.}
+#'
 #' @examples
 #' library(mgcv)
 #' set.seed(10)
@@ -102,6 +104,8 @@ plot_smooths <- function(model, series, comparison = NULL, facet_terms = NULL, c
 #'
 #' It plots the difference smooth from a \link[mgcv]{gam} or \link[mgcv]{bam}.
 #' Significant differences are marked with red areas.
+#'
+#' @return A \code{\link[ggplot2]{ggplot} object.}
 #'
 #' @examples
 #' library(mgcv)

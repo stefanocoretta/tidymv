@@ -31,6 +31,9 @@ with \link[tidymv]{plot_smooths}, which uses \link[rlang]{quos}.}
 
 \item{time_series}{Deprecated, use \code{series} instead.}
 }
+\value{
+A tibble.
+}
 \description{
 It returns a tibble with difference of the specified levels of a smooth from
 a \link[mgcv]{gam} or \link[mgcv]{bam}. The \code{sig_diff} column states

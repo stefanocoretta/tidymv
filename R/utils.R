@@ -39,7 +39,7 @@ create_start_event <- function(tibble, series_col) {
 #' @param length_out An integer indicating how many values along the numeric predictors to use for predicting the outcome term (the default is \code{50}).
 #' @param values User supplied values for specific terms as a named list. If the value is \code{NULL}, the first value of the term is selected (useful when excluding terms).
 #'
-#' @return A tibble with predictions from a a \link[mgcv]{gam} or \link[mgcv]{bam} model.
+#' @return A tibble with predictions from a \link[mgcv]{gam} or \link[mgcv]{bam} model.
 #'
 #' @examples
 #' \dontrun{
@@ -112,7 +112,7 @@ predict_gam <- function(model, exclude_terms = NULL, length_out = 50, values = N
 
 #' Get predictions from a GAM model.
 #'
-#' It returns a tibble with the predictions from a a \link[mgcv]{gam} or \link[mgcv]{bam} object.
+#' It returns a tibble with the predictions from a \link[mgcv]{gam} or \link[mgcv]{bam} object.
 #'
 #' @param model A \code{gam} or \code{bam} model object.
 #' @param series An unquoted expression indicating the model term that defines the series on which smoothing is applied. This is the term that is displayed on the x-axis when plotting.
@@ -126,6 +126,8 @@ predict_gam <- function(model, exclude_terms = NULL, length_out = 50, values = N
 #' @param transform Function used to transform the fitted values (useful for getting plots on the response scale).
 #' @param ci_z The z-value for calculating the CIs (the default is \code{1.96} for 95 percent CI).
 #' @param .comparison Internal parameter, passed from plot_smooths().
+#'
+#' @return A tibble with predictions from a \link[mgcv]{gam} or \link[mgcv]{bam} model.
 #'
 #' @examples
 #' library(mgcv)
@@ -395,6 +397,8 @@ get_gam_predictions <- function(model, series, series_length = 25, conditions = 
 #' @param conditions A named list specifying the levels to plot from the model
 #'   terms not among \code{series} or \code{difference}. Notice the difference
 #'   with \link[tidymv]{plot_smooths}, which uses \link[rlang]{quos}.
+#'
+#' @return A tibble.
 #'
 #' @examples
 #' library(mgcv)

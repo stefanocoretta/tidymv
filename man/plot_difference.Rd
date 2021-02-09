@@ -29,6 +29,9 @@ plot_difference(
 
 \item{time_series}{Deprecated, use \code{series} instead.}
 }
+\value{
+A \code{\link[ggplot2]{ggplot} object.}
+}
 \description{
 It plots the difference smooth from a \link[mgcv]{gam} or \link[mgcv]{bam}.
 Significant differences are marked with red areas.
