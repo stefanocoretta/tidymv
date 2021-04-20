@@ -118,7 +118,7 @@ predict_gam <- function(model, exclude_terms = NULL, length_out = 50, values = N
 #' @param series An unquoted expression indicating the model term that defines the series on which smoothing is applied. This is the term that is displayed on the x-axis when plotting.
 #' @param time_series Deprecated, use \code{series} instead.
 #' @param series_length An integer indicating how many values along the time series to use for predicting the outcome term.
-#' @param conditions A list of quosures with \link[rlang]{quos} specifying the levels to plot from the model terms.
+#' @param conditions A list of quosures with \code{quos} specifying the levels to plot from the model terms.
 #' @param exclude_random Whether to exclude random smooths (the default is \code{TRUE}).
 #' @param exclude_terms Terms to be excluded from the prediction. Term names should be given as they appear in the model summary (for example, \code{"s(x0,x1)"}).
 #' @param split Columns to separate as a named list.
@@ -396,7 +396,7 @@ get_gam_predictions <- function(model, series, series_length = 25, conditions = 
 #' @param difference A named list with the levels to compute the difference of.
 #' @param conditions A named list specifying the levels to plot from the model
 #'   terms not among \code{series} or \code{difference}. Notice the difference
-#'   with \link[tidymv]{plot_smooths}, which uses \link[rlang]{quos}.
+#'   with \link[tidymv]{plot_smooths}, which uses \code{quos}.
 #'
 #' @return A tibble.
 #'

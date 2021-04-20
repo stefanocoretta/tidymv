@@ -5,7 +5,7 @@
 #' @inheritParams get_gam_predictions
 #' @param comparison An unquoted expression indicating the model term for which the comparison will be plotted.
 #' @param facet_terms An unquoted formula with the terms used for faceting.
-#' @param conditions A list of quosures with \link[rlang]{quos} specifying the levels to plot from the model terms not among \code{series}, \code{comparison}, or \code{facet_terms}.
+#' @param conditions A list of quosures with \code{quos} specifying the levels to plot from the model terms not among \code{series}, \code{comparison}, or \code{facet_terms}.
 #'
 #' @return A \code{\link[ggplot2]{ggplot} object.}
 #'
@@ -122,7 +122,7 @@ plot_smooths <- function(model, series, comparison = NULL, facet_terms = NULL, c
 #'
 #' @inheritParams get_gam_predictions
 #' @param difference A named list with the levels to compute the difference of.
-#' @param conditions A named list specifying the levels to plot from the model terms not among \code{series} or \code{difference}. Notice the difference with \link[tidymv]{plot_smooths}, which uses \link[rlang]{quos}.
+#' @param conditions A named list specifying the levels to plot from the model terms not among \code{series} or \code{difference}. Notice the difference with \link[tidymv]{plot_smooths}, which uses \code{quos}.
 #'
 #' @export
 plot_difference <- function(model, series, difference, conditions = NULL, exclude_random = TRUE, series_length = 100, ci_z = 1.96, time_series) {

@@ -22,7 +22,7 @@ plot_difference(
 
 \item{difference}{A named list with the levels to compute the difference of.}
 
-\item{conditions}{A named list specifying the levels to plot from the model terms not among \code{series} or \code{difference}. Notice the difference with \link[tidymv]{plot_smooths}, which uses \link[rlang]{quos}.}
+\item{conditions}{A named list specifying the levels to plot from the model terms not among \code{series} or \code{difference}. Notice the difference with \link[tidymv]{plot_smooths}, which uses \code{quos}.}
 
 \item{exclude_random}{Whether to exclude random smooths (the default is \code{TRUE}).}
 

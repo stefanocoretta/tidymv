@@ -29,7 +29,7 @@ plot_smooths(
 
 \item{facet_terms}{An unquoted formula with the terms used for faceting.}
 
-\item{conditions}{A list of quosures with \link[rlang]{quos} specifying the levels to plot from the model terms not among \code{series}, \code{comparison}, or \code{facet_terms}.}
+\item{conditions}{A list of quosures with \code{quos} specifying the levels to plot from the model terms not among \code{series}, \code{comparison}, or \code{facet_terms}.}
 
 \item{exclude_random}{Whether to exclude random smooths (the default is \code{TRUE}).}
 

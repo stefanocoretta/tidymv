@@ -1,6 +1,6 @@
 {
   "R": {
-    "Version": "4.0.3",
+    "Version": "4.0.5",
     "Repositories": [
       {
         "Name": "CRAN",
@@ -8,7 +8,17 @@
       }
     ]
   },
+  "Bioconductor": {
+    "Version": "3.12"
+  },
   "Packages": {
+    "BiocManager": {
+      "Package": "BiocManager",
+      "Version": "1.30.12",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "462dbb15753eb52fb62e28507f382d2d"
+    },
     "MASS": {
       "Package": "MASS",
       "Version": "7.3-53",
@@ -50,6 +60,13 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "50c838a310445e954bc13f26f26a6ecf"
+    },
+    "badger": {
+      "Package": "badger",
+      "Version": "0.0.9",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "2f7b189b9425a4682a1c71066872e781"
     },
     "base64enc": {
       "Package": "base64enc",
@@ -141,6 +158,13 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "a0cbe758a531d054b537d16dff4d58a1"
+    },
+    "dlstats": {
+      "Package": "dlstats",
+      "Version": "0.1.3",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "aa36fd631afc11de4f5ecaf37dac3891"
     },
     "downlit": {
       "Package": "downlit",
@@ -491,6 +515,13 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "06c85365a03fdaf699966cc1d3cf53ea"
+    },
+    "rvcheck": {
+      "Package": "rvcheck",
+      "Version": "0.1.8",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "11ebf2d3d4990e8bb9f28d5ab0c204fc"
     },
     "scales": {
       "Package": "scales",

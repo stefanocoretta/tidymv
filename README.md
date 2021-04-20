@@ -10,7 +10,7 @@
 checks](https://cranchecks.info/badges/summary/tidymv)](https://cran.r-project.org/web/checks/check_results_tidymv.html)
 [![R build
 status](https://github.com/stefanocoretta/tidymv/workflows/R-CMD-check/badge.svg)](https://github.com/stefanocoretta/tidymv/actions)
-[![](https://img.shields.io/badge/devel%20version-3.2.0-orange.svg)](https://github.com/stefanocoretta/tidymv)
+[![](https://img.shields.io/badge/devel%20version-3.2.0.9000-orange.svg)](https://github.com/stefanocoretta/tidymv)
 <!-- badges: end -->
 
 This is the repository of the `R` package `tidymv`. This package

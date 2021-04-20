@@ -26,7 +26,7 @@ get_gam_predictions(
 
 \item{series_length}{An integer indicating how many values along the time series to use for predicting the outcome term.}
 
-\item{conditions}{A list of quosures with \link[rlang]{quos} specifying the levels to plot from the model terms.}
+\item{conditions}{A list of quosures with \code{quos} specifying the levels to plot from the model terms.}
 
 \item{exclude_random}{Whether to exclude random smooths (the default is \code{TRUE}).}
 
