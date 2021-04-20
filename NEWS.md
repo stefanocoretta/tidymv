@@ -1,4 +1,4 @@
-# tidymv v3.2.0.9000 (development version)
+# tidymv v3.2.1
 
 ## Added
 
