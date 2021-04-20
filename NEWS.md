@@ -6,6 +6,8 @@
 
 * `@return` roxygen entry added to all functions documentation.
 
+* `ci_z` argument in `plot_difference()`.
+
 ## Changed
 
 * The output of `get_smooths_difference()` now includes a `group` column with a numeric index of significance blocks, so that plotting difference smooths with more than two alternating significance values is correct (see `plot-smooths` vignette, last example).

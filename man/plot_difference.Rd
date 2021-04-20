@@ -11,6 +11,7 @@ plot_difference(
   conditions = NULL,
   exclude_random = TRUE,
   series_length = 100,
+  ci_z = 1.96,
   time_series
 )
 }
@@ -26,6 +27,8 @@ plot_difference(
 \item{exclude_random}{Whether to exclude random smooths (the default is \code{TRUE}).}
 
 \item{series_length}{An integer indicating how many values along the time series to use for predicting the outcome term.}
+
+\item{ci_z}{The z-value for calculating the CIs (the default is \code{1.96} for 95 percent CI).}
 
 \item{time_series}{Deprecated, use \code{series} instead.}
 }
