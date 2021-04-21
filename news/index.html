@@ -108,7 +108,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidymv</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.2.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.2.1</span>
       </span>
     </div>
 
@@ -171,15 +171,24 @@
       <small>Source: <a href='https://github.com/stefanocoretta/tidymv/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="tidymv-v3209000-development-version" class="section level1">
-<h1 class="page-header" data-toc-text="3.2.0.9000">
-<a href="#tidymv-v3209000-development-version" class="anchor"></a>tidymv v3.2.0.9000 (development version)<small> Unreleased </small>
+    <div id="tidymv-v321" class="section level1">
+<h1 class="page-header" data-toc-text="3.2.1">
+<a href="#tidymv-v321" class="anchor"></a>tidymv v3.2.1<small> Unreleased </small>
 </h1>
 <div id="added" class="section level2">
 <h2 class="hasAnchor">
 <a href="#added" class="anchor"></a>Added</h2>
 <ul>
-<li>Use renv for development.</li>
+<li><p>Use renv for development.</p></li>
+<li><p><code>@return</code> roxygen entry added to all functions documentation.</p></li>
+<li><p><code>ci_z</code> argument in <code><a href="../reference/plot_difference.html">plot_difference()</a></code>.</p></li>
+</ul>
+</div>
+<div id="changed" class="section level2">
+<h2 class="hasAnchor">
+<a href="#changed" class="anchor"></a>Changed</h2>
+<ul>
+<li>The output of <code><a href="../reference/get_smooths_difference.html">get_smooths_difference()</a></code> now includes a <code>group</code> column with a numeric index of significance blocks, so that plotting difference smooths with more than two alternating significance values is correct (see <code>plot-smooths</code> vignette, last example).</li>
 </ul>
 </div>
 </div>
@@ -197,9 +206,9 @@
 <li><p>🖼 - Add logo!</p></li>
 </ul>
 </div>
-<div id="changed" class="section level2">
+<div id="changed-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#changed" class="anchor"></a>Changed</h2>
+<a href="#changed-1" class="anchor"></a>Changed</h2>
 <ul>
 <li>⬆️ - Use tidy evaluation.</li>
 </ul>
@@ -225,9 +234,9 @@
 <li><p>🍇 include example of <code><a href="../reference/get_gam_predictions.html">get_gam_predictions()</a></code> in plot smooths vignette.</p></li>
 </ul>
 </div>
-<div id="changed-1" class="section level2">
+<div id="changed-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#changed-1" class="anchor"></a>Changed</h2>
+<a href="#changed-2" class="anchor"></a>Changed</h2>
 <ul>
 <li>
 <code><a href="../reference/get_gam_predictions.html">get_gam_predictions()</a></code> now returns an <code>.idx</code> column which assigns a number to each curve (when multiple variables are used). The <code>.idx</code> column can be used to correctly group <code><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html">geom_ribbon()</a></code> for plotting CIs.</li>
@@ -250,9 +259,9 @@
 <h1 class="page-header" data-toc-text="2.2.1">
 <a href="#tidymv-221" class="anchor"></a>tidymv 2.2.1<small> Unreleased </small>
 </h1>
-<div id="changed-2" class="section level2">
+<div id="changed-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#changed-2" class="anchor"></a>Changed</h2>
+<a href="#changed-3" class="anchor"></a>Changed</h2>
 <ul>
 <li><p>prevent error from <code><a href="https://dplyr.tidyverse.org/reference/lead-lag.html">dplyr::lag()</a></code> when type of default is different (prepare for upcoming dplyr 1.0.0)</p></li>
 <li><p>roxygen version 7.1.0</p></li>
@@ -275,9 +284,9 @@
 <li><p>support for models with non*syntactic column names (<code>log(y) ~ s(log(x))</code>)</p></li>
 </ul>
 </div>
-<div id="changed-3" class="section level2">
+<div id="changed-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#changed-3" class="anchor"></a>Changed</h2>
+<a href="#changed-4" class="anchor"></a>Changed</h2>
 <ul>
 <li><p>add option of setting values to <code>NULL</code> in <code><a href="../reference/predict_gam.html">predict_gam()</a></code> when excluding terms to reduce computation time (also mentioned in the vignette)</p></li>
 <li><p>improved performance of <code><a href="../reference/get_gam_predictions.html">get_gam_predictions()</a></code> when excluding terms</p></li>
@@ -311,9 +320,9 @@
 <li>examples in documentation for all functions</li>
 </ul>
 </div>
-<div id="changed-4" class="section level2">
+<div id="changed-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#changed-4" class="anchor"></a>Changed</h2>
+<a href="#changed-5" class="anchor"></a>Changed</h2>
 <ul>
 <li><p>alpha of 0 line in difference smooth plot (now set to 0.5)</p></li>
 <li><p>prepared for CRAN first release</p></li>
@@ -349,9 +358,9 @@
 <li><p>examples in the documentation</p></li>
 </ul>
 </div>
-<div id="changed-5" class="section level2">
+<div id="changed-6" class="section level2">
 <h2 class="hasAnchor">
-<a href="#changed-5" class="anchor"></a>Changed</h2>
+<a href="#changed-6" class="anchor"></a>Changed</h2>
 <ul>
 <li>name, arguments, and output of <code>create_event_start()</code> (&gt; <code><a href="../reference/create_start_event.html">create_start_event()</a></code>, it breaks backward compatibility)</li>
 </ul>
@@ -369,9 +378,9 @@
 <h1 class="page-header" data-toc-text="1.5.4">
 <a href="#tidymv-v154" class="anchor"></a>tidymv v1.5.4<small> Unreleased </small>
 </h1>
-<div id="changed-6" class="section level2">
+<div id="changed-7" class="section level2">
 <h2 class="hasAnchor">
-<a href="#changed-6" class="anchor"></a>Changed</h2>
+<a href="#changed-7" class="anchor"></a>Changed</h2>
 <ul>
 <li>README now uses new <code>install_github</code> argument for building vignettes</li>
 </ul>
@@ -388,9 +397,9 @@
 <li>plot difference smooth in vignette</li>
 </ul>
 </div>
-<div id="changed-7" class="section level2">
+<div id="changed-8" class="section level2">
 <h2 class="hasAnchor">
-<a href="#changed-7" class="anchor"></a>Changed</h2>
+<a href="#changed-8" class="anchor"></a>Changed</h2>
 <ul>
 <li>added deprecated notice in vignette</li>
 </ul>
@@ -420,9 +429,9 @@
 <li>URL and BugReports in DESCRIPTION</li>
 </ul>
 </div>
-<div id="changed-8" class="section level2">
+<div id="changed-9" class="section level2">
 <h2 class="hasAnchor">
-<a href="#changed-8" class="anchor"></a>Changed</h2>
+<a href="#changed-9" class="anchor"></a>Changed</h2>
 <ul>
 <li>
 <code>series_length</code> default to 100 in <code><a href="../reference/plot_difference.html">plot_difference()</a></code>
@@ -442,9 +451,9 @@
 <li><p>support for plotting single smooth</p></li>
 </ul>
 </div>
-<div id="changed-9" class="section level2">
+<div id="changed-10" class="section level2">
 <h2 class="hasAnchor">
-<a href="#changed-9" class="anchor"></a>Changed</h2>
+<a href="#changed-10" class="anchor"></a>Changed</h2>
 <ul>
 <li>deprecated message with <code><a href="../reference/plot_gamsd.html">plot_gamsd()</a></code> now mentions <code><a href="../reference/plot_difference.html">plot_difference()</a></code>
 </li>
@@ -540,9 +549,9 @@
 <li><p>depends on <code>itsadug</code></p></li>
 </ul>
 </div>
-<div id="changed-10" class="section level2">
+<div id="changed-11" class="section level2">
 <h2 class="hasAnchor">
-<a href="#changed-10" class="anchor"></a>Changed</h2>
+<a href="#changed-11" class="anchor"></a>Changed</h2>
 <ul>
 <li>argument <code>event.col</code> to <code>event_col</code> in <code><a href="../reference/create_start_event.html">create_start_event()</a></code> for style consistency</li>
 </ul>
@@ -560,9 +569,9 @@
 </li>
 </ul>
 </div>
-<div id="changed-11" class="section level2">
+<div id="changed-12" class="section level2">
 <h2 class="hasAnchor">
-<a href="#changed-11" class="anchor"></a>Changed</h2>
+<a href="#changed-12" class="anchor"></a>Changed</h2>
 <ul>
 <li><p><code>gam</code> model in the vignette now has a reference smooth <code><a href="https://rdrr.io/pkg/mgcv/man/s.html">s(x2)</a></code></p></li>
 <li><p>updated vignette</p></li>
@@ -580,9 +589,9 @@
 <li>documentation of package</li>
 </ul>
 </div>
-<div id="changed-12" class="section level2">
+<div id="changed-13" class="section level2">
 <h2 class="hasAnchor">
-<a href="#changed-12" class="anchor"></a>Changed</h2>
+<a href="#changed-13" class="anchor"></a>Changed</h2>
 <ul>
 <li>use <code><a href="https://dplyr.tidyverse.org/reference/lead-lag.html">lag()</a></code> for <code>create_event_start()</code>
 </li>
