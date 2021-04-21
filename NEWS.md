@@ -12,6 +12,9 @@
 
 * The output of `get_smooths_difference()` now includes a `group` column with a numeric index of significance blocks, so that plotting difference smooths with more than two alternating significance values is correct (see `plot-smooths` vignette, last example).
 
+
+
+
 # tidymv v3.2.0
 
 ## Added
