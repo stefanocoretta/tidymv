@@ -10,7 +10,7 @@
 checks](https://cranchecks.info/badges/summary/tidymv)](https://cran.r-project.org/web/checks/check_results_tidymv.html)
 [![R build
 status](https://github.com/stefanocoretta/tidymv/workflows/R-CMD-check/badge.svg)](https://github.com/stefanocoretta/tidymv/actions)
-[![](https://img.shields.io/badge/devel%20version-3.2.1-orange.svg)](https://github.com/stefanocoretta/tidymv)
+[![](https://img.shields.io/badge/devel%20version-3.2.1.9000-orange.svg)](https://github.com/stefanocoretta/tidymv)
 [![](https://img.shields.io/badge/doi-10.5281/zenodo.1343882-blue.svg)](https://doi.org/10.5281/zenodo.1343882)
 <!-- badges: end -->
 
