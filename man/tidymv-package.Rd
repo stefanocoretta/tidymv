@@ -8,8 +8,7 @@
 \description{
 \if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 
-Provides functions for visualising generalised
-    additive models and getting predicted values using tidy tools from the 'tidyverse' packages.
+Provides functions for visualising generalised additive models and getting predicted values using tidy tools from the 'tidyverse' packages.
 }
 \seealso{
 Useful links:

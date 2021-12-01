@@ -4,6 +4,9 @@
 
 * Zenodo DOI in Readme.
 
+## Changed
+
+* `predict_gam()` now has the extra argument `type`, which allows the user to return the predicted values based on all terms or based on each term separatelly.
 
 
 # tidymv v3.2.1

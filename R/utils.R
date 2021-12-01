@@ -30,14 +30,24 @@ create_start_event <- function(tibble, series_col) {
   )
 }
 
-#' Get all predictions from a GAM model.
+#' Get predictions from a GAM model.
 #'
 #' It returns a tibble with the predictions from all the terms in a \link[mgcv]{gam} or \link[mgcv]{bam} model.
+#'
+#' If you simply want to return a tibble with the predicted values of the
+#' response/outcome variable based on all terms (minus excluded smooth terms),
+#' set \code{type = "link"} (the default). Note that if \code{type = "link"},
+#' parametric terms cannot be excluded from the prediction, due to limitations
+#' of \code{mgcv}. If you want to return a tibble with the predicted values of
+#' the response/outcome variable for each term in the model separately, set
+#' \code{type = "terms"}. This type can be helpful if you want more flexibility
+#' in plotting.
 #'
 #' @param model A \code{gam} or \code{bam} model object.
 #' @param exclude_terms Terms to be excluded from the prediction. Term names should be given as they appear in the model summary (for example, \code{"s(x0,x1)"}).
 #' @param length_out An integer indicating how many values along the numeric predictors to use for predicting the outcome term (the default is \code{50}).
 #' @param values User supplied values for specific terms as a named list. If the value is \code{NULL}, the first value of the term is selected (useful when excluding terms).
+#' @param type Either \code{"link"} or \code{"terms"}. See Details below.
 #'
 #' @return A tibble with predictions from a \link[mgcv]{gam} or \link[mgcv]{bam} model.
 #'
@@ -61,7 +71,7 @@ create_start_event <- function(tibble, series_col) {
 #' p_3 <- predict_gam(model, values = list(x0 = c(0.250599, 0.503313, 0.756028)))
 #'}
 #' @export
-predict_gam <- function(model, exclude_terms = NULL, length_out = 50, values = NULL) {
+predict_gam <- function(model, exclude_terms = NULL, length_out = 50, values = NULL, type = "link") {
   n_terms <- length(model[["var.summary"]])
 
   term_list <- list()
@@ -101,11 +111,26 @@ predict_gam <- function(model, exclude_terms = NULL, length_out = 50, values = N
 
   new_data <- expand.grid(term_list)
 
-  predicted <- as.data.frame(mgcv::predict.gam(model, new_data, exclude = exclude_terms, se.fit = TRUE))
+  if (type == "link") {
+    predicted <- as.data.frame(mgcv::predict.gam(model, new_data, exclude = exclude_terms, se.fit = TRUE))
 
-  predictions <- cbind(new_data, predicted)
+    predictions <- cbind(new_data, predicted)
 
-  predictions <- tibble::as_tibble(predictions)
+    predictions <- tibble::as_tibble(predictions)
+  } else if (type == "terms") {
+    if (!is.null(exclude_terms)) {
+      message("Type is 'terms': exclude_terms is ignored.")
+    }
+    predicted <- mgcv::predict.gam(model, new_data, type = "terms", se.fit = TRUE)
+
+    predicted_fit <- tibble::as_tibble(predicted$fit)
+    predicted_se <- tibble::as_tibble(predicted$se.fit)
+    colnames(predicted_se) <- paste0(colnames(predicted_se), "_se")
+
+    predictions <- dplyr::bind_cols(predicted_fit, predicted_se)
+  } else {
+    stop("The argument `type` has to be 'link' or 'terms'.")
+  }
 
   return(predictions)
 }

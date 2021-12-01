@@ -2,9 +2,15 @@
 % Please edit documentation in R/utils.R
 \name{predict_gam}
 \alias{predict_gam}
-\title{Get all predictions from a GAM model.}
+\title{Get predictions from a GAM model.}
 \usage{
-predict_gam(model, exclude_terms = NULL, length_out = 50, values = NULL)
+predict_gam(
+  model,
+  exclude_terms = NULL,
+  length_out = 50,
+  values = NULL,
+  type = "link"
+)
 }
 \arguments{
 \item{model}{A \code{gam} or \code{bam} model object.}
@@ -14,12 +20,24 @@ predict_gam(model, exclude_terms = NULL, length_out = 50, values = NULL)
 \item{length_out}{An integer indicating how many values along the numeric predictors to use for predicting the outcome term (the default is \code{50}).}
 
 \item{values}{User supplied values for specific terms as a named list. If the value is \code{NULL}, the first value of the term is selected (useful when excluding terms).}
+
+\item{type}{Either \code{"link"} or \code{"terms"}. See Details below.}
 }
 \value{
 A tibble with predictions from a \link[mgcv]{gam} or \link[mgcv]{bam} model.
 }
 \description{
 It returns a tibble with the predictions from all the terms in a \link[mgcv]{gam} or \link[mgcv]{bam} model.
+}
+\details{
+If you simply want to return a tibble with the predicted values of the
+response/outcome variable based on all terms (minus excluded smooth terms),
+set \code{type = "link"} (the default). Note that if \code{type = "link"},
+parametric terms cannot be excluded from the prediction, due to limitations
+of \code{mgcv}. If you want to return a tibble with the predicted values of
+the response/outcome variable for each term in the model separately, set
+\code{type = "terms"}. This type can be helpful if you want more flexibility
+in plotting.
 }
 \examples{
 \dontrun{
