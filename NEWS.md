@@ -1,4 +1,4 @@
-# tidymv v3.2.1.9000
+# tidymv v3.3.0
 
 ## Added
 
@@ -6,7 +6,7 @@
 
 ## Changed
 
-* `predict_gam()` now has the extra argument `type`, which allows the user to return the predicted values based on all terms or based on each term separatelly.
+* `predict_gam()` now has the extra argument `type`, which allows the user to return the predicted values based on all terms or based on each term separately.
 
 
 # tidymv v3.2.1
