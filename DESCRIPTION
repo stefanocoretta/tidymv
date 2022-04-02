@@ -18,7 +18,8 @@ Authors@R:
              comment = "Imported functions from itsadug"))
 Description: Provides functions for visualising generalised
     additive models and getting predicted values using tidy tools from the 'tidyverse' packages.
-URL: https://github.com/stefanocoretta/tidymv
+URL: https://github.com/stefanocoretta/tidymv,
+    https://stefanocoretta.github.io/tidymv/
 BugReports: https://github.com/stefanocoretta/tidymv/issues
 Encoding: UTF-8
 LazyData: true
