@@ -95,10 +95,10 @@ get_difference <- function(model, comp, cond = NULL, rm.ranef = TRUE, se = TRUE,
       } else if (i %in% names(cond)) {
         new.cond1[[i]] <- new.cond2[[i]] <- cond[[i]]
       } else {
-        if (class(su[[i]]) == "factor") {
+        if (inherits(su[[i]], "factor")) {
           new.cond1[[i]] <- as.character(su[[i]][1])
           new.cond2[[i]] <- as.character(su[[i]][1])
-        } else if (class(su[[i]]) == "numeric") {
+        } else if (inherits(su[[i]], "numeric")) {
           new.cond1[[i]] <- su[[i]][2]
           new.cond2[[i]] <- su[[i]][2]
         }
@@ -118,7 +118,7 @@ get_difference <- function(model, comp, cond = NULL, rm.ranef = TRUE, se = TRUE,
     }
     mysummary <- summary_data(newd, print = FALSE)
     # Check for random effects:
-    if (class(rm.ranef) == "logical") {
+    if (inherits(rm.ranef, "logical")) {
       if (rm.ranef[1] == FALSE) {
         rm.ranef <- NULL
       }
@@ -132,7 +132,7 @@ get_difference <- function(model, comp, cond = NULL, rm.ranef = TRUE, se = TRUE,
       # smoothlabels <- as.vector( smoothlabels.table[smoothlabels.table$Class %in%
       # c('random.effect','fs.interaction'), 'Label'] )
       smoothlabels <- as.vector(smoothlabels.table[smoothlabels.table$Dim == 0, "Label"])
-      if (class(rm.ranef) == "logical") {
+      if (inherits(rm.ranef, "logical")) {
         if (rm.ranef[1] == TRUE) {
           rm.ranef <- smoothlabels
         } else {
