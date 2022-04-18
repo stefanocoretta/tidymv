@@ -19,10 +19,10 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 `r badger::badge_cran_release("tidymv", "blue")`
-`r badger::badge_cran_checks("tidymv")`
-`r badger::badge_github_actions()`
 `r badger::badge_devel(color = "orange")`
 `r badger::badge_doi(doi = "10.5281/zenodo.1343882", color = "blue")`
+`r badger::badge_cran_checks("tidymv")`
+[![R-CMD-check](https://github.com/stefanocoretta/tidymv/workflows/R-CMD-check/badge.svg)](https://github.com/stefanocoretta/tidymv/actions)
 <!-- badges: end -->
 
 This is the repository of the `R` package `tidymv`. This package provides functions for the visualisation of GAM(M)s and the generation of model-based predicted values using tidy tools from the `tidyverse`.
