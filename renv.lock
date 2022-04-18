@@ -1913,6 +1913,18 @@
       "Hash": "a555924add98c99d2f411e37e7d25e9f",
       "Requirements": []
     },
+    "preferably": {
+      "Package": "preferably",
+      "Version": "0.4",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "9dc073aeb63e962198da2990ea871e41",
+      "Requirements": [
+        "knitr",
+        "pkgdown",
+        "rmarkdown"
+      ]
+    },
     "prettyunits": {
       "Package": "prettyunits",
       "Version": "1.1.1",
