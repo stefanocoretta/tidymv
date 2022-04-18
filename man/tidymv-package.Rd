@@ -14,6 +14,7 @@ Provides functions for visualising generalised additive models and getting predi
 Useful links:
 \itemize{
   \item \url{https://github.com/stefanocoretta/tidymv}
+  \item \url{https://stefanocoretta.github.io/tidymv/}
   \item Report bugs at \url{https://github.com/stefanocoretta/tidymv/issues}
 }
 
