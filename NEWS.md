@@ -1,3 +1,14 @@
+# tidymv v3.3.2
+
+## Developer
+
+* Use Roxygen 7.2.1.
+
+* Fix errors on CRAN.
+
+
+
+
 # tidymv v3.3.1
 
 ## Intention to deprecate notice

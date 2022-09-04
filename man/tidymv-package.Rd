@@ -6,7 +6,7 @@
 \alias{tidymv-package}
 \title{tidymv: Tidy Model Visualisation for Generalised Additive Models}
 \description{
-\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
 Provides functions for visualising generalised additive models and getting predicted values using tidy tools from the 'tidyverse' packages.
 }
