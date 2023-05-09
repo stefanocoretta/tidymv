@@ -1,4 +1,4 @@
-# tidymv v3.3.2.9000
+# tidymv v3.4.2
 
 * Deprecate package and add superseded badge to all functions (closes #23).
 

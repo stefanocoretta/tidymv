@@ -18,6 +18,7 @@ knitr::opts_chunk$set(
 # `tidymv`: Tidy Model Visualisation for Generalised Additive Models <img src='man/figures/logo.png' style="float: right;" height="120" />
 
 <!-- badges: start -->
+`r lifecycle::badge("superseded")`
 `r badger::badge_cran_release("tidymv", "blue")`
 `r badger::badge_devel(color = "orange")`
 `r badger::badge_doi(doi = "10.5281/zenodo.1343882", color = "blue")`
@@ -25,39 +26,7 @@ knitr::opts_chunk$set(
 [![R-CMD-check](https://github.com/stefanocoretta/tidymv/workflows/R-CMD-check/badge.svg)](https://github.com/stefanocoretta/tidymv/actions)
 <!-- badges: end -->
 
+*THIS PACKAGE HAS BEEN SUPERSEDED* by [tidygam](https://stefanocoretta.github.io/tidygam/). Users should use the tidygam package instead.
+
+
 This is the repository of the `R` package `tidymv`. This package provides functions for the visualisation of GAM(M)s and the generation of model-based predicted values using tidy tools from the `tidyverse`.
-
-## Installation
-
-The package is on CRAN, so you can install it from there with `install.packages("tidymv")`.
-
-If you like living on edge, install a polished pre-release with:
-
-```{r install-pre, eval=FALSE}
-remotes::install_github(
-  "stefanocoretta/tidymv",
-  build_vignettes = TRUE
-)
-```
-
-Or the development version with:
-
-```{r install-dev, eval=FALSE}
-remotes::install_github(
-  "stefanocoretta/tidymv@devel",
-  build_vignettes = TRUE
-)
-```
-
-## Use
-
-To learn how to use the package, check out the vignettes.
-
-```{r vignettes, eval=FALSE}
-# Check available vignettes
-vignette(package = "tidymv")
-
-# Open vignettes
-vignette(<vignette-name>, package = "tidymv")
-```
-

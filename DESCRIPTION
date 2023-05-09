@@ -1,8 +1,8 @@
 Package: tidymv
 Type: Package
 Title: Tidy Model Visualisation for Generalised Additive Models
-Version: 3.3.2
-Date: 2022-09-04
+Version: 3.4.2
+Date: 2023-05-09
 Authors@R: 
     c(person(given = "Stefano",
              family = "Coretta",
@@ -23,10 +23,12 @@ URL: https://github.com/stefanocoretta/tidymv,
 BugReports: https://github.com/stefanocoretta/tidymv/issues
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 Depends: R (>= 2.10)
-Imports: dplyr,
+Imports: 
+    dplyr,
     ggplot2,
+    lifecycle,
     magrittr,
     mgcv,
     rlang,
@@ -37,3 +39,4 @@ Suggests: knitr,
 VignetteBuilder: knitr
 Language: en_GB
 License: GPL (>= 3)
+Roxygen: list(markdown = TRUE)
