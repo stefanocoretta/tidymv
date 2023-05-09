@@ -7,9 +7,9 @@
 \format{
 A tibble with 2500 observations and 3 variables.
 \describe{
-  \item{\code{y}}{outcome count variable}
-  \item{\code{x}}{time series}
-  \item{\code{fac}}{factor with two levels}
+\item{\code{y}}{outcome count variable}
+\item{\code{x}}{time series}
+\item{\code{fac}}{factor with two levels}
 }
 }
 \usage{

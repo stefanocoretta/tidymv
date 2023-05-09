@@ -19,10 +19,10 @@
 \item{ylim}{Limits of the y-axis of the smooths panel.}
 }
 \description{
-It plots comparison smooths from the estimates of a \link[mgcv]{gam} or \link[mgcv]{bam}
+It plots comparison smooths from the estimates of a \link[mgcv:gam]{gam} or \link[mgcv:bam]{bam}
 and the difference curve. Significant differences are marked with red areas.
 }
 \seealso{
-\code{\link{tidymv-defunct}}
+\code{\link[=tidymv-defunct]{tidymv-defunct()}}
 }
 \keyword{internal}

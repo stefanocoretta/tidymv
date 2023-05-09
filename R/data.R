@@ -5,10 +5,10 @@
 #' @docType data
 #' @format A tibble with 1259 observations and 4 variables.
 #' \describe{
-#'   \item{\code{x0}}{time series}
-#'   \item{\code{y}}{outcome variable}
-#'   \item{\code{x1}}{factor with three levels}
-#'   \item{\code{x2}}{factor with two levels}
+#'   \item{`x0`}{time series}
+#'   \item{`y`}{outcome variable}
+#'   \item{`x1`}{factor with three levels}
+#'   \item{`x2`}{factor with two levels}
 #'}
 "inter_df"
 
@@ -19,8 +19,8 @@
 #' @docType data
 #' @format A tibble with 2500 observations and 3 variables.
 #' \describe{
-#'   \item{\code{y}}{outcome count variable}
-#'   \item{\code{x}}{time series}
-#'   \item{\code{fac}}{factor with two levels}
+#'   \item{`y`}{outcome count variable}
+#'   \item{`x`}{time series}
+#'   \item{`fac`}{factor with two levels}
 #'}
 "pois_df"

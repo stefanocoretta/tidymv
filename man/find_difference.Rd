@@ -16,11 +16,11 @@ When \code{xVals} is provided, the regions are returned in terms of x-
 values, otherwise as indices.}
 
 \item{f}{A number to multiply the \code{se} with, to convert the \code{se}
-into confidence intervals. Use 1.96 for 95\% CI and 2.58 for 99\%CI.}
+into confidence intervals. Use 1.96 for 95\\% CI and 2.58 for 99\\%CI.}
 
 \item{as.vector}{Logical: whether or not to return the data points as
 vector, or not. Default is FALSE, and a list with start and end points will
- be returned.}
+be returned.}
 }
 \value{
 The function returns a list with start points of each region

@@ -34,7 +34,7 @@ get_gam_predictions(
 
 \item{split}{Columns to separate as a named list.}
 
-\item{sep}{Separator between columns (default is \code{"\\."}, which is the default with \code{}). If character, it is interpreted as a regular expression.}
+\item{sep}{Separator between columns (default is \code{"\\\\."}, which is the default with \code{}). If character, it is interpreted as a regular expression.}
 
 \item{time_series}{Deprecated, use \code{series} instead.}
 
@@ -45,10 +45,10 @@ get_gam_predictions(
 \item{.comparison}{Internal parameter, passed from plot_smooths().}
 }
 \value{
-A tibble with predictions from a \link[mgcv]{gam} or \link[mgcv]{bam} model.
+A tibble with predictions from a \link[mgcv:gam]{gam} or \link[mgcv:bam]{bam} model.
 }
 \description{
-It returns a tibble with the predictions from a \link[mgcv]{gam} or \link[mgcv]{bam} object.
+It returns a tibble with the predictions from a \link[mgcv:gam]{gam} or \link[mgcv:bam]{bam} object.
 }
 \examples{
 library(mgcv)

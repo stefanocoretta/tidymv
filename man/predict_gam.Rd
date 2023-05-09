@@ -24,10 +24,10 @@ predict_gam(
 \item{type}{Either \code{"link"} or \code{"terms"}. See Details below.}
 }
 \value{
-A tibble with predictions from a \link[mgcv]{gam} or \link[mgcv]{bam} model.
+A tibble with predictions from a \link[mgcv:gam]{gam} or \link[mgcv:bam]{bam} model.
 }
 \description{
-It returns a tibble with the predictions from all the terms in a \link[mgcv]{gam} or \link[mgcv]{bam} model.
+It returns a tibble with the predictions from all the terms in a \link[mgcv:gam]{gam} or \link[mgcv:bam]{bam} model.
 }
 \details{
 If you simply want to return a tibble with the predicted values of the

@@ -32,24 +32,24 @@ create_start_event <- function(tibble, series_col) {
 
 #' Get predictions from a GAM model.
 #'
-#' It returns a tibble with the predictions from all the terms in a \link[mgcv]{gam} or \link[mgcv]{bam} model.
+#' It returns a tibble with the predictions from all the terms in a [gam][mgcv::gam] or [bam][mgcv::bam] model.
 #'
 #' If you simply want to return a tibble with the predicted values of the
 #' response/outcome variable based on all terms (minus excluded smooth terms),
-#' set \code{type = "link"} (the default). Note that if \code{type = "link"},
+#' set `type = "link"` (the default). Note that if `type = "link"`,
 #' parametric terms cannot be excluded from the prediction, due to limitations
-#' of \code{mgcv}. If you want to return a tibble with the predicted values of
+#' of `mgcv`. If you want to return a tibble with the predicted values of
 #' the response/outcome variable for each term in the model separately, set
-#' \code{type = "terms"}. This type can be helpful if you want more flexibility
+#' `type = "terms"`. This type can be helpful if you want more flexibility
 #' in plotting.
 #'
-#' @param model A \code{gam} or \code{bam} model object.
-#' @param exclude_terms Terms to be excluded from the prediction. Term names should be given as they appear in the model summary (for example, \code{"s(x0,x1)"}).
-#' @param length_out An integer indicating how many values along the numeric predictors to use for predicting the outcome term (the default is \code{50}).
-#' @param values User supplied values for specific terms as a named list. If the value is \code{NULL}, the first value of the term is selected (useful when excluding terms).
-#' @param type Either \code{"link"} or \code{"terms"}. See Details below.
+#' @param model A `gam` or `bam` model object.
+#' @param exclude_terms Terms to be excluded from the prediction. Term names should be given as they appear in the model summary (for example, `"s(x0,x1)"`).
+#' @param length_out An integer indicating how many values along the numeric predictors to use for predicting the outcome term (the default is `50`).
+#' @param values User supplied values for specific terms as a named list. If the value is `NULL`, the first value of the term is selected (useful when excluding terms).
+#' @param type Either `"link"` or `"terms"`. See Details below.
 #'
-#' @return A tibble with predictions from a \link[mgcv]{gam} or \link[mgcv]{bam} model.
+#' @return A tibble with predictions from a [gam][mgcv::gam] or [bam][mgcv::bam] model.
 #'
 #' @examples
 #' \dontrun{
@@ -137,22 +137,22 @@ predict_gam <- function(model, exclude_terms = NULL, length_out = 50, values = N
 
 #' Get predictions from a GAM model.
 #'
-#' It returns a tibble with the predictions from a \link[mgcv]{gam} or \link[mgcv]{bam} object.
+#' It returns a tibble with the predictions from a [gam][mgcv::gam] or [bam][mgcv::bam] object.
 #'
-#' @param model A \code{gam} or \code{bam} model object.
+#' @param model A `gam` or `bam` model object.
 #' @param series An unquoted expression indicating the model term that defines the series on which smoothing is applied. This is the term that is displayed on the x-axis when plotting.
-#' @param time_series Deprecated, use \code{series} instead.
+#' @param time_series Deprecated, use `series` instead.
 #' @param series_length An integer indicating how many values along the time series to use for predicting the outcome term.
-#' @param conditions A list of quosures with \code{quos} specifying the levels to plot from the model terms.
-#' @param exclude_random Whether to exclude random smooths (the default is \code{TRUE}).
-#' @param exclude_terms Terms to be excluded from the prediction. Term names should be given as they appear in the model summary (for example, \code{"s(x0,x1)"}).
+#' @param conditions A list of quosures with `quos` specifying the levels to plot from the model terms.
+#' @param exclude_random Whether to exclude random smooths (the default is `TRUE`).
+#' @param exclude_terms Terms to be excluded from the prediction. Term names should be given as they appear in the model summary (for example, `"s(x0,x1)"`).
 #' @param split Columns to separate as a named list.
-#' @param sep Separator between columns (default is \code{"\\."}, which is the default with \code{}). If character, it is interpreted as a regular expression.
+#' @param sep Separator between columns (default is `"\\."`, which is the default with \code{}). If character, it is interpreted as a regular expression.
 #' @param transform Function used to transform the fitted values (useful for getting plots on the response scale).
-#' @param ci_z The z-value for calculating the CIs (the default is \code{1.96} for 95 percent CI).
+#' @param ci_z The z-value for calculating the CIs (the default is `1.96` for 95 percent CI).
 #' @param .comparison Internal parameter, passed from plot_smooths().
 #'
-#' @return A tibble with predictions from a \link[mgcv]{gam} or \link[mgcv]{bam} model.
+#' @return A tibble with predictions from a [gam][mgcv::gam] or [bam][mgcv::bam] model.
 #'
 #' @examples
 #' library(mgcv)
@@ -414,14 +414,14 @@ get_gam_predictions <- function(model, series, series_length = 25, conditions = 
 #' Get difference of smooths from a GAM model
 #'
 #' It returns a tibble with difference of the specified levels of a smooth from
-#' a \link[mgcv]{gam} or \link[mgcv]{bam}. The \code{sig_diff} column states
+#' a [gam][mgcv::gam] or [bam][mgcv::bam]. The `sig_diff` column states
 #' whether the CI includes 0.
 #'
 #' @inheritParams get_gam_predictions
 #' @param difference A named list with the levels to compute the difference of.
 #' @param conditions A named list specifying the levels to plot from the model
-#'   terms not among \code{series} or \code{difference}. Notice the difference
-#'   with \link[tidymv]{plot_smooths}, which uses \code{quos}.
+#'   terms not among `series` or `difference`. Notice the difference
+#'   with [plot_smooths][tidymv::plot_smooths], which uses `quos`.
 #'
 #' @return A tibble.
 #'

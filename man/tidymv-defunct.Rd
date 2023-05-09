@@ -9,11 +9,11 @@ plot_gamsd(...)
 }
 \description{
 The functions listed below are defunct in
-  the near future. When possible, alternative functions with similar
-  functionality are also mentioned. Help pages for defunct functions are
-  available at \code{help("<function>-defunct")}.
+the near future. When possible, alternative functions with similar
+functionality are also mentioned. Help pages for defunct functions are
+available at \code{help("<function>-defunct")}.
 }
-\section{This function is deprecated and has been removed. Please, use \link[tidymv]{plot_smooths} and  \link[tidymv]{plot_difference}.}{
+\section{This function is deprecated and has been removed. Please, use \link[=plot_smooths]{plot_smooths} and  \link[=plot_difference]{plot_difference}.}{
 NA
 }
 

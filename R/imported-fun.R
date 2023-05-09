@@ -5,8 +5,8 @@
 #'
 #' @import mgcv
 #' @import stats
-#' @param model A gam object, produced by \code{\link[mgcv]{gam}} or
-#' \code{\link[mgcv]{bam}}.
+#' @param model A gam object, produced by [mgcv::gam()] or
+#' [mgcv::bam()].
 #' @param comp A named list with the two levels to compare.
 #' @param cond A named list of the values to use for the other predictor
 #' terms. Variables omitted from this list will have the closest observed
@@ -21,14 +21,14 @@
 #' @param sim.ci Logical: Using simultaneous confidence intervals or not
 #' (default set to FALSE). The implementation of simultaneous CIs follows
 #' Gavin Simpson's blog of December 15, 2016:
-#' \url{https://fromthebottomoftheheap.net/2016/12/15/simultaneous-interval-revisited/}.
+#' <https://fromthebottomoftheheap.net/2016/12/15/simultaneous-interval-revisited/>.
 #' This interval is calculated from simulations based.
-#' Please specify a seed (e.g., \code{set.seed(123)}) for reproducible results.
+#' Please specify a seed (e.g., `set.seed(123)`) for reproducible results.
 #' In addition, make sure to specify at least 200 points for each smooth
 #' for the simulations when using simultaneous CI.
 #' Note: in contrast with Gavin Simpson's code, here the Bayesian posterior
 #' covariance matrix of the parameters is uncertainty corrected
-#' (\code{unconditional=TRUE}) to reflect the uncertainty on the estimation of
+#' (`unconditional=TRUE`) to reflect the uncertainty on the estimation of
 #' smoothness parameters.
 #' @param f A number to scale the standard error. Defaults to 1.96, resulting
 #' in 95\% confidence intervals. For 99\% confidence intervals use a value of
@@ -36,11 +36,11 @@
 #' @param return.n.posterior Numeric: N samples from
 #' the posterior distribution of the fitted model are returned.
 #' Default value is 0 (no samples returned).
-#' Only works when \code{sim.ci=TRUE}.
+#' Only works when `sim.ci=TRUE`.
 #' @param print.summary Logical: whether or not to print a summary of the
 #' values selected for each predictor.
 #' Default set to the print info messages option
-#' (see \code{infoMessages}).
+#' (see `infoMessages`).
 #' @return Returns a data frame with the estimates of the difference and
 #' optionally the confidence intervals around that estimate.
 #' @section Notes:
@@ -48,8 +48,8 @@
 #' out, when calculating the difference. When the predictors that
 #' specify the conditions to compare are involved in other interactions
 #' or included as random slopes, it may be useful to specify the values
-#' of other predictors with \code{cond} or remove the random effects with
-#' \code{rm.ranef}.
+#' of other predictors with `cond` or remove the random effects with
+#' `rm.ranef`.
 #' @author Jacolien van Rij, Martijn Wieling
 #' @export
 #' @keywords internal
@@ -240,16 +240,16 @@ get_difference <- function(model, comp, cond = NULL, rm.ranef = TRUE, se = TRUE,
 #' @param mean A vector with smooth predictions.
 #' @param se A vector with the standard error on the smooth predictions.
 #' @param xVals Optional vector with x values for the smooth.
-#' When \code{xVals} is provided, the regions are returned in terms of x-
+#' When `xVals` is provided, the regions are returned in terms of x-
 #' values, otherwise as indices.
-#' @param f A number to multiply the \code{se} with, to convert the \code{se}
+#' @param f A number to multiply the `se` with, to convert the `se`
 #' into confidence intervals. Use 1.96 for 95\% CI and 2.58 for 99\%CI.
 #' @param as.vector Logical: whether or not to return the data points as
 #' vector, or not. Default is FALSE, and a list with start and end points will
 #'  be returned.
 #' @return The function returns a list with start points of each region
-#' (\code{start}) and end points of each region (\code{end}). The logical
-#' \code{xVals} indicates whether the returned values are on the x-scale
+#' (`start`) and end points of each region (`end`). The logical
+#' `xVals` indicates whether the returned values are on the x-scale
 #' (TRUE) or indices (FALSE).
 #' @author Jacolien van Rij
 #' @keywords internal
@@ -294,7 +294,7 @@ find_difference <- function(mean, se, xVals = NULL, f = 1, as.vector = FALSE) {
 #' @export
 #' @keywords internal
 #' @description The function prints a summary of the data.
-#' Similar to the function \code{\link[utils]{str}}, but easier readable.
+#' Similar to the function [utils::str()], but easier readable.
 #' @param data A data frame.
 #' @param print Logical: whether or not to print the summary.
 #' @param n Number: maximum number of values being mentioned in the summary.

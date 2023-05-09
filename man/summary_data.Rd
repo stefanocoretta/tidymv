@@ -19,7 +19,7 @@ Optionally returns a named list with info.
 }
 \description{
 The function prints a summary of the data.
-Similar to the function \code{\link[utils]{str}}, but easier readable.
+Similar to the function \code{\link[utils:str]{utils::str()}}, but easier readable.
 }
 \author{
 Jacolien van Rij

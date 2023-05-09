@@ -18,12 +18,12 @@ geom_smooth_ci(group = NULL, ci_z = 1.96, ci_alpha = 0.1, data = NULL, ...)
 \item{...}{Arguments passed to \code{geom_path()}.}
 }
 \description{
-It provides a `geom` for plotting GAM smooths with confidence intervals from the output of \link[tidymv]{predict_gam}. It inherits the following aesthetics from a call to \code{ggplot}:
-  \itemize{
-    \item The term defining the x-axis.
-    \item The fitted values (the \code{fit} column in the tibble returned by \link[tidymv]{predict_gam}).
-    \item The standard error of the fit (the \code{se.fit} column in the tibble returned by \link[tidymv]{predict_gam}).
-  }
+It provides a \code{geom} for plotting GAM smooths with confidence intervals from the output of \link[=predict_gam]{predict_gam}. It inherits the following aesthetics from a call to \code{ggplot}:
+\itemize{
+\item The term defining the x-axis.
+\item The fitted values (the \code{fit} column in the tibble returned by \link[=predict_gam]{predict_gam}).
+\item The standard error of the fit (the \code{se.fit} column in the tibble returned by \link[=predict_gam]{predict_gam}).
+}
 }
 \examples{
 library(mgcv)

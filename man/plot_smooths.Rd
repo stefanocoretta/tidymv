@@ -39,7 +39,7 @@ plot_smooths(
 
 \item{split}{Columns to separate as a named list.}
 
-\item{sep}{Separator between columns (default is \code{"\\."}, which is the default with \code{}). If character, it is interpreted as a regular expression.}
+\item{sep}{Separator between columns (default is \code{"\\\\."}, which is the default with \code{}). If character, it is interpreted as a regular expression.}
 
 \item{transform}{Function used to transform the fitted values (useful for getting plots on the response scale).}
 
@@ -48,10 +48,10 @@ plot_smooths(
 \item{time_series}{Deprecated, use \code{series} instead.}
 }
 \value{
-A \code{\link[ggplot2]{ggplot} object.}
+A \verb{[ggplot][ggplot2::ggplot] object.}
 }
 \description{
-It plots the smooths from the estimates of a \link[mgcv]{gam} or \link[mgcv]{bam} object.
+It plots the smooths from the estimates of a \link[mgcv:gam]{gam} or \link[mgcv:bam]{bam} object.
 }
 \examples{
 library(mgcv)

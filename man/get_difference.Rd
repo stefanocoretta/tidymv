@@ -17,8 +17,8 @@ get_difference(
 )
 }
 \arguments{
-\item{model}{A gam object, produced by \code{\link[mgcv]{gam}} or
-\code{\link[mgcv]{bam}}.}
+\item{model}{A gam object, produced by \code{\link[mgcv:gam]{mgcv::gam()}} or
+\code{\link[mgcv:bam]{mgcv::bam()}}.}
 
 \item{comp}{A named list with the two levels to compare.}
 
@@ -49,7 +49,7 @@ covariance matrix of the parameters is uncertainty corrected
 smoothness parameters.}
 
 \item{f}{A number to scale the standard error. Defaults to 1.96, resulting
-in 95\% confidence intervals. For 99\% confidence intervals use a value of
+in 95\\% confidence intervals. For 99\\% confidence intervals use a value of
 2.58.}
 
 \item{return.n.posterior}{Numeric: N samples from

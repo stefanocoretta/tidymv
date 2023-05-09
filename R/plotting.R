@@ -1,13 +1,13 @@
 #' Plot GAM smooths.
 #'
-#' It plots the smooths from the estimates of a \link[mgcv]{gam} or \link[mgcv]{bam} object.
+#' It plots the smooths from the estimates of a [gam][mgcv::gam] or [bam][mgcv::bam] object.
 #'
 #' @inheritParams get_gam_predictions
 #' @param comparison An unquoted expression indicating the model term for which the comparison will be plotted.
 #' @param facet_terms An unquoted formula with the terms used for faceting.
-#' @param conditions A list of quosures with \code{quos} specifying the levels to plot from the model terms not among \code{series}, \code{comparison}, or \code{facet_terms}.
+#' @param conditions A list of quosures with `quos` specifying the levels to plot from the model terms not among `series`, `comparison`, or `facet_terms`.
 #'
-#' @return A \code{\link[ggplot2]{ggplot} object.}
+#' @return A `[ggplot][ggplot2::ggplot] object.`
 #'
 #' @examples
 #' library(mgcv)
@@ -102,10 +102,10 @@ plot_smooths <- function(model, series, comparison = NULL, facet_terms = NULL, c
 
 #' Plot difference smooth from a GAM.
 #'
-#' It plots the difference smooth from a \link[mgcv]{gam} or \link[mgcv]{bam}.
+#' It plots the difference smooth from a [gam][mgcv::gam] or [bam][mgcv::bam].
 #' Significant differences are marked with red areas.
 #'
-#' @return A \code{\link[ggplot2]{ggplot} object.}
+#' @return A `[ggplot][ggplot2::ggplot] object.`
 #'
 #' @examples
 #' library(mgcv)
@@ -122,7 +122,7 @@ plot_smooths <- function(model, series, comparison = NULL, facet_terms = NULL, c
 #'
 #' @inheritParams get_gam_predictions
 #' @param difference A named list with the levels to compute the difference of.
-#' @param conditions A named list specifying the levels to plot from the model terms not among \code{series} or \code{difference}. Notice the difference with \link[tidymv]{plot_smooths}, which uses \code{quos}.
+#' @param conditions A named list specifying the levels to plot from the model terms not among `series` or `difference`. Notice the difference with [plot_smooths][tidymv::plot_smooths], which uses `quos`.
 #'
 #' @export
 plot_difference <- function(model, series, difference, conditions = NULL, exclude_random = TRUE, series_length = 100, ci_z = 1.96, time_series) {
@@ -186,18 +186,18 @@ plot_difference <- function(model, series, difference, conditions = NULL, exclud
 
 #' Smooths and confidence intervals.
 #'
-#' It provides a `geom` for plotting GAM smooths with confidence intervals from the output of \link[tidymv]{predict_gam}. It inherits the following aesthetics from a call to \code{ggplot}:
+#' It provides a `geom` for plotting GAM smooths with confidence intervals from the output of [predict_gam][tidymv::predict_gam]. It inherits the following aesthetics from a call to `ggplot`:
 #'   \itemize{
 #'     \item The term defining the x-axis.
-#'     \item The fitted values (the \code{fit} column in the tibble returned by \link[tidymv]{predict_gam}).
-#'     \item The standard error of the fit (the \code{se.fit} column in the tibble returned by \link[tidymv]{predict_gam}).
+#'     \item The fitted values (the `fit` column in the tibble returned by [predict_gam][tidymv::predict_gam]).
+#'     \item The standard error of the fit (the `se.fit` column in the tibble returned by [predict_gam][tidymv::predict_gam]).
 #'   }
 #'
 #' @param group The optional grouping factor.
-#' @param ci_z The z-value for calculating the CIs (the default is \code{1.96} for 95 percent CI).
-#' @param ci_alpha Transparency value of CIs (the default is \code{0.1}).
-#' @param data The data to be displayed in this layer. If \code{NULL}, it is inherited.
-#' @param ... Arguments passed to \code{geom_path()}.
+#' @param ci_z The z-value for calculating the CIs (the default is `1.96` for 95 percent CI).
+#' @param ci_alpha Transparency value of CIs (the default is `0.1`).
+#' @param data The data to be displayed in this layer. If `NULL`, it is inherited.
+#' @param ... Arguments passed to `geom_path()`.
 #'
 #' @examples
 #' library(mgcv)
@@ -262,25 +262,25 @@ geom_smooth_ci <- function(group = NULL, ci_z = 1.96, ci_alpha = 0.1, data = NUL
 
 #' Plot GAM estimate smooths and difference curve.
 #'
-#' It plots comparison smooths from the estimates of a \link[mgcv]{gam} or \link[mgcv]{bam}
+#' It plots comparison smooths from the estimates of a [gam][mgcv::gam] or [bam][mgcv::bam]
 #' and the difference curve. Significant differences are marked with red areas.
 #'
-#' @param model A \code{gam} or \code{bam} model object.
+#' @param model A `gam` or `bam` model object.
 #' @param view The predictor determining the time series.
 #' @param comparison The levels for the comparison as a named list.
 #' @param conditions The values to use for other predictors as a named list.
-#' @param rm_re Whether to remove random effects (the default is \code{FALSE}).
-#' @param bw Whether to plot in black and white (the default is \code{FALSE}).
+#' @param rm_re Whether to remove random effects (the default is `FALSE`).
+#' @param bw Whether to plot in black and white (the default is `FALSE`).
 #' @param ylim Limits of the y-axis of the smooths panel.
 #'
 #' @importFrom magrittr "%>%"
 #' @name plot_gamsd-defunct
-#' @seealso \code{\link{tidymv-defunct}}
+#' @seealso [tidymv-defunct()]
 #' @keywords internal
 NULL
 
 #' @rdname tidymv-defunct
-#' @section This function is deprecated and has been removed. Please, use \link[tidymv]{plot_smooths} and  \link[tidymv]{plot_difference}.
+#' @section This function is deprecated and has been removed. Please, use [plot_smooths][tidymv::plot_smooths] and  [plot_difference][tidymv::plot_difference].
 #'
 #' @export
 plot_gamsd <- function(...) {

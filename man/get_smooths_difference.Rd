@@ -23,7 +23,7 @@ get_smooths_difference(
 
 \item{conditions}{A named list specifying the levels to plot from the model
 terms not among \code{series} or \code{difference}. Notice the difference
-with \link[tidymv]{plot_smooths}, which uses \code{quos}.}
+with \link[=plot_smooths]{plot_smooths}, which uses \code{quos}.}
 
 \item{exclude_random}{Whether to exclude random smooths (the default is \code{TRUE}).}
 
@@ -36,7 +36,7 @@ A tibble.
 }
 \description{
 It returns a tibble with difference of the specified levels of a smooth from
-a \link[mgcv]{gam} or \link[mgcv]{bam}. The \code{sig_diff} column states
+a \link[mgcv:gam]{gam} or \link[mgcv:bam]{bam}. The \code{sig_diff} column states
 whether the CI includes 0.
 }
 \examples{
