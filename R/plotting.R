@@ -1,5 +1,11 @@
 #' Plot GAM smooths.
 #'
+#' @description
+#' `r lifecycle::badge("superseded")`
+#'
+#' This function is from the superseded package tidymv. Please, use the tidygam
+#' package instead.
+#'
 #' It plots the smooths from the estimates of a [gam][mgcv::gam] or [bam][mgcv::bam] object.
 #'
 #' @inheritParams get_gam_predictions
@@ -102,6 +108,12 @@ plot_smooths <- function(model, series, comparison = NULL, facet_terms = NULL, c
 
 #' Plot difference smooth from a GAM.
 #'
+#' @description
+#' `r lifecycle::badge("superseded")`
+#'
+#' This function is from the superseded package tidymv. Please, use the tidygam
+#' package instead.
+#'
 #' It plots the difference smooth from a [gam][mgcv::gam] or [bam][mgcv::bam].
 #' Significant differences are marked with red areas.
 #'
@@ -185,6 +197,12 @@ plot_difference <- function(model, series, difference, conditions = NULL, exclud
 }
 
 #' Smooths and confidence intervals.
+#'
+#' @description
+#' `r lifecycle::badge("superseded")`
+#'
+#' This function is from the superseded package tidymv. Please, use the tidygam
+#' package instead.
 #'
 #' It provides a `geom` for plotting GAM smooths with confidence intervals from the output of [predict_gam][tidymv::predict_gam]. It inherits the following aesthetics from a call to `ggplot`:
 #'   \itemize{

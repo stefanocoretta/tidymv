@@ -36,6 +36,11 @@ plot_difference(
 A \verb{[ggplot][ggplot2::ggplot] object.}
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}}
+
+This function is from the superseded package tidymv. Please, use the tidygam
+package instead.
+
 It plots the difference smooth from a \link[mgcv:gam]{gam} or \link[mgcv:bam]{bam}.
 Significant differences are marked with red areas.
 }

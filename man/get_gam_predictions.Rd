@@ -48,6 +48,11 @@ get_gam_predictions(
 A tibble with predictions from a \link[mgcv:gam]{gam} or \link[mgcv:bam]{bam} model.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}}
+
+This function is from the superseded package tidymv. Please, use the tidygam
+package instead.
+
 It returns a tibble with the predictions from a \link[mgcv:gam]{gam} or \link[mgcv:bam]{bam} object.
 }
 \examples{

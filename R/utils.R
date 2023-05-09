@@ -1,5 +1,11 @@
 #' Create a start event column.
 #'
+#' @description
+#' `r lifecycle::badge("superseded")`
+#'
+#' This function is from the superseded package tidymv. Please, use the tidygam
+#' package instead.
+#'
 #' Create a new column which marks the beginning of each series in a tibble (for example, time series).
 #'
 #' @param tibble A tibble arranged according to the series.
@@ -31,6 +37,12 @@ create_start_event <- function(tibble, series_col) {
 }
 
 #' Get predictions from a GAM model.
+#'
+#' @description
+#' `r lifecycle::badge("superseded")`
+#'
+#' This function is from the superseded package tidymv. Please, use the tidygam
+#' package instead.
 #'
 #' It returns a tibble with the predictions from all the terms in a [gam][mgcv::gam] or [bam][mgcv::bam] model.
 #'
@@ -136,6 +148,12 @@ predict_gam <- function(model, exclude_terms = NULL, length_out = 50, values = N
 }
 
 #' Get predictions from a GAM model.
+#'
+#' @description
+#' `r lifecycle::badge("superseded")`
+#'
+#' This function is from the superseded package tidymv. Please, use the tidygam
+#' package instead.
 #'
 #' It returns a tibble with the predictions from a [gam][mgcv::gam] or [bam][mgcv::bam] object.
 #'
@@ -412,6 +430,12 @@ get_gam_predictions <- function(model, series, series_length = 25, conditions = 
 }
 
 #' Get difference of smooths from a GAM model
+#'
+#' @description
+#' `r lifecycle::badge("superseded")`
+#'
+#' This function is from the superseded package tidymv. Please, use the tidygam
+#' package instead.
 #'
 #' It returns a tibble with difference of the specified levels of a smooth from
 #' a [gam][mgcv::gam] or [bam][mgcv::bam]. The `sig_diff` column states

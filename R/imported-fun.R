@@ -243,7 +243,7 @@ get_difference <- function(model, comp, cond = NULL, rm.ranef = TRUE, se = TRUE,
 #' When `xVals` is provided, the regions are returned in terms of x-
 #' values, otherwise as indices.
 #' @param f A number to multiply the `se` with, to convert the `se`
-#' into confidence intervals. Use 1.96 for 95\% CI and 2.58 for 99\%CI.
+#' into confidence intervals. Use 1.96 for 95% CI and 2.58 for 99%CI.
 #' @param as.vector Logical: whether or not to return the data points as
 #' vector, or not. Default is FALSE, and a list with start and end points will
 #'  be returned.

@@ -27,9 +27,13 @@ predict_gam(
 A tibble with predictions from a \link[mgcv:gam]{gam} or \link[mgcv:bam]{bam} model.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}}
+
+This function is from the superseded package tidymv. Please, use the tidygam
+package instead.
+
 It returns a tibble with the predictions from all the terms in a \link[mgcv:gam]{gam} or \link[mgcv:bam]{bam} model.
-}
-\details{
+
 If you simply want to return a tibble with the predicted values of the
 response/outcome variable based on all terms (minus excluded smooth terms),
 set \code{type = "link"} (the default). Note that if \code{type = "link"},

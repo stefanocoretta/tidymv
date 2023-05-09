@@ -15,6 +15,11 @@ create_start_event(tibble, series_col)
 A tibble with an extra column that marks the beginning of the series.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}}
+
+This function is from the superseded package tidymv. Please, use the tidygam
+package instead.
+
 Create a new column which marks the beginning of each series in a tibble (for example, time series).
 }
 \examples{
